@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>单词杂货铺 🧊</title>
+<title>美国人每天说的话 📚</title>
 <style>
   :root {
     --cream: #F0F7F7;
@@ -20,9 +20,6 @@
     --border: #C8DEDE;
     --white: #FAFEFE;
     --shadow: 0 2px 8px rgba(42,138,138,0.10);
-    --accent2: #4A7FA5;
-    --accent2-light: #D0E8F5;
-    --accent2-dark: #2D5F80;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -31,6 +28,26 @@
     color: var(--text);
     min-height: 100vh;
   }
+
+  /* 新增：Chapter 主题色 */
+  .chapter-tag.ch1 { background: #e63946; }
+  .chapter-header.ch1 { background: #f8edeb; }
+  .chapter-tag.ch2 { background: #457b9d; }
+  .chapter-header.ch2 { background: #e0fbfc; }
+  .chapter-tag.ch3 { background: #1d3557; }
+  .chapter-header.ch3 { background: #e9ecef; }
+  .chapter-tag.ch4 { background: #7209b7; }
+  .chapter-header.ch4 { background: #f3e8ff; }
+  .chapter-tag.ch5 { background: #f72585; }
+  .chapter-header.ch5 { background: #ffd6e0; }
+  .chapter-tag.ch6 { background: #4cc9f0; }
+  .chapter-header.ch6 { background: #caf0f8; }
+  .chapter-tag.ch7 { background: #560bad; }
+  .chapter-header.ch7 { background: #f1e7ff; }
+  .chapter-tag.ch8 { background: #e63946; }
+  .chapter-header.ch8 { background: #f8edeb; }
+  .chapter-tag.ch9 { background: #f72585; }
+  .chapter-header.ch9 { background: #ffd6e0; }
 
   .topbar {
     background: var(--orange);
@@ -46,7 +63,6 @@
     color: #fff;
     letter-spacing: -0.3px;
   }
-  .topbar-logo span { font-size: 13px; font-weight: 400; opacity: 0.85; margin-left: 4px; }
   .topbar-streak {
     background: rgba(255,255,255,0.22);
     border-radius: 20px;
@@ -99,7 +115,6 @@
     overflow: hidden;
   }
   .chapter-header {
-    background: var(--orange-light);
     padding: 12px 16px;
     display: flex;
     align-items: center;
@@ -107,7 +122,6 @@
     cursor: pointer;
   }
   .chapter-tag {
-    background: var(--orange);
     color: #fff;
     font-size: 11px;
     font-weight: 700;
@@ -146,7 +160,6 @@
     font-size: 12px;
     color: var(--text-muted);
   }
-  .unit-badge.done { background: var(--green-light); color: var(--green); border-color: var(--green); }
 
   .mode-header {
     background: var(--white);
@@ -188,9 +201,7 @@
     flex-shrink: 0;
   }
   .mode-card-icon.study { background: #C8E8E8; }
-  .mode-card-icon.quiz { background: #D0E8F5; }
-  .mode-card-icon.weak { background: #FDEAEA; }
-  .mode-card-icon.random { background: #D8F0EB; }
+  .mode-card-icon.read { background: #fff3b0; }
   .mode-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
   .mode-card p { font-size: 12px; color: var(--text-muted); }
   .back-btn {
@@ -276,22 +287,6 @@
   }
   .image-zone .img-placeholder .big-icon { font-size: 36px; }
   .image-zone .img-placeholder span { font-size: 12px; }
-  .img-loading {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: var(--text-muted);
-    font-size: 12px;
-  }
-  .spinner {
-    width: 28px; height: 28px;
-    border: 2.5px solid var(--border);
-    border-top-color: var(--orange);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
 
   .word-card-bottom { padding: 16px 20px; }
   .input-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
@@ -307,8 +302,6 @@
     outline: none;
     font-family: inherit;
   }
-  .word-input:focus { border-color: var(--orange); background: var(--white); }
-  .word-input:disabled { opacity: 0.6; }
   .submit-btn {
     padding: 10px 18px;
     background: var(--orange);
@@ -344,8 +337,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: var(--accent2-light);
-    color: var(--accent2-dark);
+    background: var(--orange-light);
+    color: var(--orange-dark);
     border: none;
     border-radius: 8px;
     padding: 5px 12px;
@@ -384,118 +377,35 @@
   }
   .action-btn:hover { background: var(--cream); }
   .action-btn.primary { background: var(--orange); color: #fff; border-color: var(--orange); }
-  .action-btn.primary:hover { background: var(--orange-dark); }
-  .action-btn.danger { background: var(--red-light); color: var(--red); border-color: var(--red); }
 
-  .hint-row { margin-bottom: 8px; }
-  .hint-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: var(--warm);
-    border: 1px dashed var(--orange-light);
-    border-radius: 8px;
-    padding: 4px 10px;
-    font-size: 12px;
-    color: var(--text-muted);
-    cursor: pointer;
+  .read-card {
+    background: var(--white);
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    padding: 20px;
+    margin-bottom: 14px;
   }
-
-  .complete-screen {
-    text-align: center;
-    padding: 40px 20px;
-  }
-  .complete-icon { font-size: 64px; margin-bottom: 16px; }
-  .complete-screen h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
-  .complete-screen p { font-size: 15px; color: var(--text-muted); margin-bottom: 24px; }
-  .complete-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-  .big-btn {
-    width: 100%;
-    padding: 14px;
-    background: var(--orange);
-    color: #fff;
-    border: none;
-    border-radius: 14px;
-    font-size: 16px;
+  .read-pos {
+    display: inline-block;
+    background: var(--orange-light);
+    color: var(--orange-dark);
+    font-size: 11px;
     font-weight: 700;
-    cursor: pointer;
-    font-family: inherit;
+    padding: 3px 10px;
+    border-radius: 8px;
     margin-bottom: 10px;
   }
-  .big-btn.outline {
-    background: transparent;
-    color: var(--orange);
-    border: 1.5px solid var(--orange);
-  }
-  .quiz-options { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 12px; }
-  .quiz-option {
-    padding: 14px 16px;
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 14px;
-    font-size: 15px;
-    cursor: pointer;
-    text-align: left;
-    font-family: inherit;
-    color: var(--text);
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .quiz-option:hover { border-color: var(--orange); background: var(--warm); }
-  .quiz-option.correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
-  .quiz-option.wrong { background: var(--red-light); border-color: var(--red); color: var(--red); }
-  .quiz-option:disabled { cursor: default; }
-
-  .weak-list { }
-  .weak-item {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 14px;
-    padding: 14px 16px;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .weak-item-left { }
-  .weak-en { font-size: 16px; font-weight: 700; }
-  .weak-cn { font-size: 13px; color: var(--text-muted); }
-  .weak-count { font-size: 12px; color: var(--red); background: var(--red-light); padding: 3px 8px; border-radius: 8px; }
-
-  .tab-bar {
-    display: flex;
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 14px;
-    padding: 4px;
-    margin-bottom: 16px;
-    gap: 4px;
-  }
-  .tab-btn {
-    flex: 1;
-    padding: 9px;
-    border-radius: 10px;
-    border: none;
-    background: transparent;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    font-family: inherit;
-    color: var(--text-muted);
-    transition: background 0.15s, color 0.15s;
-  }
-  .tab-btn.active { background: var(--orange); color: #fff; }
+  .read-en { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .read-phonetic { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; }
+  .read-cn { font-size: 18px; color: var(--text); margin-bottom: 10px; }
+  .read-example { margin-top: 10px; }
 </style>
 </head>
 <body>
 
 <div class="topbar">
   <div class="topbar-logo">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px;opacity:0.9"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>单词杂货铺
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px;opacity:0.9"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>美国人每天说的话
   </div>
   <div class="topbar-streak" id="streak-display">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M12 2c0 6-6 8-6 13a6 6 0 0012 0c0-5-6-7-6-13z"/><path d="M12 12c0 3-2 4-2 6a2 2 0 004 0c0-2-2-3-2-6z"/></svg>
@@ -525,7 +435,7 @@
 
   <div class="section-title" style="display:flex;align-items:center;gap:6px;">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-    词库
+    我的书库
   </div>
   <div id="chapter-list"></div>
 </div>
@@ -543,19 +453,11 @@
   </div>
   <div class="mode-card" onclick="startMode('study')">
     <div class="mode-card-icon study">✏️</div>
-    <div><h3>看图默写</h3><p>看中文 + 图片，默写英文</p></div>
+    <div><h3>看图默写</h3><p>看中文+图片默写，适合深度记忆</p></div>
   </div>
-  <div class="mode-card" onclick="startMode('quiz')">
-    <div class="mode-card-icon quiz">📝</div>
-    <div><h3>选择题测验</h3><p>四选一测试记忆</p></div>
-  </div>
-  <div class="mode-card" onclick="startMode('weak')">
-    <div class="mode-card-icon weak">📌</div>
-    <div><h3>错题重练</h3><p>加强薄弱单词</p></div>
-  </div>
-  <div class="mode-card" onclick="startMode('random')">
-    <div class="mode-card-icon random">🎲</div>
-    <div><h3>全局随机</h3><p>全部单词随机练习</p></div>
+  <div class="mode-card" onclick="startMode('read')">
+    <div class="mode-card-icon read">📖</div>
+    <div><h3>纯文本学习</h3><p>离线也能看单词+例句，适合路上复习</p></div>
   </div>
 </div>
 
@@ -564,7 +466,6 @@
   <div class="progress-area">
     <div class="progress-top">
       <span id="study-progress-label">1 / 24</span>
-      <span id="study-score-label">✓ 0  ✗ 0</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="study-progress-fill" style="width:0%"></div></div>
   </div>
@@ -573,15 +474,12 @@
     <div class="word-card-top">
       <div class="word-pos-badge" id="study-pos">n.</div>
       <div class="word-cn" id="study-cn">加载中...</div>
-      <div class="word-hint" id="study-hint"></div>
     </div>
-    <div class="image-zone" id="img-zone" onclick="loadImg()">
+    <div class="image-zone" id="img-zone">
       <div class="img-placeholder" id="img-placeholder"><div class="big-icon">🖼️</div><span>点击生成图片</span></div>
-      <div class="img-loading" id="img-loading"><div class="spinner"></div><span>加载中...</span></div>
-      <img id="study-img" alt="" />
+      <img id="study-img" alt="" style="display:none;" />
     </div>
     <div class="word-card-bottom">
-      <div class="hint-row"><span class="hint-chip" onclick="showFirstLetter()">💡 首字母提示</span></div>
       <div class="input-label">默写英文：</div>
       <div class="input-row">
         <input class="word-input" id="study-input" type="text" placeholder="输入单词..." autocomplete="off" autocapitalize="none" spellcheck="false" />
@@ -595,41 +493,33 @@
         <div class="example-box" id="example-box"></div>
       </div>
       <div class="action-row" id="action-row" style="display:none">
-        <button class="action-btn danger" onclick="markWeak()" id="weak-btn">📌 加入错题</button>
         <button class="action-btn primary" onclick="nextStudy()">下一个 →</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="screen" id="screen-quiz">
+<div class="screen" id="screen-read">
   <div class="back-btn" onclick="showScreen('mode')">← 返回</div>
   <div class="progress-area">
     <div class="progress-top">
-      <span id="quiz-progress-label">1 / 24</span>
-      <span id="quiz-score-label">✓ 0  ✗ 0</span>
+      <span id="read-progress-label">1 / 24</span>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="quiz-progress-fill" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="read-progress-fill" style="width:0%"></div></div>
   </div>
-  <div class="word-card">
-    <div class="word-card-top">
-      <div class="word-pos-badge" id="quiz-pos">n.</div>
-      <div class="word-cn" id="quiz-cn">加载中...</div>
-    </div>
-  </div>
-  <div class="quiz-options" id="quiz-options"></div>
-  <div class="action-row" id="quiz-action" style="display:none; margin-top:8px;">
-    <button class="action-btn primary" onclick="nextQuiz()">下一题 →</button>
-  </div>
-</div>
 
-<div class="screen" id="screen-weaklist">
-  <div class="back-btn" onclick="showScreen('home')">← 返回</div>
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-    <div style="font-size:18px;font-weight:700;">📌 错题本</div>
-    <button class="hint-chip" onclick="startMode('weak')">开始练习</button>
+  <div class="read-card">
+    <div class="read-pos" id="read-pos">n.</div>
+    <div class="read-en" id="read-en">加载中...</div>
+    <div class="read-phonetic" id="read-phonetic"></div>
+    <div class="read-cn" id="read-cn"></div>
+    <div class="read-example example-box" id="read-example"></div>
   </div>
-  <div id="weak-list-content"></div>
+
+  <div class="action-row">
+    <button class="action-btn" onclick="prevRead()">← 上一个</button>
+    <button class="action-btn primary" onclick="nextRead()">下一个 →</button>
+  </div>
 </div>
 
 <div class="screen" id="screen-complete">
@@ -640,7 +530,6 @@
     <div class="complete-stats stats-row">
       <div class="stat-card"><div class="stat-num" id="c-correct">0</div><div class="stat-label">答对</div></div>
       <div class="stat-card"><div class="stat-num" id="c-wrong">0</div><div class="stat-label">答错</div></div>
-      <div class="stat-card"><div class="stat-num" id="c-rate">0%</div><div class="stat-label">正确率</div></div>
     </div>
     <button class="big-btn" onclick="showScreen('mode')">再练一次</button>
     <button class="big-btn outline" onclick="showScreen('home')">返回首页</button>
@@ -648,31 +537,41 @@
 </div>
 
 <script>
-// 🔥 这就是你要的：多级分类单词库（Chapter → Unit → 1-1/1-2）
+// 已适配完整目录的词库结构
 const WORDS = [
-  // ====================== CHAPTER 1 ======================
-  { chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", unitIcon:"🌅",
-    en:"stretch", phonetic:"[strɛtʃ]", pos:"v.", cn:"伸展", exEn:"I stretch every morning.", exCn:"我每天早上伸展身体。", img:"stretch" },
-  { chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", unitIcon:"🌅",
-    en:"alarm", phonetic:"[əˈlɑːm]", pos:"n.", cn:"闹钟", exEn:"My alarm didn’t ring.", exCn:"我的闹钟没响。", img:"alarm clock" },
-
-  { chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"Daily Routine", unitIcon:"☕",
-    en:"breakfast", phonetic:"[ˈbrɛkfəst]", pos:"n.", cn:"早餐", exEn:"I eat breakfast at 7.", exCn:"我七点吃早餐。", img:"breakfast" },
-  { chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"Daily Routine", unitIcon:"☕",
-    en:"brush", phonetic:"[brʌʃ]", pos:"v.", cn:"刷", exEn:"I brush my teeth.", exCn:"我刷牙。", img:"brush teeth" },
-
-  { chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"Going Out", unitIcon:"🚪",
-    en:"rush", phonetic:"[rʌʃ]", pos:"v.", cn:"匆忙", exEn:"I rush to school.", exCn:"我赶去学校。", img:"rush" },
-  { chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"Going Out", unitIcon:"🚪",
-    en:"miss", phonetic:"[mɪs]", pos:"v.", cn:"错过", exEn:"I missed the bus.", exCn:"我错过了公车。", img:"miss bus" },
-
-  // ====================== CHAPTER 2 ======================
-  { chapter:"Chapter 2", unit:"Unit 2-1", unitTitle:"After School", unitIcon:"📚",
-    en:"homework", phonetic:"[ˈhoʊmwɜːrk]", pos:"n.", cn:"作业", exEn:"I do homework after school.", exCn:"我放学后写作业。", img:"homework" },
-
-  // ====================== CHAPTER 3 ======================
-  { chapter:"Chapter 3", unit:"Unit 3-1", unitTitle:"Bedtime", unitIcon:"🛏️",
-    en:"sleep", phonetic:"[sliːp]", pos:"v.", cn:"睡觉", exEn:"I sleep at 10 pm.", exCn:"我晚上十点睡觉。", img:"sleep" }
+  // Chapter 1 示例
+  { 
+    book:"美国人每天说的话",
+    cover:"https://img3m6.ddimg.cn/2023/07/06/13193115342134361435.jpg",
+    chapter:"Chapter 1", 
+    unit:"Unit 1", 
+    unitTitle:"In the Morning", 
+    unitIcon:"🌅",
+    chapterClass:"ch1",
+    en:"stretch", 
+    phonetic:"[strɛtʃ]", 
+    pos:"v.", 
+    cn:"伸展", 
+    exEn:"I stretch every morning.", 
+    exCn:"我每天早上伸展身体。", 
+    img:"stretch" 
+  },
+  { 
+    book:"美国人每天说的话",
+    cover:"https://img3m6.ddimg.cn/2023/07/06/13193115342134361435.jpg",
+    chapter:"Chapter 1", 
+    unit:"Unit 1", 
+    unitTitle:"In the Morning", 
+    unitIcon:"🌅",
+    chapterClass:"ch1",
+    en:"alarm", 
+    phonetic:"[əˈlɑːm]", 
+    pos:"n.", 
+    cn:"闹钟", 
+    exEn:"My alarm didn’t ring.", 
+    exCn:"我的闹钟没响。", 
+    img:"alarm clock" 
+  }
 ];
 
 let currentWords = [];
@@ -680,12 +579,10 @@ let currentIdx = 0;
 let correctCount = 0;
 let wrongCount = 0;
 let weakWords = JSON.parse(localStorage.getItem('weakWords') || '[]');
-let imgCache = {};
-let revealed = false;
-let currentMode = 'study';
-let currentUnit = null;
 let learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
 let streak = parseInt(localStorage.getItem('streak') || '0');
+let selectedBook = null;
+let selectedChapterClass = "";
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -699,41 +596,81 @@ function buildHome() {
   document.getElementById('stat-weak').textContent = weakWords.length;
   document.getElementById('streak-num').textContent = streak;
 
-  const chapters = {};
-  WORDS.forEach(w => {
-    if (!chapters[w.chapter]) chapters[w.chapter] = {};
-    if (!chapters[w.chapter][w.unit]) chapters[w.chapter][w.unit] = { title: w.unitTitle, icon: w.unitIcon, words: [] };
-    chapters[w.chapter][w.unit].words.push(w);
-  });
+  const bookListEl = document.getElementById('chapter-list');
 
-  let html = '';
-  Object.entries(chapters).forEach(([ch, units]) => {
-    const total = Object.values(units).reduce((s, u) => s + u.words.length, 0);
-    html += `<div class="chapter-card">
-      <div class="chapter-header" onclick="toggleChapter(this)">
-        <div class="chapter-header-left">
-          <span class="chapter-tag">${ch}</span>
-          <span class="chapter-name">生活英语</span>
-        </div>
-        <span class="chapter-count">${total} 词</span>
-      </div>
-      <div class="unit-list" style="display:none">`;
-    Object.entries(units).forEach(([unit, data]) => {
-      const done = data.words.filter(w => learnedWords.includes(w.en)).length;
-      html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}')">
-        <div class="unit-left">
-          <div class="unit-icon">${data.icon}</div>
-          <div>
-            <div class="unit-name">${unit}：${data.title}</div>
-            <div class="unit-sub">${data.words.length} 词</div>
+  if (!selectedBook) {
+    const books = [...new Map(WORDS.map(w => [w.book, w])).values()];
+    let html = '';
+    books.forEach(book => {
+      const totalWords = WORDS.filter(w => w.book === book.book).length;
+      const learnedCount = WORDS.filter(w => w.book === book.book && learnedWords.includes(w.en)).length;
+      html += `
+      <div class="chapter-card" onclick="openBook('${book.book}')" style="cursor:pointer;">
+        <div class="chapter-header" style="align-items:center;gap:12px;">
+          <img src="${book.cover}" alt="${book.book}" style="width:48px;height:64px;object-fit:cover;border-radius:6px;border:1px solid var(--border);">
+          <div style="flex:1;">
+            <div class="chapter-header-left">
+              <span class="chapter-tag ch1">📚</span>
+              <span class="chapter-name">${book.book}</span>
+            </div>
+            <span class="chapter-count">${totalWords} 词 · ${learnedCount} 已掌握</span>
           </div>
         </div>
-        <span class="unit-badge">${done}/${data.words.length}</span>
       </div>`;
     });
-    html += `</div></div>`;
-  });
-  document.getElementById('chapter-list').innerHTML = html;
+    bookListEl.innerHTML = html;
+  } else {
+    const chapters = {};
+    WORDS.filter(w => w.book === selectedBook).forEach(w => {
+      if (!chapters[w.chapter]) chapters[w.chapter] = { unitList: {}, class: w.chapterClass };
+      if (!chapters[w.chapter].unitList[w.unit]) chapters[w.chapter].unitList[w.unit] = { title: w.unitTitle, icon: w.unitIcon, words: [] };
+      chapters[w.chapter].unitList[w.unit].words.push(w);
+    });
+
+    let html = `
+    <div class="back-btn" onclick="backToBooks()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg> 返回我的书库
+    </div>`;
+    Object.entries(chapters).forEach(([ch, data]) => {
+      const total = Object.values(data.unitList).reduce((s, u) => s + u.words.length, 0);
+      html += `<div class="chapter-card">
+        <div class="chapter-header ${data.class}" onclick="toggleChapter(this)">
+          <div class="chapter-header-left">
+            <span class="chapter-tag ${data.class}">${ch}</span>
+            <span class="chapter-name">${selectedBook}</span>
+          </div>
+          <span class="chapter-count">${total} 词</span>
+        </div>
+        <div class="unit-list" style="display:none">`;
+      Object.entries(data.unitList).forEach(([unit, unitData]) => {
+        const done = unitData.words.filter(w => learnedWords.includes(w.en)).length;
+        html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')">
+          <div class="unit-left">
+            <div class="unit-icon">${unitData.icon}</div>
+            <div>
+              <div class="unit-name">${unit}：${unitData.title}</div>
+              <div class="unit-sub">${unitData.words.length} 词</div>
+            </div>
+          </div>
+          <span class="unit-badge">${done}/${unitData.words.length}</span>
+        </div>`;
+      });
+      html += `</div></div>`;
+    });
+    bookListEl.innerHTML = html;
+  }
+}
+
+function openBook(bookName) {
+  selectedBook = bookName;
+  buildHome();
+}
+
+function backToBooks() {
+  selectedBook = null;
+  buildHome();
 }
 
 function toggleChapter(el) {
@@ -741,8 +678,8 @@ function toggleChapter(el) {
   content.style.display = content.style.display === 'none' ? 'block' : 'none';
 }
 
-function selectUnit(chapter, unit) {
-  currentUnit = { chapter, unit };
+function selectUnit(chapter, unit, chapterClass) {
+  selectedChapterClass = chapterClass;
   const data = WORDS.filter(w => w.chapter === chapter && w.unit === unit);
   document.getElementById('mode-unit-name').textContent = unit;
   document.getElementById('mode-unit-sub').textContent = data[0]?.unitTitle + ' · ' + data.length + ' 词';
@@ -751,105 +688,96 @@ function selectUnit(chapter, unit) {
 }
 
 function startMode(mode) {
+  currentIdx = 0;
   currentMode = mode;
-  correctCount = wrongCount = currentIdx = 0;
-  imgCache = {};
+  currentWords = WORDS.filter(w => 
+    (selectedChapterClass ? w.chapterClass === selectedChapterClass : true) &&
+    w.chapter === document.querySelector('.mode-header h2').textContent.split(':')[0].trim().split(' ')[0] && 
+    w.unit === document.querySelector('.mode-header h2').textContent.split('：')[0].trim()
+  );
 
-  if (mode === 'random') currentWords = [...WORDS].sort(() => Math.random() - 0.5);
-  else if (mode === 'weak') currentWords = WORDS.filter(w => weakWords.includes(w.en));
-  else currentWords = WORDS.filter(w => w.chapter === currentUnit.chapter && w.unit === currentUnit.unit);
-
-  if (mode === 'quiz') { showScreen('quiz'); renderQuiz(); }
-  else { showScreen('study'); renderStudy(); }
+  if (mode === 'study') {
+    showScreen('study');
+    renderStudy();
+  } else if (mode === 'read') {
+    showScreen('read');
+    renderRead();
+  }
 }
 
 function renderStudy() {
   if (currentIdx >= currentWords.length) { showComplete(); return; }
   const w = currentWords[currentIdx];
-  revealed = false;
-  document.getElementById('study-cn').textContent = w.cn;
   document.getElementById('study-pos').textContent = w.pos;
+  document.getElementById('study-cn').textContent = w.cn;
   document.getElementById('study-input').value = '';
-  document.getElementById('study-input').disabled = false;
-  document.getElementById('study-result').className = 'result-row';
-  document.getElementById('answer-reveal').className = 'answer-reveal';
-  document.getElementById('action-row').style.display = 'none';
-  document.getElementById('study-progress-label').textContent = (currentIdx+1)+'/'+currentWords.length;
-  document.getElementById('study-progress-fill').style.width = (currentIdx/currentWords.length*100)+'%';
+  document.getElementById('study-progress-label').textContent = (currentIdx + 1) + ' / ' + currentWords.length;
+  document.getElementById('study-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
 }
 
 function checkStudy() {
   const w = currentWords[currentIdx];
   const input = document.getElementById('study-input').value.trim().toLowerCase();
   const correct = input === w.en.toLowerCase();
-  revealed = true;
-  document.getElementById('study-input').disabled = true;
-
   if (correct) {
     correctCount++;
-    document.getElementById('study-result').innerHTML = '✓ 正确！';
-    document.getElementById('study-result').className = 'result-row correct';
     if (!learnedWords.includes(w.en)) { learnedWords.push(w.en); localStorage.setItem('learnedWords', JSON.stringify(learnedWords)); }
   } else {
     wrongCount++;
-    document.getElementById('study-result').innerHTML = '✗ 答案：'+w.en;
-    document.getElementById('study-result').className = 'result-row wrong';
-    if (!weakWords.includes(w.en)) { weakWords.push(w.en); localStorage.setItem('weakWords', JSON.stringify(weakWords)); }
   }
-  document.getElementById('answer-reveal').classList.add('show');
   document.getElementById('answer-en').textContent = w.en;
   document.getElementById('answer-phonetic').textContent = w.phonetic;
   document.getElementById('example-box').innerHTML = `<div class="example-en">${w.exEn}</div><div class="example-cn">${w.exCn}</div>`;
+  document.getElementById('answer-reveal').classList.add('show');
   document.getElementById('action-row').style.display = 'flex';
 }
 
-function nextStudy() { currentIdx++; renderStudy(); }
-function markWeak() { document.getElementById('weak-btn').textContent = '✓ 已加入'; }
+function nextStudy() {
+  currentIdx++;
+  renderStudy();
+}
 
-function renderQuiz() {
+function renderRead() {
   if (currentIdx >= currentWords.length) { showComplete(); return; }
   const w = currentWords[currentIdx];
-  document.getElementById('quiz-cn').textContent = w.cn;
-  const options = [w, ...WORDS.filter(x=>x.en!==w.en).sort(()=>Math.random()-0.5).slice(0,3)].sort(()=>Math.random()-0.5);
-  document.getElementById('quiz-options').innerHTML = options.map(o=>`<button class="quiz-option" onclick="selectQuiz(this,'${o.en}','${w.en}')">${o.en}</button>`).join('');
+  document.getElementById('read-pos').textContent = w.pos;
+  document.getElementById('read-en').textContent = w.en;
+  document.getElementById('read-phonetic').textContent = w.phonetic;
+  document.getElementById('read-cn').textContent = w.cn;
+  document.getElementById('read-example').innerHTML = `
+    <div class="example-en">${w.exEn}</div>
+    <div class="example-cn">${w.exCn}</div>
+  `;
+  document.getElementById('read-progress-label').textContent = (currentIdx + 1) + ' / ' + currentWords.length;
+  document.getElementById('read-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
 }
 
-function selectQuiz(btn, sel, ans) {
-  document.querySelectorAll('.quiz-option').forEach(b=>b.disabled=true);
-  if (sel===ans) { btn.classList.add('correct'); correctCount++; }
-  else { btn.classList.add('wrong'); wrongCount++; document.querySelectorAll('.quiz-option').forEach(b=>b.textContent===ans&&b.classList.add('correct')); }
-  document.getElementById('quiz-action').style.display='flex';
+function prevRead() {
+  if (currentIdx > 0) {
+    currentIdx--;
+    renderRead();
+  }
 }
 
-function nextQuiz() { currentIdx++; renderQuiz(); }
+function nextRead() {
+  currentIdx++;
+  renderRead();
+}
 
 function showComplete() {
-  const total = correctCount+wrongCount;
-  document.getElementById('c-correct').textContent=correctCount;
-  document.getElementById('c-wrong').textContent=wrongCount;
-  document.getElementById('c-rate').textContent=total?Math.round(correctCount/total*100)+'%':'0%';
   showScreen('complete');
   buildHome();
 }
 
 function speak() {
-  const u = new SpeechSynthesisUtterance(currentWords[currentIdx].en);
-  u.lang='en-GB'; speechSynthesis.speak(u);
-}
-
-function showFirstLetter() {
   const w = currentWords[currentIdx];
-  document.getElementById('study-hint').textContent = '首字母：'+w.en[0].toUpperCase();
-}
-
-async function loadImg() {
-  const w = currentWords[currentIdx];
-  document.getElementById('img-placeholder').style.display='none';
-  document.getElementById('study-img').src=`https://img.icons8.com/fluency/256/${w.img}.png`;
-  document.getElementById('study-img').style.display='block';
+  const u = new SpeechSynthesisUtterance(w.en);
+  u.lang = 'en-GB';
+  speechSynthesis.speak(u);
 }
 
 buildHome();
 </script>
 </body>
 </html>
+
