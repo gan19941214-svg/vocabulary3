@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WAKE的书库</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&display=swap');
   :root {
     --cream: #F0F7F7;
     --warm: #E4F2F2;
-    --teal: #2A8A8A;
-    --teal-light: #C8E8E8;
-    --teal-dark: #1A6666;
+    --orange: #2A8A8A;
+    --orange-light: #C8E8E8;
+    --orange-dark: #1A6666;
     --green: #3A9E8A;
     --green-light: #D8F0EB;
     --red: #C05050;
@@ -27,11 +27,11 @@
     --book-blue: #E3F2FD;
     --book-green: #E8F5E9;
   }
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Noto Sans TC', sans-serif;
+  * { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
     font-weight: 500;
   }
   body {
@@ -61,23 +61,28 @@
 
   .topbar {
     background: var(--white);
-    padding: 14px 16px;
+    padding: 12px 16px 10px;
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
   }
   .topbar-logo {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--text);
+    letter-spacing: -0.3px;
   }
   .topbar-streak {
-    background: var(--teal-light);
+    background: var(--orange-light);
     border-radius: 20px;
     padding: 4px 10px;
     font-size: 13px;
-    color: var(--teal-dark);
+    color: var(--orange-dark);
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .screen { display: none; padding: 16px; max-width: 480px; margin: 0 auto; }
@@ -85,45 +90,51 @@
 
   .home-header {
     position: relative;
-    padding: 30px 20px;
-    border-radius: 20px;
-    background: var(--teal-light);
-    text-align: center;
     margin-bottom: 20px;
+    padding: 30px 16px;
+    border-radius: 20px;
+    background: var(--orange-light);
+    text-align: center;
     overflow: hidden;
   }
-  .shape1 {
+  .home-shape1 {
     position: absolute;
-    top: 15px; left: 20px;
-    width: 40px; height: 40px;
-    background: rgba(255,255,255,0.4);
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.5);
     border-radius: 50%;
   }
-  .shape2 {
+  .home-shape2 {
     position: absolute;
-    bottom: 10px; right: 20px;
-    width: 32px; height: 32px;
-    background: rgba(255,255,255,0.4);
+    bottom: 10px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.5);
     border-radius: 8px;
   }
   .home-title {
     position: relative;
     font-size: 24px;
-    font-weight: 700;
-    color: var(--teal-dark);
-    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--orange-dark);
+    margin-bottom: 8px;
   }
   .home-desc {
     position: relative;
     font-size: 14px;
-    color: var(--teal-dark);
+    color: var(--orange-dark);
     opacity: 0.8;
   }
 
   .bookshelf-container {
     overflow-x: auto;
     padding: 10px 0 20px;
+    margin-bottom: 10px;
     scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
   .bookshelf {
     display: flex;
@@ -137,12 +148,14 @@
     border-radius: 16px;
     overflow: hidden;
     box-shadow: var(--shadow);
-    scroll-snap-align: start;
     cursor: pointer;
+    transition: transform 0.2s;
+    scroll-snap-align: start;
   }
   .book-card.purple { background: var(--book-purple); }
   .book-card.blue { background: var(--book-blue); }
   .book-card.green { background: var(--book-green); }
+  .book-card:hover { transform: scale(1.02); }
   .book-cover {
     width: 100%;
     height: 240px;
@@ -150,7 +163,6 @@
   }
   .book-info {
     padding: 12px;
-    background: #fff;
   }
   .book-title {
     font-size: 15px;
@@ -175,28 +187,91 @@
     color: #888;
     cursor: pointer;
   }
-  .add-icon { font-size: 40px; margin-bottom: 8px; }
-  .add-text { font-size: 14px; }
-
-  .back-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-muted);
+  .add-icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+  .add-text {
     font-size: 14px;
-    cursor: pointer;
+  }
+
+  .modal-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  .modal-box {
+    width: 85%;
+    max-width: 380px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
     margin-bottom: 16px;
   }
+  .modal-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  .modal-btns {
+    display: flex;
+    gap: 12px;
+  }
+  .modal-btn {
+    flex: 1;
+    padding: 11px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .btn-cancel { background: #eee; color: #666; }
+  .btn-confirm { background: var(--orange); color: #fff; }
+
+  .home-greeting {
+    text-align: center;
+    padding: 20px 0 16px;
+  }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .stat-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 14px 10px;
+    text-align: center;
+    border: 1.5px solid var(--border);
+  }
+  .stat-num { font-size: 22px; font-weight: 600; color: var(--orange); }
+  .stat-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
   .section-title {
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--text-muted);
+    letter-spacing: 0.5px;
     margin-bottom: 10px;
+    text-transform: uppercase;
   }
   .chapter-card {
     background: var(--white);
     border-radius: 16px;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     margin-bottom: 10px;
     overflow: hidden;
   }
@@ -210,14 +285,14 @@
   .chapter-tag {
     color: #fff;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
     padding: 3px 8px;
     border-radius: 8px;
   }
   .chapter-header-left { display: flex; align-items: center; gap: 8px; }
-  .chapter-name { font-size: 15px; font-weight: 700; }
+  .chapter-name { font-size: 15px; font-weight: 600; color: var(--text); }
   .chapter-count { font-size: 12px; color: var(--text-muted); }
-  .unit-list { padding: 8px 12px; display: none; }
+  .unit-list { padding: 8px 12px; }
   .unit-item {
     display: flex;
     align-items: center;
@@ -225,19 +300,19 @@
     padding: 10px 8px;
     border-radius: 10px;
     cursor: pointer;
+    transition: background 0.15s;
   }
   .unit-item:hover { background: var(--cream); }
   .unit-left { display: flex; align-items: center; gap: 10px; }
   .unit-icon {
     width: 36px; height: 36px;
-    background: var(--teal-light);
+    background: var(--orange-light);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--teal-dark);
+    font-size: 18px;
+    font-weight: 600;
   }
-  .unit-name { font-size: 14px; font-weight: 500; }
+  .unit-name { font-size: 14px; font-weight: 500; color: var(--text); }
   .unit-sub { font-size: 12px; color: var(--text-muted); }
   .unit-badge {
     background: var(--cream);
@@ -247,11 +322,20 @@
     font-size: 12px;
     color: var(--text-muted);
   }
-
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    padding: 4px 0;
+  }
   .mode-header {
     background: var(--white);
     border-radius: 16px;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     padding: 16px;
     margin-bottom: 16px;
     display: flex;
@@ -260,37 +344,39 @@
   }
   .mode-header-icon {
     width: 48px; height: 48px;
-    background: var(--teal-light);
+    background: var(--orange-light);
     border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
     font-size: 24px;
+    font-weight: 600;
   }
-  .mode-header h2 { font-size: 17px; font-weight: 700; }
+  .mode-header h2 { font-size: 17px; font-weight: 600; }
   .mode-header p { font-size: 13px; color: var(--text-muted); }
   .mode-card {
     background: var(--white);
     border-radius: 14px;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     padding: 16px;
     margin-bottom: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 14px;
+    transition: border-color 0.15s;
   }
-  .mode-card:hover { border-color: var(--teal); }
+  .mode-card:hover { border-color: var(--orange); }
   .mode-card-icon {
     width: 44px; height: 44px;
     border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
+    font-size: 22px;
     flex-shrink: 0;
+    font-weight: 600;
   }
   .mode-card-icon.study { background: #C8E8E8; }
   .mode-card-icon.read { background: #fff3b0; }
-  .mode-card h3 { font-size: 15px; font-weight: 700; }
+  .mode-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
   .mode-card p { font-size: 12px; color: var(--text-muted); }
-
   .progress-area { margin-bottom: 14px; }
   .progress-top {
     display: flex;
@@ -307,47 +393,60 @@
   }
   .progress-fill {
     height: 100%;
-    background: var(--teal);
+    background: var(--orange);
     border-radius: 99px;
     transition: width 0.4s;
   }
-
   .word-card {
     background: var(--white);
     border-radius: 20px;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     overflow: hidden;
     margin-bottom: 14px;
     box-shadow: var(--shadow);
   }
   .word-card-top {
-    padding: 20px;
+    padding: 20px 20px 16px;
     text-align: center;
   }
   .word-pos-badge {
     display: inline-block;
-    background: var(--teal-light);
-    color: var(--teal-dark);
+    background: var(--orange-light);
+    color: var(--orange-dark);
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
     padding: 3px 10px;
     border-radius: 8px;
     margin-bottom: 10px;
   }
-  .word-cn { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
-
-  .image-box {
-    width: 100%;
-    height: 200px;
-    background: #E8F5F5;
+  .word-cn { font-size: 28px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .word-hint { font-size: 13px; color: var(--text-muted); }
+  .image-zone {
+    height: 180px;
+    background: #D8EEEE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-top: 1.5px solid var(--border);
+    border-bottom: 1.5px solid var(--border);
     position: relative;
+    overflow: hidden;
   }
-  .word-image {
-    width: 100%;
-    height: 100%;
+  .image-zone img {
+    width: 100%; height: 100%;
     object-fit: cover;
+    display: none;
   }
-
+  .image-zone .img-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+  }
+  .image-zone .img-placeholder .big-icon { font-size: 36px; }
+  .image-zone .img-placeholder span { font-size: 12px; }
   .word-card-bottom { padding: 16px 20px; }
   .input-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
   .input-row { display: flex; gap: 8px; margin-bottom: 10px; }
@@ -355,20 +454,24 @@
     flex: 1;
     padding: 10px 14px;
     font-size: 16px;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     border-radius: 12px;
     background: var(--cream);
+    color: var(--text);
     outline: none;
   }
   .submit-btn {
     padding: 10px 18px;
-    background: var(--teal);
+    background: var(--orange);
     color: #fff;
     border: none;
     border-radius: 12px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
+    transition: background 0.15s;
   }
+  .submit-btn:hover { background: var(--orange-dark); }
   .result-row {
     padding: 10px 14px;
     border-radius: 12px;
@@ -383,15 +486,19 @@
   .result-row.wrong { background: var(--red-light); color: var(--red); display: flex; }
   .answer-reveal { display: none; margin-bottom: 10px; }
   .answer-reveal.show { display: block; }
-  .answer-en { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+  .answer-en { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
   .answer-phonetic { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; }
   .answer-sound-btn {
-    background: var(--teal-light);
-    color: var(--teal-dark);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--orange-light);
+    color: var(--orange-dark);
     border: none;
     border-radius: 8px;
     padding: 5px 12px;
     font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
     margin-bottom: 10px;
   }
@@ -399,249 +506,498 @@
     background: var(--warm);
     border-radius: 12px;
     padding: 12px 14px;
-    border-left: 3px solid var(--teal);
+    border-left: 3px solid var(--orange);
   }
-  .example-en { font-size: 13px; margin-bottom: 4px; line-height: 1.5; }
+  .example-en { font-size: 13px; color: var(--text); margin-bottom: 4px; line-height: 1.5; }
   .example-cn { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
   .action-row { display: flex; gap: 8px; margin-top: 10px; }
   .action-btn {
     flex: 1;
     padding: 11px;
     border-radius: 12px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1.5px solid var(--border);
     background: var(--white);
+    color: var(--text);
+    transition: background 0.15s;
   }
-  .action-btn.primary { background: var(--teal); color: #fff; border-color: var(--teal); }
-
+  .action-btn:hover { background: var(--cream); }
+  .action-btn.primary { background: var(--orange); color: #fff; border-color: var(--orange); }
   .read-card {
     background: var(--white);
     border-radius: 20px;
-    border: 1px solid var(--border);
+    border: 1.5px solid var(--border);
     padding: 20px;
     margin-bottom: 14px;
   }
   .read-pos {
     display: inline-block;
-    background: var(--teal-light);
-    color: var(--teal-dark);
+    background: var(--orange-light);
+    color: var(--orange-dark);
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
     padding: 3px 10px;
     border-radius: 8px;
     margin-bottom: 10px;
   }
-  .read-en { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+  .read-en { font-size: 24px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
   .read-phonetic { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; }
-  .read-cn { font-size: 18px; margin-bottom: 10px; }
+  .read-cn { font-size: 18px; color: var(--text); margin-bottom: 10px; }
   .read-example { margin-top: 10px; }
-
-  .modal-mask {
-    position: fixed; inset:0; background:rgba(0,0,0,0.4);
-    display:none; align-items:center; justify-content:center; z-index:999;
-  }
-  .modal-box {
-    width:85%; max-width:380px; background:#fff; border-radius:16px; padding:24px;
-  }
-  .modal-title { font-size:18px; font-weight:700; text-align:center; margin-bottom:16px; }
-  .modal-input { width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:12px; margin-bottom:20px; }
-  .modal-btns { display:flex; gap:12px; }
-  .modal-btn { flex:1; padding:11px; border-radius:12px; border:none; cursor:pointer; }
-  .btn-cancel { background:#eee; color:#666; }
-  .btn-confirm { background:var(--teal); color:#fff; }
 </style>
 </head>
 <body>
 
 <div class="topbar">
   <div class="topbar-logo">WAKE的书库</div>
-  <div class="topbar-streak">连续 <span id="streak">0</span> 天</div>
+  <div class="topbar-streak">连续 <span id="streak-num">0</span> 天</div>
 </div>
 
-<!-- 主页：几何图形 + 滑动书架 -->
-<div class="screen active" id="screen-shelf">
+<div class="screen active" id="screen-bookshelf">
   <div class="home-header">
-    <div class="shape1"></div>
-    <div class="shape2"></div>
+    <div class="home-shape1"></div>
+    <div class="home-shape2"></div>
     <div class="home-title">WAKE的书库</div>
-    <div class="home-desc">看图背单词，记得更牢</div>
+    <div class="home-desc">每天10分钟，轻松背单词</div>
   </div>
 
   <div class="bookshelf-container">
-    <div class="bookshelf" id="bookList">
-      <!-- 书本自动渲染 -->
-    </div>
+    <div class="bookshelf" id="bookshelf"></div>
   </div>
 </div>
 
-<!-- 章节页面 -->
-<div class="screen" id="screen-chapter">
-  <div class="back-btn" onclick="showScreen('shelf')">← 返回书架</div>
+<div class="screen" id="screen-home">
+  <div class="back-btn" onclick="showScreen('bookshelf')">← 返回书架</div>
   <div class="section-title">章节列表</div>
-  <div id="chapterContainer"></div>
+  <div id="chapter-list"></div>
 </div>
 
-<!-- 模式选择 -->
 <div class="screen" id="screen-mode">
-  <div class="back-btn" onclick="showScreen('chapter')">← 返回章节</div>
+  <div class="back-btn" onclick="showScreen('home')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> 返回
+  </div>
   <div class="mode-header">
     <div class="mode-header-icon">📖</div>
     <div>
-      <h2 id="modeUnit">Unit 1</h2>
-      <p id="modeDesc">选择学习模式</p>
+      <h2 id="mode-unit-name">Unit 1</h2>
+      <p id="mode-unit-sub">In the Morning · 20 词</p>
     </div>
   </div>
-  <div class="mode-card" onclick="startStudy()">
+  <div class="mode-card" onclick="startMode('study')">
     <div class="mode-card-icon study">✏️</div>
-    <div><h3>看图默写</h3><p>图片刺激记忆更深刻</p></div>
+    <div><h3>看图默写</h3><p>看中文+图片默写，适合深度记忆</p></div>
   </div>
-  <div class="mode-card" onclick="startRead()">
+  <div class="mode-card" onclick="startMode('read')">
     <div class="mode-card-icon read">📖</div>
-    <div><h3>纯文本学习</h3><p>快速复习单词</p></div>
+    <div><h3>纯文本学习</h3><p>离线也能看单词+例句，适合路上复习</p></div>
   </div>
 </div>
 
-<!-- 看图默写页面（自动配图） -->
 <div class="screen" id="screen-study">
   <div class="back-btn" onclick="showScreen('mode')">← 返回</div>
   <div class="progress-area">
     <div class="progress-top">
-      <span id="proLabel">1 / 24</span>
+      <span id="study-progress-label">1 / 20</span>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="proBar" style="width:0%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="study-progress-fill" style="width:0%"></div></div>
   </div>
 
   <div class="word-card">
     <div class="word-card-top">
-      <div class="word-pos-badge" id="cardPos">n.</div>
-      <div class="word-cn" id="cardCn">加载中...</div>
+      <div class="word-pos-badge" id="study-pos">v.</div>
+      <div class="word-cn" id="study-cn">加载中...</div>
     </div>
-
-    <!-- 自动配图区域 -->
-    <div class="image-box">
-      <img id="wordImg" class="word-image" alt="">
+    <div class="image-zone" id="img-zone">
+      <div class="img-placeholder" id="img-placeholder"><div class="big-icon">🖼️</div><span>点击生成图片</span></div>
+      <img id="study-img" alt="" style="display:none;" />
     </div>
-
     <div class="word-card-bottom">
-      <div class="input-label">请默写英文</div>
+      <div class="input-label">默写英文：</div>
       <div class="input-row">
-        <input class="word-input" id="inputWord" type="text" placeholder="输入单词">
-        <button class="submit-btn" onclick="checkAns()">确认</button>
+        <input class="word-input" id="study-input" type="text" placeholder="输入单词..." autocomplete="off" autocapitalize="none" spellcheck="false" />
+        <button class="submit-btn" onclick="checkStudy()">确认</button>
       </div>
-      <div class="result-row" id="result"></div>
-      <div class="answer-reveal" id="answer">
-        <div class="answer-en" id="ansEn"></div>
-        <div class="answer-phonetic" id="ansPhon"></div>
-        <button class="answer-sound-btn" onclick="playVoice()">🔊 发音</button>
-        <div class="example-box" id="ansEx"></div>
+      <div class="result-row" id="study-result"></div>
+      <div class="answer-reveal" id="answer-reveal">
+        <div class="answer-en" id="answer-en"></div>
+        <div class="answer-phonetic" id="answer-phonetic"></div>
+        <button class="answer-sound-btn" onclick="speak()">🔊 发音</button>
+        <div class="example-box" id="example-box"></div>
       </div>
-      <div class="action-row" style="display:none" id="actionRow">
-        <button class="action-btn primary" onclick="nextWord()">下一个 →</button>
+      <div class="action-row" id="action-row" style="display:none">
+        <button class="action-btn primary" onclick="nextStudy()">下一个 →</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 纯文本阅读 -->
 <div class="screen" id="screen-read">
   <div class="back-btn" onclick="showScreen('mode')">← 返回</div>
   <div class="progress-area">
-    <div class="progress-top"><span id="readProLabel">1 / 24</span></div>
-    <div class="progress-bar"><div class="progress-fill" id="readProBar" style="width:0%"></div></div>
+    <div class="progress-top">
+      <span id="read-progress-label">1 / 20</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="read-progress-fill" style="width:0%"></div></div>
   </div>
+
   <div class="read-card">
-    <div class="read-pos" id="readPos">n.</div>
-    <div class="read-en" id="readEn">加载中...</div>
-    <div class="read-phonetic" id="readPhon"></div>
-    <div class="read-cn" id="readCn"></div>
-    <div class="example-box" id="readEx"></div>
+    <div class="read-pos" id="read-pos">v.</div>
+    <div class="read-en" id="read-en">加载中...</div>
+    <div class="read-phonetic" id="read-phonetic"></div>
+    <div class="read-cn" id="read-cn"></div>
+    <div class="read-example example-box" id="read-example"></div>
   </div>
+
   <div class="action-row">
     <button class="action-btn" onclick="prevRead()">← 上一个</button>
     <button class="action-btn primary" onclick="nextRead()">下一个 →</button>
   </div>
 </div>
 
-<!-- 完成页 -->
 <div class="screen" id="screen-complete">
   <div style="text-align:center; padding:40px 20px;">
     <div style="font-size:60px; margin-bottom:20px;">🎉</div>
-    <h2 style="margin-bottom:10px;">学习完成！</h2>
-    <button class="action-btn primary" onclick="showScreen('mode')" style="max-width:200px; margin:10px auto;">再练一次</button>
+    <h2 style="font-size:22px; margin-bottom:10px;">学习完成！</h2>
+    <p style="color:var(--text-muted); margin-bottom:30px;">今日已掌握 <span id="c-correct">0</span> 个单词</p>
+    <button class="action-btn primary" onclick="showScreen('mode')" style="max-width:200px; margin:0 auto 15px;">再练一次</button>
+    <button class="action-btn" onclick="showScreen('home')" style="max-width:200px; margin:0 auto;">返回章节</button>
   </div>
 </div>
 
-<!-- 添加新书弹窗 -->
 <div class="modal-mask" id="addModal">
   <div class="modal-box">
     <div class="modal-title">添加新单词书</div>
-    <input type="text" class="modal-input" id="newBookName" placeholder="输入书名">
+    <input type="text" class="modal-input" id="newBookName" placeholder="请输入书籍名称">
     <div class="modal-btns">
       <button class="modal-btn btn-cancel" onclick="closeModal()">取消</button>
-      <button class="modal-btn btn-confirm" onclick="saveNewBook()">确定</button>
+      <button class="modal-btn btn-confirm" onclick="confirmAddBook()">确定</button>
     </div>
   </div>
 </div>
 
 <script>
-// ====================== 你的 Chapter 1 完整单词 + 自动配图关键词 ======================
-const WORD_DATA = [
-  { chapter:"Chapter 1", unit:"Unit 1", chapterClass:"ch1", en:"stretch", phonetic:"[strɛtʃ]", pos:"v.", cn:"伸展", exEn:"I stretch every morning.", exCn:"我每天早上伸展身体。", imgTag:"stretch exercise" },
-  { chapter:"Chapter 1", unit:"Unit 1", chapterClass:"ch1", en:"pajamas", phonetic:"[pəˈdʒæməz]", pos:"n.", cn:"睡衣裤", exEn:"I wear pajamas to sleep.", exCn:"我穿睡衣睡觉。", imgTag:"pajamas sleep" },
-  { chapter:"Chapter 1", unit:"Unit 1", chapterClass:"ch1", en:"panic", phonetic:"[ˈpænɪk]", pos:"a.", cn:"惊慌的", exEn:"I panic when I’m late.", exCn:"我迟到时会惊慌。", imgTag:"panic stress" },
-  { chapter:"Chapter 1", unit:"Unit 1", chapterClass:"ch1", en:"alarm", phonetic:"[əˈlɑrm]", pos:"n.", cn:"闹钟", exEn:"My alarm wakes me up.", exCn:"闹钟叫醒我。", imgTag:"alarm clock" },
-  { chapter:"Chapter 1", unit:"Unit 1", chapterClass:"ch1", en:"wake up", phonetic:"", pos:"phrase", cn:"起床（醒来）", exEn:"I wake up at 7.", exCn:"我七点醒来。", imgTag:"wake up morning" },
-  { chapter:"Chapter 1", unit:"Unit 1", chapterClass:"ch1", en:"get up", phonetic:"", pos:"phrase", cn:"起床（从床上起来）", exEn:"I get up at 7:30.", exCn:"我七点半起床。", imgTag:"get up bed" },
-  { chapter:"Chapter 1", unit:"Unit 1", chapterClass:"ch1", en:"sleepyhead", phonetic:"[ˈslipɪhɛd]", pos:"n.", cn:"瞌睡虫", exEn:"Get up you sleepyhead!", exCn:"起床了瞌睡虫！", imgTag:"sleepy person" },
-  { chapter:"Chapter 1", unit:"Unit 1", chapterClass:"ch1", en:"sleepy", phonetic:"[ˈslipɪ]", pos:"a.", cn:"想睡的", exEn:"I am sleepy.", exCn:"我很想睡。", imgTag:"sleepy tired" },
-  { chapter:"Chapter 1", unit:"Unit 1", chapterClass:"ch1", en:"oversleep", phonetic:"[ˌoʊvəˈslɪp]", pos:"vi.", cn:"睡过头", exEn:"I overslept today.", exCn:"我今天睡过头了。", imgTag:"oversleep late" },
-  { chapter:"Chapter 1", unit:"Unit 1", chapterClass:"ch1", en:"snooze button", phonetic:"", pos:"phrase", cn:"贪睡按钮", exEn:"I hit the snooze button.", exCn:"我按了贪睡钮。", imgTag:"snooze button alarm" }
+const WORDS = [
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"wake up", phonetic:"[weɪk ʌp]", pos:"v.", cn:"醒来", exEn:"I usually wake up at 7 AM.", exCn:"我通常早上7点醒来。", img:"person waking up in bed" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"get up", phonetic:"[ɡet ʌp]", pos:"v.", cn:"起床", exEn:"She gets up early to exercise.", exCn:"她早起锻炼。", img:"person getting out of bed" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"stretch", phonetic:"[stretʃ]", pos:"v.", cn:"伸展", exEn:"I stretch my arms after waking up.", exCn:"我醒来后伸展手臂。", img:"person stretching arms" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"brush teeth", phonetic:"[brʌʃ tiːθ]", pos:"v.", cn:"刷牙", exEn:"I brush my teeth twice a day.", exCn:"我每天刷两次牙。", img:"person brushing teeth" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"wash face", phonetic:"[wɒʃ feɪs]", pos:"v.", cn:"洗脸", exEn:"She washes her face with cold water.", exCn:"她用冷水洗脸。", img:"person washing face" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"comb hair", phonetic:"[kəʊm heə]", pos:"v.", cn:"梳头", exEn:"He combs his hair before work.", exCn:"他上班前梳头。", img:"person combing hair" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"get dressed", phonetic:"[ɡet drest]", pos:"v.", cn:"穿衣服", exEn:"The child gets dressed by himself.", exCn:"这个孩子自己穿衣服。", img:"child getting dressed" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"make bed", phonetic:"[meɪk bed]", pos:"v.", cn:"整理床铺", exEn:"My mom always makes the bed.", exCn:"我妈妈总是整理床铺。", img:"made bed with pillows" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"cook breakfast", phonetic:"[kʊk ˈbrekfəst]", pos:"v.", cn:"做早餐", exEn:"I cook breakfast for my family.", exCn:"我给家人做早餐。", img:"cooking breakfast on stove" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"eat breakfast", phonetic:"[iːt ˈbrekfəst]", pos:"v.", cn:"吃早餐", exEn:"We eat breakfast together.", exCn:"我们一起吃早餐。", img:"family eating breakfast" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"drink coffee", phonetic:"[drɪŋk ˈkɒfi]", pos:"v.", cn:"喝咖啡", exEn:"My dad drinks coffee every morning.", exCn:"我爸爸每天早上喝咖啡。", img:"cup of coffee" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"read newspaper", phonetic:"[riːd ˈnjuːzpeɪpə]", pos:"v.", cn:"看报纸", exEn:"He reads the newspaper while eating.", exCn:"他边吃边看报纸。", img:"person reading newspaper" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"check phone", phonetic:"[tʃek fəʊn]", pos:"v.", cn:"看手机", exEn:"She checks her phone first thing.", exCn:"她醒来第一件事是看手机。", img:"person checking phone" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"pack bag", phonetic:"[pæk bæɡ]", pos:"v.", cn:"收拾书包", exEn:"The student packs his bag for school.", exCn:"这个学生收拾书包去上学。", img:"student packing school bag" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"leave home", phonetic:"[liːv həʊm]", pos:"v.", cn:"出门", exEn:"We leave home at 8 AM.", exCn:"我们早上8点出门。", img:"person leaving house" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"take bus", phonetic:"[teɪk bʌs]", pos:"v.", cn:"坐公交车", exEn:"She takes the bus to work.", exCn:"她坐公交车上班。", img:"bus on road" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"ride bike", phonetic:"[raɪd baɪk]", pos:"v.", cn:"骑自行车", exEn:"He rides his bike to school.", exCn:"他骑自行车去上学。", img:"person riding bike" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"drive car", phonetic:"[draɪv kɑː]", pos:"v.", cn:"开车", exEn:"My dad drives me to school.", exCn:"我爸爸开车送我上学。", img:"person driving car" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"meet friend", phonetic:"[miːt frend]", pos:"v.", cn:"见朋友", exEn:"I meet my friend at the station.", exCn:"我在车站见朋友。", img:"two friends meeting" },
+  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", unitIcon:"🌅", chapterClass:"ch1", en:"start work", phonetic:"[stɑːt wɜːk]", pos:"v.", cn:"开始工作", exEn:"She starts work at 9 AM.", exCn:"她早上9点开始工作。", img:"office desk with computer" }
 ];
 
-let currentList = [];
-let idx = 0;
-let bookList = JSON.parse(localStorage.getItem('bookList')||'[]');
-if(!bookList.length){
-  bookList=[{name:"美国人每天说的话",cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg"}];
-  localStorage.setItem('bookList',JSON.stringify(bookList));
-}
+let currentWords = [];
+let currentIdx = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let weakWords = JSON.parse(localStorage.getItem('weakWords') || '[]');
+let learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
+let streak = parseInt(localStorage.getItem('streak') || '0');
+let selectedBook = null;
+let selectedChapterClass = "";
 
-// 渲染书架
-function renderShelf(){
-  const wrap=document.getElementById('bookList');
-  let html='';
-  bookList.forEach((b,i)=>{
-    let color=['yellow','purple','blue','green'][i%4];
-    html+=`
-    <div class="book-card ${color}" onclick="openBook('${b.name}')">
-      <img class="book-cover" src="${b.cover}">
-      <div class="book-info">
-        <div class="book-title">${b.name}</div>
-        <div class="book-desc">Chapter 1</div>
+const bookColorClass = ['book-yellow','book-purple','book-blue','book-green'];
+let bookList = JSON.parse(localStorage.getItem('wakeBookList')) || [
+  { name:'美国人每天说的话', cover:'https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg' }
+];
+
+function renderBookShelf(){
+  const wrap = document.getElementById('bookshelf');
+  let html = '';
+  bookList.forEach((item,idx)=>{
+    let color = bookColorClass[idx % bookColorClass.length];
+    html += `
+      <div class="book-card ${color}" onclick="openBookPage(${idx})">
+        <img class="book-cover" src="${item.cover||''}" alt="${item.name}">
+        <div class="book-info">
+          <div class="book-title">${item.name}</div>
+          <div class="book-desc">Chapter 1～9 · 20 词</div>
+        </div>
       </div>
-    </div>`;
+    `;
   });
-  html+=`
-  <div class="add-book-card" onclick="openModal()">
-    <div class="add-icon">+</div>
-    <div class="add-text">添加新书</div>
-  </div>`;
-  wrap.innerHTML=html;
+  html += `
+    <div class="add-book-card" onclick="openModal()">
+      <div class="add-icon">+</div>
+      <div class="add-text">添加新书</div>
+    </div>
+  `;
+  wrap.innerHTML = html;
 }
 
-// 打开书籍
-function openBook(bookName){
-  showScreen('chapter');
-  renderChapters();
+function openModal(){
+  document.getElementById('addModal').style.display = 'flex';
+  document.getElementById('newBookName').value = '';
+}
+function closeModal(){
+  document.getElementById('addModal').style.display = 'none';
 }
 
-// 渲染章节（已删除emoji）
-function renderChapters(){
-  const container=document.getElementById('chapterContainer');
-  let html=`
-  <div class="chapter-card">
-    <div class="chapter-header ch1" onclick="toggleUnit(this)">
-      <div class="chapter-header-left">
-        <span class="chapter-tag ch1">Chapter 1</span>
-        <span class="chapter-name
+function confirmAddBook(){
+  let name = document.getElementById('newBookName').value.trim();
+  if(!name){
+    alert('请输入书籍名称');
+    return;
+  }
+  bookList.push({ name: name, cover: '' });
+  localStorage.setItem('wakeBookList', JSON.stringify(bookList));
+  renderBookShelf();
+  closeModal();
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(el=>el.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+}
+
+function openBookPage(idx){
+  selectedBook = bookList[idx].name;
+  showScreen('home');
+  buildHome();
+}
+
+function goBackBookcase(){
+  showScreen('bookshelf');
+}
+
+function buildHome() {
+  document.getElementById('streak-num').textContent = streak;
+  const bookListEl = document.getElementById('chapter-list');
+
+  if (!selectedBook) {
+    const books = [...new Map(WORDS.map(w => [w.book, w])).values()];
+    let html = '';
+    books.forEach(book => {
+      const totalWords = WORDS.filter(w => w.book === book.book).length;
+      const learnedCount = WORDS.filter(w => w.book === book.book && learnedWords.includes(w.en)).length;
+      html += `
+      <div class="chapter-card" onclick="openBook('${book.book}')" style="cursor:pointer;">
+        <div class="chapter-header" style="align-items:center;gap:12px;">
+          <img src="${book.cover}" alt="${book.book}" style="width:48px;height:64px;object-fit:cover;border-radius:6px;border:1px solid var(--border);">
+          <div style="flex:1;">
+            <div class="chapter-header-left">
+              <span class="chapter-tag ch1">📚</span>
+              <span class="chapter-name">${book.book}</span>
+            </div>
+            <span class="chapter-count">${totalWords} 词 · ${learnedCount} 已掌握</span>
+          </div>
+        </div>
+      </div>`;
+    });
+    bookListEl.innerHTML = html;
+  } else {
+    const chapters = {};
+    WORDS.filter(w => w.book === selectedBook).forEach(w => {
+      if (!chapters[w.chapter]) chapters[w.chapter] = { unitList: {}, class: w.chapterClass };
+      if (!chapters[w.chapter].unitList[w.unit]) chapters[w.chapter].unitList[w.unit] = { title: w.unitTitle, icon: w.unitIcon, words: [] };
+      chapters[w.chapter].unitList[w.unit].words.push(w);
+    });
+
+    let html = `
+    <div class="back-btn" onclick="goBackBookcase()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg> 返回我的书库
+    </div>`;
+    Object.entries(chapters).forEach(([ch, data]) => {
+      const total = Object.values(data.unitList).reduce((s, u) => s + u.words.length, 0);
+      html += `<div class="chapter-card">
+        <div class="chapter-header ${data.class}" onclick="toggleChapter(this)">
+          <div class="chapter-header-left">
+            <span class="chapter-tag ${data.class}">${ch}</span>
+            <span class="chapter-name">${selectedBook}</span>
+          </div>
+          <span class="chapter-count">${total} 词</span>
+        </div>
+        <div class="unit-list" style="display:none">`;
+      Object.entries(data.unitList).forEach(([unit, unitData]) => {
+        const done = unitData.words.filter(w => learnedWords.includes(w.en)).length;
+        html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')">
+          <div class="unit-left">
+            <div class="unit-icon">${unitData.icon}</div>
+            <div>
+              <div class="unit-name">${unit}：${unitData.title}</div>
+              <div class="unit-sub">${unitData.words.length} 词</div>
+            </div>
+          </div>
+          <span class="unit-badge">${done}/${unitData.words.length}</span>
+        </div>`;
+      });
+      html += `</div></div>`;
+    });
+    bookListEl.innerHTML = html;
+  }
+}
+
+function openBook(bookName) {
+  selectedBook = bookName;
+  buildHome();
+  showScreen('home');
+}
+
+function toggleChapter(el) {
+  const content = el.nextElementSibling;
+  content.style.display = content.style.display === 'none' ? 'block' : 'none';
+}
+
+function selectUnit(chapter, unit, chapterClass) {
+  selectedChapterClass = chapterClass;
+  const data = WORDS.filter(w => w.chapter === chapter && w.unit === unit);
+  document.getElementById('mode-unit-name').textContent = unit;
+  document.getElementById('mode-unit-sub').textContent = data[0]?.unitTitle + ' · ' + data.length + ' 词';
+  showScreen('mode');
+}
+
+function startMode(mode) {
+  currentIdx = 0;
+  currentWords = WORDS.filter(w => 
+    (selectedChapterClass ? w.chapterClass === selectedChapterClass : true) &&
+    w.book === selectedBook
+  );
+
+  if (mode === 'study') {
+    showScreen('study');
+    renderStudy();
+  } else if (mode === 'read') {
+    showScreen('read');
+    renderRead();
+  }
+}
+
+function renderStudy() {
+  if (currentIdx >= currentWords.length) { showComplete(); return; }
+  const w = currentWords[currentIdx];
+  document.getElementById('study-pos').textContent = w.pos;
+  document.getElementById('study-cn').textContent = w.cn;
+  document.getElementById('study-input').value = '';
+  document.getElementById('study-progress-label').textContent = (currentIdx + 1) + ' / ' + currentWords.length;
+  document.getElementById('study-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
+  document.getElementById('answer-reveal').classList.remove('show');
+  document.getElementById('action-row').style.display = 'none';
+  const imgEl = document.getElementById('study-img');
+  const placeholder = document.getElementById('img-placeholder');
+  imgEl.src = `https://source.unsplash.com/random/400x300/?${w.img}`;
+  imgEl.onload = () => {
+    imgEl.style.display = 'block';
+    placeholder.style.display = 'none';
+  };
+  imgEl.onerror = () => {
+    imgEl.style.display = 'none';
+    placeholder.style.display = 'flex';
+  };
+}
+
+function checkStudy() {
+  const w = currentWords[currentIdx];
+  const input = document.getElementById('study-input').value.trim().toLowerCase();
+  const correct = input === w.en.toLowerCase();
+  if (correct) {
+    correctCount++;
+    document.getElementById('study-result').className = 'result-row correct';
+    document.getElementById('study-result').innerHTML = '✅ 回答正确！';
+    if (!learnedWords.includes(w.en)) { 
+      learnedWords.push(w.en); 
+      localStorage.setItem('learnedWords', JSON.stringify(learnedWords)); 
+    }
+  } else {
+    wrongCount++;
+    document.getElementById('study-result').className = 'result-row wrong';
+    document.getElementById('study-result').innerHTML = `❌ 正确答案：${w.en}`;
+    if (!weakWords.includes(w.en)) {
+      weakWords.push(w.en);
+      localStorage.setItem('weakWords', JSON.stringify(weakWords));
+    }
+  }
+  document.getElementById('answer-en').textContent = w.en;
+  document.getElementById('answer-phonetic').textContent = w.phonetic;
+  document.getElementById('example-box').innerHTML = `<div class="example-en">${w.exEn}</div><div class="example-cn">${w.exCn}</div>`;
+  document.getElementById('answer-reveal').classList.add('show');
+  document.getElementById('action-row').style.display = 'flex';
+}
+
+function nextStudy() {
+  currentIdx++;
+  renderStudy();
+}
+
+function renderRead() {
+  if (currentIdx >= currentWords.length) { showComplete(); return; }
+  const w = currentWords[currentIdx];
+  document.getElementById('read-pos').textContent = w.pos;
+  document.getElementById('read-en').textContent = w.en;
+  document.getElementById('read-phonetic').textContent = w.phonetic;
+  document.getElementById('read-cn').textContent = w.cn;
+  document.getElementById('read-example').innerHTML = `
+    <div class="example-en">${w.exEn}</div>
+    <div class="example-cn">${w.exCn}</div>
+  `;
+  document.getElementById('read-progress-label').textContent = (currentIdx + 1) + ' / ' + currentWords.length;
+  document.getElementById('read-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
+}
+
+function prevRead() {
+  if (currentIdx > 0) {
+    currentIdx--;
+    renderRead();
+  }
+}
+
+function nextRead() {
+  currentIdx++;
+  renderRead();
+}
+
+function showComplete() {
+  document.getElementById('c-correct').textContent = correctCount;
+  showScreen('complete');
+  const today = new Date().toISOString().split('T')[0];
+  const lastStudyDay = localStorage.getItem('lastStudyDay');
+  if (lastStudyDay !== today) {
+    if (lastStudyDay) {
+      const lastDate = new Date(lastStudyDay);
+      const todayDate = new Date(today);
+      const diff = (todayDate - lastDate) / (1000 * 60 * 60 * 24);
+      streak = diff === 1 ? streak + 1 : 1;
+    } else {
+      streak = 1;
+    }
+    localStorage.setItem('streak', streak);
+    localStorage.setItem('lastStudyDay', today);
+    document.getElementById('streak-num').textContent = streak;
+  }
+  correctCount = 0;
+  wrongCount = 0;
+  buildHome();
+}
+
+function speak() {
+  const w = currentWords[currentIdx];
+  const u = new SpeechSynthesisUtterance(w.en);
+  u.lang = 'en-GB';
+  speechSynthesis.speak(u);
+}
+
+renderBookShelf();
+buildHome();
+</script>
+</body>
+</html>
