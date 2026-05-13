@@ -30,44 +30,62 @@
     overflow-x: hidden;
   }
 
-  /* 页面背景几何装饰 */
+  /* ========== ✅ 升级：多色高级几何背景 ========== */
   .bg-shape {
     position: fixed;
     z-index: 0;
-    border-radius: 24px;
-    opacity: 0.4;
+    border-radius: 28px;
+    opacity: 0.35;
   }
   .shape1 {
-    width: 120px;
-    height: 120px;
-    background: #C8E8E8;
-    top: 10%;
-    left: 5%;
-    transform: rotate(15deg);
+    width: 140px;
+    height: 140px;
+    background: #A4D4E4;
+    top: 8%;
+    left: 4%;
+    transform: rotate(18deg);
+    border-radius: 40px;
   }
   .shape2 {
-    width: 80px;
-    height: 80px;
-    background: #E0F2F2;
-    top: 20%;
-    right: 8%;
+    width: 100px;
+    height: 100px;
+    background: #D8B6E4;
+    top: 22%;
+    right: 6%;
     border-radius: 50%;
   }
   .shape3 {
-    width: 100px;
-    height: 100px;
-    background: #D8EEEE;
-    bottom: 15%;
-    left: 10%;
-    transform: rotate(-25deg);
+    width: 120px;
+    height: 120px;
+    background: #F8D8D8;
+    bottom: 18%;
+    left: 8%;
+    transform: rotate(-22deg);
   }
   .shape4 {
-    width: 60px;
-    height: 60px;
-    background: #E4F2F2;
-    bottom: 25%;
-    right: 15%;
+    width: 80px;
+    height: 80px;
+    background: #C8E8D8;
+    bottom: 28%;
+    right: 12%;
     border-radius: 50%;
+  }
+  .shape5 {
+    width: 90px;
+    height: 90px;
+    background: #FFE4C8;
+    top: 45%;
+    left: -20px;
+    border-radius: 30px;
+    transform: rotate(30deg);
+  }
+  .shape6 {
+    width: 70px;
+    height: 70px;
+    background: #D4F0F0;
+    bottom: 5%;
+    right: 25%;
+    border-radius: 20px;
   }
 
   /* 顶部导航 */
@@ -240,7 +258,7 @@
     font-weight: 600;
     padding: 3px 8px;
     border-radius: 8px;
-    background: #e63946;
+    background: #a488e4;
   }
   .chapter-name {
     font-size: 15px;
@@ -303,7 +321,7 @@
   .mode-header-icon {
     width: 48px;
     height: 48px;
-    background: var(--accent-light);
+    background: #D4F0F0;
     border-radius: 14px;
     display: flex;
     align-items: center;
@@ -378,7 +396,7 @@
   }
   .progress-fill {
     height: 100%;
-    background: var(--accent);
+    background: #4AA8B8;
     border-radius: 99px;
     transition: width 0.4s;
   }
@@ -397,8 +415,8 @@
   }
   .word-pos-badge {
     display: inline-block;
-    background: var(--accent-light);
-    color: var(--accent);
+    background: #D4F0F0;
+    color: #2A8A8A;
     font-size: 11px;
     font-weight: 600;
     padding: 3px 10px;
@@ -442,7 +460,7 @@
   .submit-btn {
     width: 100%;
     padding: 10px;
-    background: var(--accent);
+    background: #4AA8B8;
     color: #fff;
     border: none;
     border-radius: 12px;
@@ -484,8 +502,8 @@
     margin-bottom: 10px;
   }
   .answer-sound-btn {
-    background: var(--accent-light);
-    color: var(--accent);
+    background: #D4F0F0;
+    color: #2A8A8A;
     border: none;
     border-radius: 8px;
     padding: 5px 12px;
@@ -496,7 +514,7 @@
     background: rgba(228,242,242,0.8);
     border-radius: 12px;
     padding: 12px;
-    border-left: 3px solid var(--accent);
+    border-left: 3px solid #4AA8B8;
   }
   .action-row {
     display: flex;
@@ -513,9 +531,9 @@
     cursor: pointer;
   }
   .action-btn.primary {
-    background: var(--accent);
+    background: #4AA8B8;
     color: #fff;
-    border-color: var(--accent);
+    border-color: #4AA8B8;
   }
 
   /* 纯文本阅读页 */
@@ -575,7 +593,7 @@
     cursor: pointer;
   }
   .btn-cancel { background: rgba(238,238,238,0.8); color: #666; }
-  .btn-confirm { background: var(--accent); color: #fff; }
+  .btn-confirm { background: #4AA8B8; color: #fff; }
 
   .back-btn {
     color: var(--text-muted);
@@ -589,11 +607,13 @@
 </style>
 </head>
 <body>
-  <!-- 背景几何装饰 -->
+  <!-- 升级：6个彩色几何背景，更丰富高级 -->
   <div class="bg-shape shape1"></div>
   <div class="bg-shape shape2"></div>
   <div class="bg-shape shape3"></div>
   <div class="bg-shape shape4"></div>
+  <div class="bg-shape shape5"></div>
+  <div class="bg-shape shape6"></div>
 
   <div class="topbar">
     <div class="topbar-logo">WAKE的书库</div>
