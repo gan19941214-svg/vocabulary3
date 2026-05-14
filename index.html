@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WAKE的书库</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600&display=swap');
   :root {
     --bg: #F0F7F7;
     --card: rgba(255,255,255,0.75);
@@ -20,7 +19,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'PingFang SC', 'Noto Sans SC', sans-serif;
+    font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
     font-weight: 500;
   }
   body {
@@ -30,7 +29,6 @@
     overflow-x: hidden;
   }
 
-  /* ========== ✅ 升级：多色高级几何背景 ========== */
   .bg-shape {
     position: fixed;
     z-index: 0;
@@ -88,7 +86,6 @@
     border-radius: 20px;
   }
 
-  /* 顶部导航 */
   .topbar {
     position: sticky;
     top: 0;
@@ -114,7 +111,6 @@
     color: var(--accent);
   }
 
-  /* 通用页面容器 */
   .screen {
     display: none;
     padding: 16px;
@@ -125,7 +121,6 @@
   }
   .screen.active { display: block; }
 
-  /* 首页几何标题栏 */
   .home-header {
     background: var(--card);
     backdrop-filter: var(--blur);
@@ -173,7 +168,6 @@
     z-index: 1;
   }
 
-  /* 滑动书架 */
   .bookshelf-container {
     overflow-x: auto;
     padding: 10px 0 20px;
@@ -199,6 +193,11 @@
     width: 100%;
     height: 240px;
     object-fit: cover;
+    background: #c8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2a8a8a;
   }
   .book-info {
     padding: 12px;
@@ -236,7 +235,6 @@
     font-size: 14px;
   }
 
-  /* 章节卡片 */
   .chapter-card {
     background: var(--card);
     backdrop-filter: var(--blur);
@@ -306,7 +304,6 @@
     color: var(--text-muted);
   }
 
-  /* 模式选择 */
   .mode-header {
     background: var(--card);
     backdrop-filter: var(--blur);
@@ -377,7 +374,6 @@
     color: var(--text-muted);
   }
 
-  /* 学习页 */
   .progress-area {
     margin-bottom: 14px;
   }
@@ -536,7 +532,6 @@
     border-color: #4AA8B8;
   }
 
-  /* 纯文本阅读页 */
   .read-card {
     background: var(--card);
     backdrop-filter: var(--blur);
@@ -545,8 +540,24 @@
     padding: 20px;
     margin-bottom: 14px;
   }
+  .read-image {
+    width: 100%;
+    height: 180px;
+    background: rgba(216,238,238,0.5);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .read-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .read-pos { font-size:12px; color:var(--text-muted); margin-bottom:4px; }
+  .read-en { font-size:24px; font-weight:600; color:var(--text); margin-bottom:4px; }
+  .read-phonetic { font-size:14px; color:var(--text-muted); margin-bottom:10px; }
+  .read-cn { font-size:18px; color:var(--text); margin-bottom:12px; }
 
-  /* 弹窗 */
   .modal-mask {
     position: fixed;
     inset: 0;
@@ -607,7 +618,6 @@
 </style>
 </head>
 <body>
-  <!-- 升级：6个彩色几何背景，更丰富高级 -->
   <div class="bg-shape shape1"></div>
   <div class="bg-shape shape2"></div>
   <div class="bg-shape shape3"></div>
@@ -620,25 +630,21 @@
     <div class="topbar-streak">连续 <span id="streak-num">0</span> 天</div>
   </div>
 
-  <!-- 书架页 -->
   <div class="screen active" id="screen-bookshelf">
     <div class="home-header">
       <div class="home-title">WAKE的书库</div>
-      <div class="home-desc">每天10分钟，轻松背单词</div>
+      <div class="home-desc">此人职业生涯就要爆发了</div>
     </div>
     <div class="bookshelf-container">
       <div class="bookshelf" id="bookshelf"></div>
     </div>
   </div>
 
-  <!-- 章节页 -->
   <div class="screen" id="screen-home">
     <div class="back-btn" onclick="showScreen('bookshelf')">← 返回书架</div>
-    <div class="section-title">章节列表</div>
     <div id="chapter-list"></div>
   </div>
 
-  <!-- 模式选择页 -->
   <div class="screen" id="screen-mode">
     <div class="back-btn" onclick="showScreen('home')">← 返回</div>
     <div class="mode-header">
@@ -654,11 +660,10 @@
     </div>
     <div class="mode-card" onclick="startMode('read')">
       <div class="mode-card-icon read">📖</div>
-      <div><h3>纯文本学习</h3><p>离线复习单词+例句</p></div>
+      <div><h3>文本学习</h3><p>单词+图片+例句，全面复习</p></div>
     </div>
   </div>
 
-  <!-- 默写学习页 -->
   <div class="screen" id="screen-study">
     <div class="back-btn" onclick="showScreen('mode')">← 返回</div>
     <div class="progress-area">
@@ -693,7 +698,6 @@
     </div>
   </div>
 
-  <!-- 纯文本阅读页 -->
   <div class="screen" id="screen-read">
     <div class="back-btn" onclick="showScreen('mode')">← 返回</div>
     <div class="progress-area">
@@ -703,6 +707,7 @@
       <div class="progress-bar"><div class="progress-fill" id="read-progress-fill"></div></div>
     </div>
     <div class="read-card">
+      <div class="read-image" id="read-image"></div>
       <div class="read-pos" id="read-pos">v.</div>
       <div class="read-en" id="read-en">wake up</div>
       <div class="read-phonetic" id="read-phonetic">[weɪk ʌp]</div>
@@ -715,7 +720,6 @@
     </div>
   </div>
 
-  <!-- 添加新书弹窗 -->
   <div class="modal-mask" id="addModal">
     <div class="modal-box">
       <div class="modal-title">添加新单词书</div>
@@ -728,28 +732,31 @@
   </div>
 
 <script>
-// 已导入的 Chapter 1 Unit 1 单词（无 emoji）
 const WORDS = [
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"wake up", phonetic:"[weɪk ʌp]", pos:"v.", cn:"醒来", exEn:"I usually wake up at 7 AM.", exCn:"我通常早上7点醒来。", img:"person waking up in bed" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"get up", phonetic:"[ɡet ʌp]", pos:"v.", cn:"起床", exEn:"She gets up early to exercise.", exCn:"她早起锻炼。", img:"person getting out of bed" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"stretch", phonetic:"[stretʃ]", pos:"v.", cn:"伸展", exEn:"I stretch my arms after waking up.", exCn:"我醒来后伸展手臂。", img:"person stretching arms" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"brush teeth", phonetic:"[brʌʃ tiːθ]", pos:"v.", cn:"刷牙", exEn:"I brush my teeth twice a day.", exCn:"我每天刷两次牙。", img:"person brushing teeth" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"wash face", phonetic:"[wɒʃ feɪs]", pos:"v.", cn:"洗脸", exEn:"She washes her face with cold water.", exCn:"她用冷水洗脸。", img:"person washing face" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"comb hair", phonetic:"[kəʊm heə]", pos:"v.", cn:"梳头", exEn:"He combs his hair before work.", exCn:"他上班前梳头。", img:"person combing hair" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"get dressed", phonetic:"[ɡet drest]", pos:"v.", cn:"穿衣服", exEn:"The child gets dressed by himself.", exCn:"这个孩子自己穿衣服。", img:"child getting dressed" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"make bed", phonetic:"[meɪk bed]", pos:"v.", cn:"整理床铺", exEn:"My mom always makes the bed.", exCn:"我妈妈总是整理床铺。", img:"made bed with pillows" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"cook breakfast", phonetic:"[kʊk ˈbrekfəst]", pos:"v.", cn:"做早餐", exEn:"I cook breakfast for my family.", exCn:"我给家人做早餐。", img:"cooking breakfast on stove" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"eat breakfast", phonetic:"[iːt ˈbrekfəst]", pos:"v.", cn:"吃早餐", exEn:"We eat breakfast together.", exCn:"我们一起吃早餐。", img:"family eating breakfast" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"drink coffee", phonetic:"[drɪŋk ˈkɒfi]", pos:"v.", cn:"喝咖啡", exEn:"My dad drinks coffee every morning.", exCn:"我爸爸每天早上喝咖啡。", img:"cup of coffee" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"read newspaper", phonetic:"[riːd ˈnjuːzpeɪpə]", pos:"v.", cn:"看报纸", exEn:"He reads the newspaper while eating.", exCn:"他边吃边看报纸。", img:"person reading newspaper" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"check phone", phonetic:"[tʃek fəʊn]", pos:"v.", cn:"看手机", exEn:"She checks her phone first thing.", exCn:"她醒来第一件事是看手机。", img:"person checking phone" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"pack bag", phonetic:"[pæk bæɡ]", pos:"v.", cn:"收拾书包", exEn:"The student packs his bag for school.", exCn:"这个学生收拾书包去上学。", img:"student packing school bag" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"leave home", phonetic:"[liːv həʊm]", pos:"v.", cn:"出门", exEn:"We leave home at 8 AM.", exCn:"我们早上8点出门。", img:"person leaving house" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"take bus", phonetic:"[teɪk bʌs]", pos:"v.", cn:"坐公交车", exEn:"She takes the bus to work.", exCn:"她坐公交车上班。", img:"bus on road" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"ride bike", phonetic:"[raɪd baɪk]", pos:"v.", cn:"骑自行车", exEn:"He rides his bike to school.", exCn:"他骑自行车去上学。", img:"person riding bike" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"drive car", phonetic:"[draɪv kɑː]", pos:"v.", cn:"开车", exEn:"My dad drives me to school.", exCn:"我爸爸开车送我上学。", img:"person driving car" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"meet friend", phonetic:"[miːt frend]", pos:"v.", cn:"见朋友", exEn:"I meet my friend at the station.", exCn:"我在车站见朋友。", img:"two friends meeting" },
-  { book:"美国人每天说的话", cover:"https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"start work", phonetic:"[stɑːt wɜːk]", pos:"v.", cn:"开始工作", exEn:"She starts work at 9 AM.", exCn:"她早上9点开始工作。", img:"office desk with computer" }
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"stretch", phonetic:"[stretʃ]", pos:"v.", cn:"伸展", exEn:"I stretch after waking up.", exCn:"我醒来后伸展身体。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"pajamas", phonetic:"[pəˈdʒɑːməz]", pos:"n.", cn:"睡衣", exEn:"I wear comfortable pajamas at night.", exCn:"我晚上穿舒适的睡衣。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"panic", phonetic:"[ˈpænɪk]", pos:"v./n.", cn:"慌张；惊慌", exEn:"Don’t panic when you are late.", exCn:"迟到时不要慌张。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"alarm", phonetic:"[əˈlɑːm]", pos:"n.", cn:"闹钟", exEn:"My alarm rings at 7 every morning.", exCn:"我的闹钟每天7点响。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"wake up", phonetic:"[weɪk ʌp]", pos:"v.", cn:"醒来", exEn:"I usually wake up at 7 AM.", exCn:"我通常早上7点醒来。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"get up", phonetic:"[ɡet ʌp]", pos:"v.", cn:"起床", exEn:"She gets up early every day.", exCn:"她每天早起。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"Rise and shine!", phonetic:"[raɪz ənd ʃaɪn]", pos:"phrase", cn:"起床啦！", exEn:"Rise and shine! It’s morning.", exCn:"起床啦！天亮了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleepyhead", phonetic:"[ˈsliːpihed]", pos:"n.", cn:"贪睡鬼", exEn:"Come on, sleepyhead!", exCn:"快点啦，小懒虫！" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"wide awake", phonetic:"[waɪd əˈweɪk]", pos:"phrase", cn:"完全清醒", exEn:"I am wide awake now.", exCn:"我现在完全清醒了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleepy", phonetic:"[ˈsliːpi]", pos:"adj.", cn:"困倦的", exEn:"I feel sleepy early at night.", exCn:"我晚上很早就犯困。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"drowsy", phonetic:"[ˈdraʊzi]", pos:"adj.", cn:"昏昏欲睡的", exEn:"He is drowsy in the morning.", exCn:"他早上昏昏欲睡。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"puffy eyes", phonetic:"[ˈpʌfi aɪz]", pos:"n.", cn:"浮肿眼袋", exEn:"I have puffy eyes after sleeping late.", exCn:"熬夜后我有浮肿眼袋。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"dark circles", phonetic:"[dɑːk ˈsɜːklz]", pos:"n.", cn:"黑眼圈", exEn:"She has dark circles from lack of sleep.", exCn:"她因为睡眠不足有黑眼圈。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"morning tantrum", phonetic:"[ˈmɔːnɪŋ ˈtæntrəm]", pos:"n.", cn:"早上闹脾气", exEn:"The kid had a morning tantrum.", exCn:"小孩早上闹脾气。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleep in", phonetic:"[sliːp ɪn]", pos:"v.", cn:"睡懒觉", exEn:"I like to sleep in on weekends.", exCn:"我喜欢周末睡懒觉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"stay in bed", phonetic:"[steɪ ɪn bed]", pos:"v.", cn:"赖在床上", exEn:"I want to stay in bed all morning.", exCn:"我想整个早上都赖在床上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"oversleep", phonetic:"[ˌəʊvəˈsliːp]", pos:"v.", cn:"睡过头", exEn:"I overslept and was late.", exCn:"我睡过头迟到了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"crawl back in bed", phonetic:"[krɔːl bæk ɪn bed]", pos:"phrase", cn:"爬回床上", exEn:"I crawled back in bed after waking up.", exCn:"醒来后我又爬回床上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"snooze button", phonetic:"[snuːz ˈbʌtn]", pos:"n.", cn:"贪睡按钮", exEn:"I always press the snooze button.", exCn:"我总是按闹钟贪睡键。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"go off", phonetic:"[ɡəʊ ɒf]", pos:"v.", cn:"（闹钟）响起", exEn:"My alarm goes off at 7.", exCn:"我的闹钟7点响。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"turn off", phonetic:"[tɜːn ɒf]", pos:"v.", cn:"关掉", exEn:"Turn off the alarm quickly.", exCn:"快把闹钟关掉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"miss", phonetic:"[mɪs]", pos:"v.", cn:"错过", exEn:"Don’t miss the bus.", exCn:"别错过公交车。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"in a rush", phonetic:"[ɪn ə rʌʃ]", pos:"phrase", cn:"匆忙赶路", exEn:"I am in a rush every morning.", exCn:"我每天早上都很匆忙。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"hurry up", phonetic:"[ˈhʌri ʌp]", pos:"phrase", cn:"快点", exEn:"Hurry up, or you’ll be late.", exCn:"快点，不然要迟到了。" }
 ];
 
 let currentWords = [];
@@ -760,19 +767,17 @@ let streak = parseInt(localStorage.getItem('streak') || '0');
 let selectedBook = null;
 let selectedChapterClass = "";
 
-const bookColorClass = ['book-yellow','book-purple','book-blue','book-green'];
 let bookList = JSON.parse(localStorage.getItem('wakeBookList')) || [
-  { name:'美国人每天说的话', cover:'https://www.books.com.tw/img/001/075/56/0010755612_bc_01.jpg' }
+  { name:'美国人每天说的话' }
 ];
 
 function renderBookShelf(){
   const wrap = document.getElementById('bookshelf');
   let html = '';
   bookList.forEach((item,idx)=>{
-    let color = bookColorClass[idx % bookColorClass.length];
     html += `
       <div class="book-card" onclick="openBookPage(${idx})">
-        <img class="book-cover" src="${item.cover||''}" alt="${item.name}">
+        <div class="book-cover">单词书</div>
         <div class="book-info">
           <div class="book-title">${item.name}</div>
           <div class="book-desc">Chapter 1 · 20 词</div>
@@ -803,7 +808,7 @@ function confirmAddBook(){
     alert('请输入书籍名称');
     return;
   }
-  bookList.push({ name: name, cover: '' });
+  bookList.push({ name: name });
   localStorage.setItem('wakeBookList', JSON.stringify(bookList));
   renderBookShelf();
   closeModal();
@@ -913,8 +918,12 @@ function renderStudy() {
   document.getElementById('answer-reveal').style.display = 'none';
   document.getElementById('action-row').style.display = 'none';
   document.getElementById('study-result').style.display = 'none';
-  // 图片自动加载
-  document.getElementById('study-img').src = `https://source.unsplash.com/random/400x300/?${w.img}`;
+
+  // 相对路径图片（本地可用）
+  document.getElementById('study-img').src = `images/${w.cn}.png`;
+  document.getElementById('study-img').onerror = function(){
+    this.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-center;height:100%;color:#2a8a8a;">'+w.cn+'</div>';
+  }
 }
 
 function checkStudy() {
@@ -958,12 +967,13 @@ function renderRead() {
   document.getElementById('read-en').textContent = w.en;
   document.getElementById('read-phonetic').textContent = w.phonetic;
   document.getElementById('read-cn').textContent = w.cn;
-  document.getElementById('read-example').innerHTML = `
-    <div class="example-en">${w.exEn}</div>
-    <div class="example-cn">${w.exCn}</div>
-  `;
+  document.getElementById('read-example').innerHTML = `<div class="example-en">${w.exEn}</div><div class="example-cn">${w.exCn}</div>`;
   document.getElementById('read-progress-label').textContent = (currentIdx + 1) + ' / ' + currentWords.length;
   document.getElementById('read-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
+
+  // 文本学习页也显示图片（相对路径）
+  let img = `<img src="images/${w.cn}.png">`;
+  document.getElementById('read-image').innerHTML = img;
 }
 
 function prevRead() {
@@ -985,7 +995,6 @@ function speak() {
   speechSynthesis.speak(u);
 }
 
-// 初始化
 renderBookShelf();
 buildHome();
 </script>
