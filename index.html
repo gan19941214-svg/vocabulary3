@@ -35,56 +35,12 @@
     border-radius: 28px;
     opacity: 0.35;
   }
-  .shape1 {
-    width: 140px;
-    height: 140px;
-    background: #A4D4E4;
-    top: 8%;
-    left: 4%;
-    transform: rotate(18deg);
-    border-radius: 40px;
-  }
-  .shape2 {
-    width: 100px;
-    height: 100px;
-    background: #D8B6E4;
-    top: 22%;
-    right: 6%;
-    border-radius: 50%;
-  }
-  .shape3 {
-    width: 120px;
-    height: 120px;
-    background: #F8D8D8;
-    bottom: 18%;
-    left: 8%;
-    transform: rotate(-22deg);
-  }
-  .shape4 {
-    width: 80px;
-    height: 80px;
-    background: #C8E8D8;
-    bottom: 28%;
-    right: 12%;
-    border-radius: 50%;
-  }
-  .shape5 {
-    width: 90px;
-    height: 90px;
-    background: #FFE4C8;
-    top: 45%;
-    left: -20px;
-    border-radius: 30px;
-    transform: rotate(30deg);
-  }
-  .shape6 {
-    width: 70px;
-    height: 70px;
-    background: #D4F0F0;
-    bottom: 5%;
-    right: 25%;
-    border-radius: 20px;
-  }
+  .shape1 { width: 140px; height: 140px; background: #A4D4E4; top: 8%; left: 4%; transform: rotate(18deg); border-radius: 40px; }
+  .shape2 { width: 100px; height: 100px; background: #D8B6E4; top: 22%; right: 6%; border-radius: 50%; }
+  .shape3 { width: 120px; height: 120px; background: #F8D8D8; bottom: 18%; left: 8%; transform: rotate(-22deg); }
+  .shape4 { width: 80px; height: 80px; background: #C8E8D8; bottom: 28%; right: 12%; border-radius: 50%; }
+  .shape5 { width: 90px; height: 90px; background: #FFE4C8; top: 45%; left: -20px; border-radius: 30px; transform: rotate(30deg); }
+  .shape6 { width: 70px; height: 70px; background: #D4F0F0; bottom: 5%; right: 25%; border-radius: 20px; }
 
   .topbar {
     position: sticky;
@@ -98,18 +54,8 @@
     align-items: center;
     justify-content: space-between;
   }
-  .topbar-logo {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .topbar-streak {
-    background: var(--accent-light);
-    border-radius: 20px;
-    padding: 4px 10px;
-    font-size: 13px;
-    color: var(--accent);
-  }
+  .topbar-logo { font-size: 18px; font-weight: 600; color: var(--text); }
+  .topbar-streak { background: var(--accent-light); border-radius: 20px; padding: 4px 10px; font-size: 13px; color: var(--accent); }
 
   .screen {
     display: none;
@@ -139,479 +85,96 @@
     border-radius: 12px;
     opacity: 0.5;
   }
-  .home-header::before {
-    width: 50px;
-    height: 50px;
-    top: 10px;
-    left: 15px;
-    transform: rotate(20deg);
-  }
-  .home-header::after {
-    width: 35px;
-    height: 35px;
-    bottom: 15px;
-    right: 20px;
-    border-radius: 50%;
-  }
-  .home-title {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--accent);
-    position: relative;
-    z-index: 1;
-  }
-  .home-desc {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-top: 6px;
-    position: relative;
-    z-index: 1;
-  }
+  .home-header::before { width: 50px; height: 50px; top: 10px; left: 15px; transform: rotate(20deg); }
+  .home-header::after { width: 35px; height: 35px; bottom: 15px; right: 20px; border-radius: 50%; }
+  .home-title { font-size: 24px; font-weight: 600; color: var(--accent); position: relative; z-index: 1; }
+  .home-desc { font-size: 14px; color: var(--text-muted); margin-top: 6px; position: relative; z-index: 1; }
 
-  .bookshelf-container {
-    overflow-x: auto;
-    padding: 10px 0 20px;
-    scroll-snap-type: x mandatory;
-  }
-  .bookshelf {
-    display: flex;
-    gap: 16px;
-    padding: 0 16px;
-  }
-  .book-card {
-    width: 180px;
-    flex-shrink: 0;
-    background: var(--card);
-    backdrop-filter: var(--blur);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(200,222,222,0.5);
-    scroll-snap-align: start;
-  }
-  .book-cover {
-    width: 100%;
-    height: 240px;
-    object-fit: cover;
-  }
-  .book-info {
-    padding: 12px;
-  }
-  .book-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .book-desc {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
+  .bookshelf-container { overflow-x: auto; padding: 10px 0 20px; scroll-snap-type: x mandatory; }
+  .bookshelf { display: flex; gap: 16px; padding: 0 16px; }
+  .book-card { width: 180px; flex-shrink: 0; background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(200,222,222,0.5); scroll-snap-align: start; }
+  .book-cover { width: 100%; height: 240px; object-fit: cover; }
+  .book-info { padding: 12px; }
+  .book-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .book-desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
-  .add-book-card {
-    width: 180px;
-    height: 320px;
-    flex-shrink: 0;
-    background: var(--card);
-    backdrop-filter: var(--blur);
-    border: 2px dashed rgba(200,222,222,0.8);
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-  }
-  .add-icon {
-    font-size: 40px;
-    margin-bottom: 8px;
-  }
-  .add-text {
-    font-size: 14px;
-  }
+  .add-book-card { width: 180px; height: 320px; flex-shrink: 0; background: var(--card); backdrop-filter: var(--blur); border: 2px dashed rgba(200,222,222,0.8); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); }
+  .add-icon { font-size: 40px; margin-bottom: 8px; }
+  .add-text { font-size: 14px; }
 
-  .chapter-card {
-    background: var(--card);
-    backdrop-filter: var(--blur);
-    border-radius: 16px;
-    border: 1px solid rgba(200,222,222,0.5);
-    margin-bottom: 10px;
-    overflow: hidden;
-  }
-  .chapter-header {
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-  }
-  .chapter-tag {
-    color: #fff;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 8px;
-    background: #a488e4;
-  }
-  .chapter-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    margin-left: 8px;
-  }
-  .chapter-header-left {
-    display: flex;
-    align-items: center;
-  }
-  .chapter-count {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-  .unit-list {
-    padding: 8px 12px;
-    display: none;
-  }
-  .unit-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  .unit-item:hover {
-    background: rgba(240,247,247,0.8);
-  }
-  .unit-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-  }
-  .unit-sub {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-  .unit-badge {
-    background: rgba(240,247,247,0.8);
-    border-radius: 20px;
-    padding: 3px 10px;
-    font-size: 12px;
-    color: var(--text-muted);
-  }
+  .chapter-card { background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; border: 1px solid rgba(200,222,222,0.5); margin-bottom: 10px; overflow: hidden; }
+  .chapter-header { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+  .chapter-tag { color: #fff; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 8px; background: #a488e4; }
+  .chapter-name { font-size: 15px; font-weight: 600; color: var(--text); margin-left: 8px; }
+  .chapter-header-left { display: flex; align-items: center; }
+  .chapter-count { font-size: 12px; color: var(--text-muted); }
+  .unit-list { padding: 8px 12px; display: none; }
+  .unit-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 10px; cursor: pointer; }
+  .unit-item:hover { background: rgba(240,247,247,0.8); }
+  .unit-name { font-size: 14px; font-weight: 500; color: var(--text); }
+  .unit-sub { font-size: 12px; color: var(--text-muted); }
+  .unit-badge { background: rgba(240,247,247,0.8); border-radius: 20px; padding: 3px 10px; font-size: 12px; color: var(--text-muted); }
 
-  .mode-header {
-    background: var(--card);
-    backdrop-filter: var(--blur);
-    border-radius: 16px;
-    border: 1px solid rgba(200,222,222,0.5);
-    padding: 16px;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .mode-header-icon {
-    width: 48px;
-    height: 48px;
-    background: #D4F0F0;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-  }
-  .mode-header h2 {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .mode-header p {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-  .mode-card {
-    background: var(--card);
-    backdrop-filter: var(--blur);
-    border-radius: 14px;
-    border: 1px solid rgba(200,222,222,0.5);
-    padding: 16px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .mode-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-  }
-  .mode-card-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-  }
+  .mode-header { background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; border: 1px solid rgba(200,222,222,0.5); padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .mode-header-icon { width: 48px; height: 48px; background: #D4F0F0; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+  .mode-header h2 { font-size: 17px; font-weight: 600; color: var(--text); }
+  .mode-header p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  .mode-card { background: var(--card); backdrop-filter: var(--blur); border-radius: 14px; border: 1px solid rgba(200,222,222,0.5); padding: 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.2s; }
+  .mode-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .mode-card-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
   .mode-card-icon.study { background: #C8E8E8; }
   .mode-card-icon.read { background: #fff3b0; }
-  .mode-card h3 {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-  .mode-card p {
-    font-size: 12px;
-    color: var(--text-muted);
-  }
+  .mode-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .mode-card p { font-size: 12px; color: var(--text-muted); }
 
-  .progress-area {
-    margin-bottom: 14px;
-  }
-  .progress-top {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 6px;
-  }
-  .progress-bar {
-    height: 6px;
-    background: rgba(200,222,222,0.5);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    background: #4AA8B8;
-    border-radius: 99px;
-    transition: width 0.4s;
-  }
-  .word-card {
-    background: var(--card);
-    backdrop-filter: var(--blur);
-    border-radius: 20px;
-    border: 1px solid rgba(200,222,222,0.5);
-    overflow: hidden;
-    margin-bottom: 14px;
-    box-shadow: var(--shadow);
-  }
-  .word-card-top {
-    padding: 20px;
-    text-align: center;
-  }
-  .word-pos-badge {
-    display: inline-block;
-    background: #D4F0F0;
-    color: #2A8A8A;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  .word-cn {
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
- .image-zone {
-  height: 180px;
-  background: rgba(216,238,238,0.5);
-  position: relative;
-  overflow: hidden;
-}
+  .progress-area { margin-bottom: 14px; }
+  .progress-top { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+  .progress-bar { height: 6px; background: rgba(200,222,222,0.5); border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; background: #4AA8B8; border-radius: 99px; transition: width 0.4s; }
+  
+  .word-card { background: var(--card); backdrop-filter: var(--blur); border-radius: 20px; border: 1px solid rgba(200,222,222,0.5); overflow: hidden; margin-bottom: 14px; box-shadow: var(--shadow); }
+  .word-card-top { padding: 20px; text-align: center; }
+  .word-pos-badge { display: inline-block; background: #D4F0F0; color: #2A8A8A; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 8px; margin-bottom: 10px; }
+  .word-cn { font-size: 28px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .image-zone { height: 180px; background: rgba(216,238,238,0.5); position: relative; overflow: hidden; }
+  .image-zone img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  
+  .word-card-bottom { padding: 20px; }
+  .input-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+  .word-input { width: 100%; padding: 10px 14px; border: 1px solid rgba(200,222,222,0.5); border-radius: 12px; background: rgba(240,247,247,0.8); margin-bottom: 10px; font-size: 16px; }
+  .submit-btn { width: 100%; padding: 10px; background: #4AA8B8; color: #fff; border: none; border-radius: 12px; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
+  .result-row { padding: 10px; border-radius: 12px; font-weight: 500; display: none; align-items: center; gap: 8px; }
+  .result-row.correct { background: #D8F0EB; color: #3A9E8A; display: flex; }
+  .result-row.wrong { background: #FDEAEA; color: #C05050; display: flex; }
+  
+  .answer-reveal { display: none; margin-bottom: 10px; }
+  .answer-en { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .answer-phonetic { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; }
+  .answer-sound-btn { background: #D4F0F0; color: #2A8A8A; border: none; border-radius: 8px; padding: 5px 12px; margin-bottom: 10px; cursor: pointer; }
+  .example-box { background: rgba(228,242,242,0.8); border-radius: 12px; padding: 12px; border-left: 3px solid #4AA8B8; }
+  
+  .action-row { display: flex; gap: 8px; margin-top: 10px; }
+  .action-btn { flex: 1; padding: 11px; border-radius: 12px; font-weight: 600; border: 1px solid rgba(200,222,222,0.5); background: var(--card); cursor: pointer; }
+  .action-btn.primary { background: #4AA8B8; color: #fff; border-color: #4AA8B8; }
 
-.image-zone img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-  .word-card-bottom {
-    padding: 20px;
-  }
-  .input-label {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 6px;
-  }
-  .word-input {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1px solid rgba(200,222,222,0.5);
-    border-radius: 12px;
-    background: rgba(240,247,247,0.8);
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
-  .submit-btn {
-    width: 100%;
-    padding: 10px;
-    background: #4AA8B8;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  .result-row {
-    padding: 10px;
-    border-radius: 12px;
-    font-weight: 500;
-    display: none;
-    align-items: center;
-    gap: 8px;
-  }
-  .result-row.correct {
-    background: #D8F0EB;
-    color: #3A9E8A;
-    display: flex;
-  }
-  .result-row.wrong {
-    background: #FDEAEA;
-    color: #C05050;
-    display: flex;
-  }
-  .answer-reveal {
-    display: none;
-    margin-bottom: 10px;
-  }
-  .answer-en {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 4px;
-  }
-  .answer-phonetic {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-bottom: 10px;
-  }
-  .answer-sound-btn {
-    background: #D4F0F0;
-    color: #2A8A8A;
-    border: none;
-    border-radius: 8px;
-    padding: 5px 12px;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  .example-box {
-    background: rgba(228,242,242,0.8);
-    border-radius: 12px;
-    padding: 12px;
-    border-left: 3px solid #4AA8B8;
-  }
-  .action-row {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-  }
-  .action-btn {
-    flex: 1;
-    padding: 11px;
-    border-radius: 12px;
-    font-weight: 600;
-    border: 1px solid rgba(200,222,222,0.5);
-    background: var(--card);
-    cursor: pointer;
-  }
-  .action-btn.primary {
-    background: #4AA8B8;
-    color: #fff;
-    border-color: #4AA8B8;
-  }
-
-  .read-card {
-    background: var(--card);
-    backdrop-filter: var(--blur);
-    border-radius: 20px;
-    border: 1px solid rgba(200,222,222,0.5);
-    padding: 20px;
-    margin-bottom: 14px;
-  }
-  .read-image {
-    width: 100%;
-    height: 180px;
-    background: rgba(216,238,238,0.5);
-    border-radius: 12px;
-    margin-bottom: 16px;
-    overflow: hidden;
-  }
-  .read-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  .read-card { background: var(--card); backdrop-filter: var(--blur); border-radius: 20px; border: 1px solid rgba(200,222,222,0.5); padding: 20px; margin-bottom: 14px; }
+  .read-image { width: 100%; height: 180px; background: rgba(216,238,238,0.5); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
+  .read-image img { width: 100%; height: 100%; object-fit: cover; }
   .read-pos { font-size:12px; color:var(--text-muted); margin-bottom:4px; }
   .read-en { font-size:24px; font-weight:600; color:var(--text); margin-bottom:4px; }
   .read-phonetic { font-size:14px; color:var(--text-muted); margin-bottom:10px; }
   .read-cn { font-size:18px; color:var(--text); margin-bottom:12px; }
 
-  .modal-mask {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 999;
-  }
-  .modal-box {
-    width: 85%;
-    max-width: 380px;
-    background: var(--card);
-    backdrop-filter: var(--blur);
-    border-radius: 16px;
-    padding: 24px;
-    border: 1px solid rgba(200,222,222,0.5);
-  }
-  .modal-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text);
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  .modal-input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid rgba(200,222,222,0.5);
-    border-radius: 12px;
-    margin-bottom: 20px;
-    background: rgba(240,247,247,0.8);
-  }
-  .modal-btns {
-    display: flex;
-    gap: 12px;
-  }
-  .modal-btn {
-    flex: 1;
-    padding: 11px;
-    border-radius: 12px;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-  }
+  .modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 999; }
+  .modal-box { width: 85%; max-width: 380px; background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; padding: 24px; border: 1px solid rgba(200,222,222,0.5); }
+  .modal-title { font-size: 18px; font-weight: 600; color: var(--text); text-align: center; margin-bottom: 16px; }
+  .modal-input { width: 100%; padding: 12px; border: 1px solid rgba(200,222,222,0.5); border-radius: 12px; margin-bottom: 20px; background: rgba(240,247,247,0.8); }
+  .modal-btns { display: flex; gap: 12px; }
+  .modal-btn { flex: 1; padding: 11px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; }
   .btn-cancel { background: rgba(238,238,238,0.8); color: #666; }
   .btn-confirm { background: #4AA8B8; color: #fff; }
 
-  .back-btn {
-    color: var(--text-muted);
-    font-size: 14px;
-    margin-bottom: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+  .back-btn { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 </style>
 </head>
 <body>
@@ -638,7 +201,7 @@
   </div>
 
   <div class="screen" id="screen-home">
-    <div class="back-btn" onclick="showScreen('bookshelf')">← 返回书架</div>
+    <div class="back-btn" onclick="goBackBookcase()">← 返回书架</div>
     <div id="chapter-list"></div>
   </div>
 
@@ -647,8 +210,8 @@
     <div class="mode-header">
       <div class="mode-header-icon">📖</div>
       <div>
-        <h2 id="mode-unit-name">Unit 1</h2>
-        <p id="mode-unit-sub">In the Morning</p>
+        <h2 id="mode-unit-name">Unit</h2>
+        <p id="mode-unit-sub">Loading...</p>
       </div>
     </div>
     <div class="mode-card" onclick="startMode('study')">
@@ -665,18 +228,16 @@
     <div class="back-btn" onclick="showScreen('mode')">← 返回</div>
     <div class="progress-area">
       <div class="progress-top">
-        <span id="study-progress-label">1 / 20</span>
+        <span id="study-progress-label">1 / 24</span>
       </div>
       <div class="progress-bar"><div class="progress-fill" id="study-progress-fill"></div></div>
     </div>
     <div class="word-card">
       <div class="word-card-top">
-        <div class="word-pos-badge" id="study-pos">v.</div>
-        <div class="word-cn" id="study-cn">醒来</div>
+        <div class="word-pos-badge" id="study-pos">n.</div>
+        <div class="word-cn" id="study-cn">腮红</div>
       </div>
-      <div class="image-zone">
-        <!-- 容器内部结构在JS中动态生成，防止节点丢失 -->
-      </div>
+      <div class="image-zone"></div>
       <div class="word-card-bottom">
         <div class="input-label">默写英文：</div>
         <input class="word-input" id="study-input" placeholder="输入单词..." autocomplete="off" autocapitalize="none" spellcheck="false" />
@@ -699,16 +260,16 @@
     <div class="back-btn" onclick="showScreen('mode')">← 返回</div>
     <div class="progress-area">
       <div class="progress-top">
-        <span id="read-progress-label">1 / 20</span>
+        <span id="read-progress-label">1 / 24</span>
       </div>
       <div class="progress-bar"><div class="progress-fill" id="read-progress-fill"></div></div>
     </div>
     <div class="read-card">
       <div class="read-image" id="read-image"></div>
-      <div class="read-pos" id="read-pos">v.</div>
-      <div class="read-en" id="read-en">wake up</div>
-      <div class="read-phonetic" id="read-phonetic">[weɪk ʌp]</div>
-      <div class="read-cn" id="read-cn">醒来</div>
+      <div class="read-pos" id="read-pos">n.</div>
+      <div class="read-en" id="read-en">blush</div>
+      <div class="read-phonetic" id="read-phonetic">[blʌʃ]</div>
+      <div class="read-cn" id="read-cn">腮红</div>
       <div class="read-example example-box" id="read-example"></div>
     </div>
     <div class="action-row">
@@ -729,37 +290,65 @@
   </div>
 
 <script>
-  function getImgKey(word) {
+function getImgKey(word) {
   return word
     .toLowerCase()
     .replace(/\s+/g, '_')
     .replace(/[^a-z0-9_]/g, '');
 }
+
 const WORDS = [
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"stretch", phonetic:"[stretʃ]", pos:"v.", cn:"伸展", exEn:"I stretch after waking up.", exCn:"我醒来后伸展身体。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"pajamas", phonetic:"[pəˈdʒɑːməz]", pos:"n.", cn:"睡衣", exEn:"I wear comfortable pajamas at night.", exCn:"我晚上穿舒适的睡衣。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"panic", phonetic:"[ˈpænɪk]", pos:"v./n.", cn:"慌张；惊慌", exEn:"Don’t panic when you are late.", exCn:"迟到时不要慌张。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"alarm", phonetic:"[əˈlɑːm]", pos:"n.", cn:"闹钟", exEn:"My alarm rings at 7 every morning.", exCn:"我的闹钟每天7点响。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"wake up", phonetic:"[weɪk ʌp]", pos:"v.", cn:"醒来", exEn:"I usually wake up at 7 AM.", exCn:"我通常早上7点醒来。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"get up", phonetic:"[ɡet ʌp]", pos:"v.", cn:"起床", exEn:"She gets up early every day.", exCn:"她每天早起。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"Rise and shine!", phonetic:"[raɪz ənd ʃaɪn]", pos:"phrase", cn:"起床啦！", exEn:"Rise and shine! It’s morning.", exCn:"起床啦！天亮了。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleepyhead", phonetic:"[ˈsliːpihed]", pos:"n.", cn:"贪睡鬼", exEn:"Come on, sleepyhead!", exCn:"快点啦，小懒虫！" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"wide awake", phonetic:"[waɪd əˈweɪk]", pos:"phrase", cn:"完全清醒", exEn:"I am wide awake now.", exCn:"我现在完全清醒了。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleepy", phonetic:"[ˈsliːpi]", pos:"adj.", cn:"困倦的", exEn:"I feel sleepy early at night.", exCn:"我晚上很早就犯困。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"drowsy", phonetic:"[ˈdraʊzi]", pos:"adj.", cn:"昏昏欲睡的", exEn:"He is drowsy in the morning.", exCn:"他早上昏昏欲睡。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"puffy eyes", phonetic:"[ˈpʌfi aɪz]", pos:"n.", cn:"浮肿眼袋", exEn:"I have puffy eyes after sleeping late.", exCn:"熬夜后我有浮肿眼袋。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"dark circles", phonetic:"[dɑːk ˈsɜːklz]", pos:"n.", cn:"黑眼圈", exEn:"She has dark circles from lack of sleep.", exCn:"她因为睡眠不足有黑眼圈。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"morning tantrum", phonetic:"[ˈmɔːnɪŋ ˈtæntrəm]", pos:"n.", cn:"早上闹脾气", exEn:"The kid had a morning tantrum.", exCn:"小孩早上闹脾气。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleep in", phonetic:"[sliːp ɪn]", pos:"v.", cn:"睡懒觉", exEn:"I like to sleep in on weekends.", exCn:"我喜欢周末睡懒觉。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"stay in bed", phonetic:"[steɪ ɪn bed]", pos:"v.", cn:"赖在床上", exEn:"I want to stay in bed all morning.", exCn:"我想整个早上都赖在床上。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"oversleep", phonetic:"[ˌəʊvəˈsliːp]", pos:"v.", cn:"睡过头", exEn:"I overslept and was late.", exCn:"我睡过头迟到了。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"crawl back in bed", phonetic:"[krɔːl bæk ɪn bed]", pos:"phrase", cn:"爬回床上", exEn:"I crawled back in bed after waking up.", exCn:"醒来后我又爬回床上。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"snooze button", phonetic:"[snuːz ˈbʌtn]", pos:"n.", cn:"贪睡按钮", exEn:"I always press the snooze button.", exCn:"我总是按闹钟贪睡键。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"go off", phonetic:"[ɡəʊ ɒf]", pos:"v.", cn:"（闹钟）响起", exEn:"My alarm goes off at 7.", exCn:"我的闹钟7点响。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"turn off", phonetic:"[tɜːn ɒf]", pos:"v.", cn:"关掉", exEn:"Turn off the alarm quickly.", exCn:"快把闹钟关掉。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"miss", phonetic:"[mɪs]", pos:"v.", cn:"错过", exEn:"Don’t miss the bus.", exCn:"别错过公交车。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"in a rush", phonetic:"[ɪn ə rʌʃ]", pos:"phrase", cn:"匆忙赶路", exEn:"I am in a rush every morning.", exCn:"我每天早上都很匆忙。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"hurry up", phonetic:"[ˈhʌri ʌp]", pos:"phrase", cn:"快点", exEn:"Hurry up, or you’ll be late.", exCn:"快点，不然要迟到了。" }
+  // ================= Unit 1-1 (晨间起床场景) =================
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"stretch", phonetic:"[stretʃ]", pos:"v.", cn:"伸展", exEn:"I stretch after waking up.", exCn:"我醒来后伸展身体。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"pajamas", phonetic:"[pəˈdʒɑːməz]", pos:"n.", cn:"睡衣", exEn:"I wear comfortable pajamas at night.", exCn:"我晚上穿舒适的睡衣。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"panic", phonetic:"[ˈpænɪk]", pos:"v./n.", cn:"慌张；惊慌", exEn:"Don’t panic when you are late.", exCn:"迟到时不要慌张。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"alarm", phonetic:"[əˈlɑːm]", pos:"n.", cn:"闹钟", exEn:"My alarm rings at 7 every morning.", exCn:"我的闹钟每天7点响。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"wake up", phonetic:"[weɪk ʌp]", pos:"v.", cn:"醒来", exEn:"I usually wake up at 7 AM.", exCn:"我通常早上7点醒来。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"get up", phonetic:"[ɡet ʌp]", pos:"v.", cn:"起床", exEn:"She gets up early every day.", exCn:"她每天早起。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"Rise and shine!", phonetic:"[raɪz ənd ʃaɪn]", pos:"phrase", cn:"起床啦！", exEn:"Rise and shine! It’s morning.", exCn:"起床啦！天亮了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleepyhead", phonetic:"[ˈsliːpihed]", pos:"n.", cn:"贪睡鬼", exEn:"Come on, sleepyhead!", exCn:"快点啦，小懒虫！" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"wide awake", phonetic:"[waɪd əˈweɪk]", pos:"phrase", cn:"完全清醒", exEn:"I am wide awake now.", exCn:"我现在完全清醒了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleepy", phonetic:"[ˈsliːpi]", pos:"adj.", cn:"困倦的", exEn:"I feel sleepy early at night.", exCn:"我晚上很早就犯困。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"drowsy", phonetic:"[ˈdraʊzi]", pos:"adj.", cn:"昏昏欲睡的", exEn:"He is drowsy in the morning.", exCn:"他早上昏昏欲睡。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"puffy eyes", phonetic:"[ˈpʌfi aɪz]", pos:"n.", cn:"浮肿眼袋", exEn:"I have puffy eyes after sleeping late.", exCn:"熬夜后我有浮肿眼袋。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"dark circles", phonetic:"[dɑːk ˈsɜːklz]", pos:"n.", cn:"黑眼圈", exEn:"She has dark circles from lack of sleep.", exCn:"她因为睡眠不足有黑眼圈。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"morning tantrum", phonetic:"[ˈmɔːnɪŋ ˈtæntrəm]", pos:"n.", cn:"早上闹脾气", exEn:"The kid had a morning tantrum.", exCn:"小孩早上闹脾气。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleep in", phonetic:"[sliːp ɪn]", pos:"v.", cn:"睡懒觉", exEn:"I like to sleep in on weekends.", exCn:"我喜欢周末睡懒觉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"stay in bed", phonetic:"[steɪ ɪn bed]", pos:"v.", cn:"赖在床上", exEn:"I want to stay in bed all morning.", exCn:"我想整个早上都赖在床上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"oversleep", phonetic:"[ˌəʊvəˈsliːp]", pos:"v.", cn:"睡过头", exEn:"I overslept and was late.", exCn:"我睡过头迟到了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"crawl back in bed", phonetic:"[krɔːl bæk ɪn bed]", pos:"phrase", cn:"爬回床上", exEn:"I crawled back in bed after waking up.", exCn:"醒来后我又爬回床上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"snooze button", phonetic:"[snuːz ˈbʌtn]", pos:"n.", cn:"贪睡按钮", exEn:"I always press the snooze button.", exCn:"我总是按闹钟贪睡键。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"go off", phonetic:"[ɡəʊ ɒf]", pos:"v.", cn:"（闹钟）响起", exEn:"My alarm goes off at 7.", exCn:"我的闹钟7点响。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"turn off", phonetic:"[tɜːn ɒf]", pos:"v.", cn:"关掉", exEn:"Turn off the alarm quickly.", exCn:"快把闹钟关掉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"miss", phonetic:"[mɪs]", pos:"v.", cn:"错过", exEn:"Don’t miss the bus.", exCn:"别错过公交车。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"in a rush", phonetic:"[ɪn ə rʌʃ]", pos:"phrase", cn:"匆忙赶路", exEn:"I am in a rush every morning.", exCn:"我每天早上都很匆忙。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"hurry up", phonetic:"[ˈhʌri ʌp]", pos:"phrase", cn:"快点", exEn:"Hurry up, or you’ll be late.", exCn:"快点，不然要迟到了。" },
+
+  // ================= Unit 1-2 (洗漱与穿搭场景) =================
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"blush", phonetic:"[blʌʃ]", pos:"n.", cn:"腮红", exEn:"Apply a small amount of blush to your cheeks for a natural glow.", exCn:"在脸颊上涂少许腮红，营造自然好气色。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"mascara", phonetic:"[mæsˈkærə]", pos:"n.", cn:"睫毛膏", exEn:"This waterproof mascara makes my lashes look incredibly long.", exCn:"这款防水睫毛膏让我的睫毛显得特别长。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"eye shadow", phonetic:"[aɪ ˈʃædoʊ]", pos:"短语", cn:"眼影", exEn:"She prefers neutral tones for her daily eye shadow look.", exCn:"她日常的眼影妆容更喜欢用大地色系。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"foundation", phonetic:"[faʊnˈdeɪʃən]", pos:"n.", cn:"粉底", exEn:"Choose a liquid foundation that matches your exact skin tone.", exCn:"选择一款与你肤色完全吻合的液体粉底。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"concealer", phonetic:"[kənˈsiːlə]", pos:"n.", cn:"遮瑕膏", exEn:"I use a high-texture concealer to perfectly hide my dark circles.", exCn:"我用高质感的遮瑕膏完美遮盖黑眼圈。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"lipstick", phonetic:"[ˈlɪpˌstɪk]", pos:"n.", cn:"口红", exEn:"A swipe of red lipstick instantly brightens up your whole look.", exCn:"涂上一抹红唇瞬间就能提亮整张脸的色调。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"bad breath", phonetic:"[bæd breθ]", pos:"短语", cn:"口臭", exEn:"Brushing your tongue helps prevent bad breath in the morning.", exCn:"刷舌苔有助于预防早晨出现的口臭。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"toothbrush", phonetic:"[ˈtuːθˌbrʌʃ]", pos:"n.", cn:"牙刷", exEn:"Remember to replace your toothbrush every three months.", exCn:"记得每三个月更换一次牙刷。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"foam", phonetic:"[foʊm]", pos:"n.", cn:"泡沫（剃须 / 洁面）", exEn:"Rub the cleanser until it creates a rich, smooth foam.", exCn:"揉搓洗面奶直至产生丰富细腻的泡沫。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"shaver", phonetic:"[ˈʃeɪvə]", pos:"n.", cn:"刮胡刀；除毛刀", exEn:"He cleaned the electric shaver after finishing his morning routine.", exCn:"他在做完晨间洗漱后清理了电动刮胡刀。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"toothpaste", phonetic:"[ˈtuːθˌpeɪst]", pos:"n.", cn:"牙膏", exEn:"I always prefer mint-flavored toothpaste for a clean feeling.", exCn:"我一向更喜欢薄荷味的牙膏，能带来清爽的感觉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"washcloth", phonetic:"[ˈwɑːʃˌklɔːθ]", pos:"n.", cn:"毛巾；洗脸巾", exEn:"Gently pat your face dry with a clean, soft washcloth.", exCn:"用一块干净、柔软的洗脸巾轻轻将脸擦干。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"mint", phonetic:"[mɪnt]", pos:"n.", cn:"薄荷（牙膏成分）", exEn:"The mint in the product gives a cooling effect on the skin.", exCn:"产品中的薄荷成分会给肌肤带来冰凉清爽的感觉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"squeeze", phonetic:"[skwiːz]", pos:"vt. & vi.", cn:"挤（牙膏 / 洗面奶）", exEn:"Squeeze out a pea-sized amount of cream onto your fingers.", exCn:"挤出豌豆大小的乳霜在手指上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"shower", phonetic:"[ˈʃaʊə]", pos:"n.", cn:"淋浴；冲澡", exEn:"A quick cold shower helps me stay fully wide awake.", exCn:"快速洗个冷水澡能帮我保持彻底的清醒。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"shave", phonetic:"[ʃeɪv]", pos:"vt. & vi.", cn:"刮胡子；剃毛发", exEn:"Applying a warm washcloth to the face makes it easier to shave.", exCn:"用温热的毛巾敷脸可以让刮胡子变得更容易。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"wear", phonetic:"[wer]", pos:"vt.", cn:"穿戴；佩戴", exEn:"She loves to wear minimalist jewelry that looks clean and elegant.", exCn:"她喜欢佩戴干净优雅的极简风格饰品。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"wardrobe", phonetic:"[ˈwɔːrdˌroʊb]", pos:"n.", cn:"衣柜", exEn:"She organized her wardrobe to store all her seasonal outfits.", exCn:"她整理了衣柜，用来存放她所有的季节性穿搭。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"hanger", phonetic:"[ˈhæŋə]", pos:"n.", cn:"衣架", exEn:"Please put the dress on a hanger to prevent any creases.", exCn:"请把衣服挂在衣架上以防产生褶皱。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"outfit", phonetic:"[ˈaʊtˌfɪt]", pos:"n.", cn:"服装；一整套穿搭", exEn:"I spent ten minutes choosing the perfect outfit for today's meeting.", exCn:"我花了十分钟为今天的会议挑选最完美的一整套穿搭。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"choose", phonetic:"[tʃuːz]", pos:"vt.", cn:"选择", exEn:"It takes time to choose the best style that defines your aesthetic.", exCn:"选择出最能定义你审美的风格是需要花时间的。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"makeup", phonetic:"[ˈmeɪkˌʌp]", pos:"n.", cn:"化妆；妆容", exEn:"Her makeup aesthetic focuses on clean, high-texture skin.", exCn:"她的妆容审美专注于干净、高级有质感的原生肌肤。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"cosmetics", phonetic:"[kɑːzˈmetɪks]", pos:"n.", cn:"化妆品", exEn:"She keeps all her essential cosmetics in a minimalist glass box.", exCn:"她把所有必备的化妆品都收纳在一个极简的玻璃盒里。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"eyeliner", phonetic:"[ˈaɪˌlaɪnə]", pos:"n.", cn:"眼线笔；眼线", exEn:"A thin stroke of eyeliner can make your eyes look much sharper.", exCn:"一笔细细的眼线就能让双眼看起来更加有神。" }
 ];
 
 let currentWords = [];
@@ -769,6 +358,7 @@ let learnedWords = JSON.parse(localStorage.getItem('learnedWords') || '[]');
 let streak = parseInt(localStorage.getItem('streak') || '0');
 let selectedBook = null;
 let selectedChapterClass = "";
+let selectedUnit = ""; 
 
 let bookList = JSON.parse(localStorage.getItem('wakeBookList')) || [
   { name:'美国人每天说的话' }
@@ -778,12 +368,13 @@ function renderBookShelf(){
   const wrap = document.getElementById('bookshelf');
   let html = '';
   bookList.forEach((item,idx)=>{
+    const totalWords = WORDS.filter(w => w.book === item.name).length;
     html += `
       <div class="book-card" onclick="openBookPage(${idx})">
         <img class="book-cover" src="https://cdn.weread.qq.com/outpic/281/3001246281.jpg" alt="封面">
         <div class="book-info">
           <div class="book-title">${item.name}</div>
-          <div class="book-desc">Chapter 1 · 24 词</div>
+          <div class="book-desc">Chapter 1 · ${totalWords} 词</div>
         </div>
       </div>
     `;
@@ -861,8 +452,9 @@ function buildHome() {
       html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')">
         <div class="unit-left">
           <div>
-            <div class="unit-name">${unit}：${unitData.title}</div>
-            <div class="unit-sub">${unitData.words.length} 词</div>
+            <div class="unit-name">${unit}</div>
+            <div class="unit-sub" style="font-size:11px; color:var(--text-muted); max-width:280px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${unitData.title}</div>
+            <div class="unit-sub" style="margin-top:2px;">${unitData.words.length} 词</div>
           </div>
         </div>
         <span class="unit-badge">${done}/${unitData.words.length}</span>
@@ -884,6 +476,7 @@ function toggleChapter(el) {
 
 function selectUnit(chapter, unit, chapterClass) {
   selectedChapterClass = chapterClass;
+  selectedUnit = unit; 
   const data = WORDS.filter(w => w.chapter === chapter && w.unit === unit);
   document.getElementById('mode-unit-name').textContent = unit;
   document.getElementById('mode-unit-sub').textContent = data[0]?.unitTitle + ' · ' + data.length + ' 词';
@@ -892,9 +485,10 @@ function selectUnit(chapter, unit, chapterClass) {
 
 function startMode(mode) {
   currentIdx = 0;
+  // ✅ 已修复：精准筛选当前选中的 Book 且精准匹配具体 selectedUnit，防止词包混淆
   currentWords = WORDS.filter(w => 
-    (selectedChapterClass ? w.chapterClass === selectedChapterClass : true) &&
-    w.book === selectedBook
+    w.book === selectedBook &&
+    w.unit === selectedUnit
   );
 
   if (mode === 'study') {
@@ -906,11 +500,11 @@ function startMode(mode) {
   }
 }
 
-// 🔥 已修复：看图默写页面直链路径与 DOM 覆盖逻辑
 function renderStudy() {
   if (currentIdx >= currentWords.length) { 
     alert('学习完成！');
     showScreen('home');
+    buildHome(); 
     return; 
   }
   const w = currentWords[currentIdx];
@@ -924,16 +518,13 @@ function renderStudy() {
   document.getElementById('study-result').style.display = 'none';
 
   const imgKey = getImgKey(w.en);
-  // ✅ 核心修正：移除多余的文件夹层级，使用你的 Cloudinary 根目录直链
-  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg`;
+  let url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg`;
   
-  // ✅ 核心修正：每次切换切词都动态重新创建 <img> 标签，防止 onerror 崩溃后找不到节点
   const zone = document.querySelector('.image-zone');
   zone.innerHTML = `<img id="study-img" src="${url}" style="width:100%;height:100%;object-fit:contain;display:block;">`;
   
   const imgEl = document.getElementById('study-img');
   imgEl.onerror = function () {
-    // 即使图片由于Public ID错误等原因缺失，也不会摧毁页面的标签逻辑，只会显示友情提示
     zone.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;font-size:14px;background:rgba(216,238,238,0.3);">⚠️ 暂无对应图片 (${imgKey}.jpg)</div>`;
   };
 }
@@ -941,7 +532,11 @@ function renderStudy() {
 function checkStudy() {
   const w = currentWords[currentIdx];
   const input = document.getElementById('study-input').value.trim().toLowerCase();
-  const correct = input === w.en.toLowerCase();
+  
+  const cleanInput = input.replace(/[!]/g, '');
+  const cleanAnswer = w.en.toLowerCase().replace(/[!]/g, '');
+  
+  const correct = cleanInput === cleanAnswer;
   const resultEl = document.getElementById('study-result');
   if (correct) {
     correctCount++;
@@ -957,7 +552,7 @@ function checkStudy() {
   }
   resultEl.style.display = 'flex';
   document.getElementById('answer-en').textContent = w.en;
-  document.getElementById('answer-phonetic').textContent = w.phonetic;
+  document.getElementById('answer-phonetic').textContent = w.phonetic || '(暂无音标)';
   document.getElementById('example-box').innerHTML = `<div class="example-en">${w.exEn}</div><div class="example-cn">${w.exCn}</div>`;
   document.getElementById('answer-reveal').style.display = 'block';
   document.getElementById('action-row').style.display = 'flex';
@@ -968,32 +563,31 @@ function nextStudy() {
   renderStudy();
 }
 
-// 🔥 已修复：文本学习页面同步修正直链路径
 function renderRead() {
   if (currentIdx >= currentWords.length) { 
     alert('学习完成！');
     showScreen('home');
+    buildHome(); 
     return; 
   }
   const w = currentWords[currentIdx];
   document.getElementById('read-pos').textContent = w.pos;
   document.getElementById('read-en').textContent = w.en;
-  document.getElementById('read-phonetic').textContent = w.phonetic;
+  document.getElementById('read-phonetic').textContent = w.phonetic || '(暂无音标)';
   document.getElementById('read-cn').textContent = w.cn;
   document.getElementById('read-example').innerHTML = `<div class="example-en">${w.exEn}</div><div class="example-cn">${w.exCn}</div>`;
   document.getElementById('read-progress-label').textContent = (currentIdx + 1) + ' / ' + currentWords.length;
   document.getElementById('read-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
 
   const imgKey = getImgKey(w.en);
-  // ✅ 核心修正：移除多余层级路径
-  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg`;
+  let url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg`;
   
   const readImageZone = document.getElementById('read-image');
-  readImageZone.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;" id="read-img-element">`;
+  readImageZone.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:contain;" id="read-img-element">`;
   
   const imgEl = document.getElementById('read-img-element');
   imgEl.onerror = function () {
-    readImageZone.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;font-size:14px;">⚠️ 暂无对应图片 (${imgKey}.jpg)</div>`;
+    readImageZone.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;font-size:14px;background:rgba(216,238,238,0.3);">⚠️ 暂无对应图片 (${imgKey}.jpg)</div>`;
   };
 }
 
@@ -1009,7 +603,6 @@ function nextRead() {
   renderRead();
 }
 
-// 唤起本地原生TTS引擎发音
 function speak() {
   const w = currentWords[currentIdx];
   const u = new SpeechSynthesisUtterance(w.en);
