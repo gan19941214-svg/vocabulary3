@@ -78,139 +78,50 @@
     overflow: hidden;
     border: 1px solid rgba(200,222,222,0.5);
   }
-  .home-header::before, .home-header::after {
-    content: '';
-    position: absolute;
-    background: rgba(200,232,232,0.5);
-    border-radius: 12px;
-    opacity: 0.5;
-  }
-  .home-header::before { width: 50px; height: 50px; top: 10px; left: 15px; transform: rotate(20deg); }
-  .home-header::after { width: 35px; height: 35px; bottom: 15px; right: 20px; border-radius: 50%; }
   .home-title { font-size: 24px; font-weight: 600; color: var(--accent); position: relative; z-index: 1; }
   .home-desc { font-size: 14px; color: var(--text-muted); margin-top: 6px; position: relative; z-index: 1; }
 
   .bookshelf-container { overflow-x: auto; padding: 10px 0 20px; scroll-snap-type: x mandatory; }
   .bookshelf { display: flex; gap: 16px; padding: 0 16px; }
-  .book-card { width: 180px; flex-shrink: 0; background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(200,222,222,0.5); scroll-snap-align: start; }
+  .book-card { width: 180px; flex-shrink: 0; background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(200,222,222,0.5); scroll-snap-align: start; cursor: pointer; }
   .book-cover { width: 100%; height: 240px; object-fit: cover; }
   .book-info { padding: 12px; }
   .book-title { font-size: 15px; font-weight: 600; color: var(--text); }
   .book-desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
-  .add-book-card { width: 180px; height: 320px; flex-shrink: 0; background: var(--card); backdrop-filter: var(--blur); border: 2px dashed rgba(200,222,222,0.8); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); }
+  .add-book-card { width: 180px; height: 320px; flex-shrink: 0; background: var(--card); backdrop-filter: var(--blur); border: 2px dashed rgba(200,222,222,0.8); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; }
   .add-icon { font-size: 40px; margin-bottom: 8px; }
   .add-text { font-size: 14px; }
 
-  .chapter-card { background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; border: 1px solid rgba(200,222,222,0.5); margin-bottom: 10px; overflow: hidden; }
-  .chapter-header { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
-  .chapter-tag { color: #fff; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 8px; background: #a488e4; }
-  /* 寻找原有的 .chapter-tag，在下方追加以下 9 组章节色盘 */
-/* 9大章节高级感色盘：大幅降低饱和度，深色不浓，浅色不飘 */
-/* 9大章节洗练色盘：深色全面引入高透明度（0.12），让色彩轻量化 */
-.chapter-card.ch1 { --ch-primary: #5A7373; --ch-dark: rgba(90, 115, 115, 0.12);  --ch-light: #F4F7F7; --ch-text: #3A4D4D; } 
-.chapter-card.ch2 { --ch-primary: #768070; --ch-dark: rgba(118, 128, 112, 0.12); --ch-light: #F4F6F3; --ch-text: #454E41; } 
-.chapter-card.ch3 { --ch-primary: #637280; --ch-dark: rgba(99, 114, 128, 0.12);  --ch-light: #F3F5F7; --ch-text: #3D4954; } 
-.chapter-card.ch4 { --ch-primary: #766B7C; --ch-dark: rgba(118, 107, 124, 0.12); --ch-light: #F5F3F6; --ch-text: #463E4B; } 
-.chapter-card.ch5 { --ch-primary: #857171; --ch-dark: rgba(133, 113, 113, 0.12); --ch-light: #F7F4F4; --ch-text: #524242; } 
-.chapter-card.ch6 { --ch-primary: #757B75; --ch-dark: rgba(117, 123, 117, 0.12); --ch-light: #F4F5F4; --ch-text: #444A44; } 
-.chapter-card.ch7 { --ch-primary: #827B6E; --ch-dark: rgba(130, 123, 110, 0.12); --ch-light: #F6F5F2; --ch-text: #4E4940; } 
-.chapter-card.ch8 { --ch-primary: #5A786E; --ch-dark: rgba(90, 120, 110, 0.12);  --ch-light: #F2F6F4; --ch-text: #3A4C46; } 
-.chapter-card.ch9 { --ch-primary: #6E687A; --ch-dark: rgba(110, 104, 122, 0.12); --ch-light: #F4F3F6; --ch-text: #413B4A; } 
+  /* 9大章节高级感色盘 */
+  .chapter-card.ch1 { --ch-primary: #5A7373; --ch-dark: rgba(90, 115, 115, 0.12);  --ch-light: #F4F7F7; --ch-text: #3A4D4D; } 
+  .chapter-card.ch2 { --ch-primary: #768070; --ch-dark: rgba(118, 128, 112, 0.12); --ch-light: #F4F6F3; --ch-text: #454E41; } 
+  .chapter-card.ch3 { --ch-primary: #637280; --ch-dark: rgba(99, 114, 128, 0.12);  --ch-light: #F3F5F7; --ch-text: #3D4954; } 
+  .chapter-card.ch4 { --ch-primary: #766B7C; --ch-dark: rgba(118, 107, 124, 0.12); --ch-light: #F5F3F6; --ch-text: #463E4B; } 
+  .chapter-card.ch5 { --ch-primary: #857171; --ch-dark: rgba(133, 113, 113, 0.12); --ch-light: #F7F4F4; --ch-text: #524242; } 
+  .chapter-card.ch6 { --ch-primary: #757B75; --ch-dark: rgba(117, 123, 117, 0.12); --ch-light: #F4F5F4; --ch-text: #444A44; } 
+  .chapter-card.ch7 { --ch-primary: #827B6E; --ch-dark: rgba(130, 123, 110, 0.12); --ch-light: #F6F5F2; --ch-text: #4E4940; } 
+  .chapter-card.ch8 { --ch-primary: #5A786E; --ch-dark: rgba(90, 120, 110, 0.12);  --ch-light: #F2F6F4; --ch-text: #3A4C46; } 
+  .chapter-card.ch9 { --ch-primary: #6E687A; --ch-dark: rgba(110, 104, 122, 0.12); --ch-light: #F4F3F6; --ch-text: #413B4A; } 
 
-/* 优化大卡片头部布局与字体 */
-.chapter-card { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.02) !important; margin-bottom: 14px !important; background: transparent !important; }
-.chapter-card .chapter-tag { background: var(--ch-primary) !important; color: #fff; font-size: 13px !important; padding: 4px 10px !important; border-radius: 6px !important; }
-.chapter-card .chapter-name { color: var(--ch-primary); font-size: 16px !important; font-weight: 600 !important; margin-left: 10px; }
+  .chapter-card { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.02) !important; margin-bottom: 14px !important; }
+  .chapter-card .chapter-tag { background: var(--ch-primary) !important; color: #fff; font-size: 13px !important; padding: 4px 10px !important; border-radius: 6px !important; }
+  .chapter-card .chapter-name { color: var(--ch-primary); font-size: 16px !important; font-weight: 600 !important; margin-left: 10px; }
 
-/* 单元交替节奏：奇数卡片采用透明度拉低的深色，文字改回深色以保证清晰度 */
-/* ==================== 1. 奇数单元（半透明深色底 + 统一深色字） ==================== */
-.chapter-card .unit-list .unit-item:nth-child(odd) { 
-  background: var(--ch-dark) !important; 
-}
-/* 确保名字是深色 */
-.chapter-card .unit-list .unit-item:nth-child(odd) .unit-name { 
-  color: var(--ch-text) !important; 
-}
-/* 确保副标题是深色（带点透明度增强层级） */
-.chapter-card .unit-list .unit-item:nth-child(odd) .unit-sub { 
-  color: var(--ch-text) !important; 
-  opacity: 0.7 !important; 
-}
-/* 确保右侧的 0/23 数字也是深色 */
-.chapter-card .unit-list .unit-item:nth-child(odd) .unit-badge { 
-  background: rgba(0, 0, 0, 0.05) !important; 
-  color: var(--ch-text) !important; 
-  border: 1px solid rgba(0, 0, 0, 0.08) !important; 
-}
+  /* 单元交替节奏 */
+  .chapter-card .unit-list .unit-item:nth-child(odd) { background: var(--ch-dark) !important; }
+  .chapter-card .unit-list .unit-item:nth-child(odd) .unit-name { color: var(--ch-text) !important; }
+  .chapter-card .unit-list .unit-item:nth-child(odd) .unit-sub { color: var(--ch-text) !important; opacity: 0.7 !important; }
+  .chapter-card .unit-list .unit-item:nth-child(odd) .unit-badge { background: rgba(0, 0, 0, 0.05) !important; color: var(--ch-text) !important; border: 1px solid rgba(0, 0, 0, 0.08) !important; }
 
-/* ==================== 2. 偶数单元（清爽奶白底 + 统一深色字） ==================== */
-.chapter-card .unit-list .unit-item:nth-child(even) { 
-  background: var(--ch-light) !important; 
-}
-.chapter-card .unit-list .unit-item:nth-child(even) .unit-name { 
-  color: var(--ch-text) !important; 
-}
-.chapter-card .unit-list .unit-item:nth-child(even) .unit-sub { 
-  color: var(--ch-text) !important; 
-  opacity: 0.6 !important; 
-}
-.chapter-card .unit-list .unit-item:nth-child(even) .unit-badge { 
-  background: rgba(0, 0, 0, 0.03) !important; 
-  color: var(--ch-text) !important; 
-  border: 1px solid rgba(0, 0, 0, 0.05) !important; 
-}
+  .chapter-card .unit-list .unit-item:nth-child(even) { background: var(--ch-light) !important; }
+  .chapter-card .unit-list .unit-item:nth-child(even) .unit-name { color: var(--ch-text) !important; }
+  .chapter-card .unit-list .unit-item:nth-child(even) .unit-sub { color: var(--ch-text) !important; opacity: 0.6 !important; }
+  .chapter-card .unit-list .unit-item:nth-child(even) .unit-badge { background: rgba(0, 0, 0, 0.03) !important; color: var(--ch-text) !important; border: 1px solid rgba(0, 0, 0, 0.05) !important; }
 
-/* 统一控制 Badge 的高级质感 */
-.chapter-card .unit-badge { font-size: 12px !important; padding: 4px 12px !important; border-radius: 20px !important; font-weight: 600 !important; }
-
-/* 优化大卡片头部布局与字体 */
-.chapter-card { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.02) !important; margin-bottom: 14px !important; }
-.chapter-card .chapter-tag { background: var(--ch-primary) !important; color: #fff; font-size: 13px !important; padding: 4px 10px !important; border-radius: 6px !important; }
-.chapter-card .chapter-name { color: var(--ch-text); font-size: 16px !important; font-weight: 600 !important; margin-left: 10px; }
-
-/* 单元交替节奏：奇数卡片为低饱和度柔和中间色，偶数卡片为极简奶白色 */
-.chapter-card .unit-item:nth-child(odd) { background: var(--ch-dark) !important; color: #fff !important; }
-.chapter-card .unit-item:nth-child(odd) .unit-name { color: #fff !important; }
-.chapter-card .unit-item:nth-child(odd) .unit-sub { color: rgba(255,255,255,0.7) !important; }
-.chapter-card .unit-item:nth-child(odd) .unit-badge { background: rgba(255,255,255,0.15) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.2); }
-
-.chapter-card .unit-item:nth-child(even) { background: var(--ch-light) !important; color: var(--ch-text) !important; }
-.chapter-card .unit-item:nth-child(even) .unit-name { color: var(--ch-text) !important; }
-.chapter-card .unit-item:nth-child(even) .unit-sub { color: var(--ch-text) !important; opacity: 0.6; }
-.chapter-card .unit-item:nth-child(even) .unit-badge { background: rgba(0,0,0,0.03) !important; color: var(--ch-text) !important; border: 1px solid rgba(0,0,0,0.05); }
-
-/* 统一控制 Badge 的高级质感 */
-.chapter-card .unit-badge { font-size: 12px !important; padding: 4px 12px !important; border-radius: 20px !important; font-weight: 600 !important; }
-
-
-/* 动态应用变量：让大卡片内的元素自动感知所属章节的颜色 */
-.chapter-card .chapter-tag { background: var(--ch-primary) !important; color: #fff; }
-.chapter-card .chapter-name { color: var(--ch-text); }
-
-/* 实现 5 个 Unit 一深一浅的交替节奏（奇数深色，偶数浅色） */
-.chapter-card .unit-item:nth-child(odd) { background: var(--ch-dark); color: #fff; }
-.chapter-card .unit-item:nth-child(odd) .unit-name { color: #fff; }
-.chapter-card .unit-item:nth-child(odd) .unit-sub { color: rgba(255,255,255,0.8); }
-.chapter-card .unit-item:nth-child(odd) .unit-badge { background: rgba(255,255,255,0.2); color: #fff; }
-
-.chapter-card .unit-item:nth-child(even) { background: var(--ch-light); color: var(--ch-text); }
-.chapter-card .unit-item:nth-child(even) .unit-name { color: var(--ch-text); }
-.chapter-card .unit-item:nth-child(even) .unit-sub { color: var(--ch-text); opacity: 0.7; }
-.chapter-card .unit-item:nth-child(even) .unit-badge { background: rgba(0,0,0,0.05); color: var(--ch-text); }
-
-/* 悬停微调，保留呼吸感 */
-.chapter-card .unit-item:hover { filter: brightness(0.95); }
-
-  .chapter-name { font-size: 15px; font-weight: 600; color: var(--text); margin-left: 8px; }
-  .chapter-header-left { display: flex; align-items: center; }
-  .chapter-count { font-size: 12px; color: var(--text-muted); }
-  .unit-list { padding: 8px 12px; display: none; }
-  .unit-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 10px; cursor: pointer; }
-  .unit-item:hover { background: rgba(240,247,247,0.8); }
-  .unit-name { font-size: 14px; font-weight: 500; color: var(--text); }
-  .unit-sub { font-size: 12px; color: var(--text-muted); }
-  .unit-badge { background: rgba(240,247,247,0.8); border-radius: 20px; padding: 3px 10px; font-size: 12px; color: var(--text-muted); }
+  .chapter-card .unit-badge { font-size: 12px !important; padding: 4px 12px !important; border-radius: 20px !important; font-weight: 600 !important; }
+  .chapter-card .unit-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 12px; cursor: pointer; transition: filter 0.2s; }
+  .chapter-card .unit-item:hover { filter: brightness(0.95); }
 
   .mode-header { background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; border: 1px solid rgba(200,222,222,0.5); padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
   .mode-header-icon { width: 48px; height: 48px; background: #D4F0F0; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
@@ -298,7 +209,6 @@
   </div>
 
   <div class="screen" id="screen-home">
-    <div class="back-btn" onclick="goBackBookcase()">← 返回书架</div>
     <div id="chapter-list"></div>
   </div>
 
@@ -387,7 +297,6 @@
   </div>
 
 <script>
-  // 在 WORDS 数组的上方或下方注入这个配置字典
 const CHAPTER_CLASS_MAP = {
   "Chapter 1": "ch1",
   "Chapter 2": "ch2",
@@ -409,472 +318,132 @@ function getImgKey(word) {
 
 const WORDS = [
   // ================= Unit 1-1 (晨间起床场景) =================
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"stretch", phonetic:"[stretʃ]", pos:"v.", cn:"伸展", exEn:"I stretch after waking up.", exCn:"我醒来后伸展身体。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"pajamas", phonetic:"[pəˈdʒɑːməz]", pos:"n.", cn:"睡衣", exEn:"I wear comfortable pajamas at night.", exCn:"我晚上穿舒适的睡衣。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"panic", phonetic:"[ˈpænɪk]", pos:"v./n.", cn:"慌张；惊慌", exEn:"Don’t panic when you are late.", exCn:"迟到时不要慌张。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"alarm", phonetic:"[əˈlɑːm]", pos:"n.", cn:"闹钟", exEn:"My alarm rings at 7 every morning.", exCn:"我的闹钟每天7点响。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"wake up", phonetic:"[weɪk ʌp]", pos:"v.", cn:"醒来", exEn:"I usually wake up at 7 AM.", exCn:"我通常早上7点醒来。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"get up", phonetic:"[ɡet ʌp]", pos:"v.", cn:"起床", exEn:"She gets up early every day.", exCn:"她每天早起。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"Rise and shine!", phonetic:"[raɪz ənd ʃaɪn]", pos:"phrase", cn:"起床啦！", exEn:"Rise and shine! It’s morning.", exCn:"起床啦！天亮了。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleepyhead", phonetic:"[ˈsliːpihed]", pos:"n.", cn:"贪睡鬼", exEn:"Come on, sleepyhead!", exCn:"快点啦，小懒虫！" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"wide awake", phonetic:"[waɪd əˈweɪk]", pos:"phrase", cn:"完全清醒", exEn:"I am wide awake now.", exCn:"我现在完全清醒了。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleepy", phonetic:"[ˈsliːpi]", pos:"adj.", cn:"困倦的", exEn:"I feel sleepy early at night.", exCn:"我晚上很早就犯困。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"drowsy", phonetic:"[ˈdraʊzi]", pos:"adj.", cn:"昏昏欲睡的", exEn:"He is drowsy in the morning.", exCn:"他早上昏昏欲睡。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"puffy eyes", phonetic:"[ˈpʌfi aɪz]", pos:"n.", cn:"浮肿眼袋", exEn:"I have puffy eyes after sleeping late.", exCn:"熬夜后我有浮肿眼袋。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"dark circles", phonetic:"[dɑːk ˈsɜːklz]", pos:"n.", cn:"黑眼圈", exEn:"She has dark circles from lack of sleep.", exCn:"她因为睡眠不足有黑眼圈。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"morning tantrum", phonetic:"[ˈmɔːnɪŋ ˈtæntrəm]", pos:"n.", cn:"早上闹脾气", exEn:"The kid had a morning tantrum.", exCn:"小孩早上闹脾气。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"sleep in", phonetic:"[sliːp ɪn]", pos:"v.", cn:"睡懒觉", exEn:"I like to sleep in on weekends.", exCn:"我喜欢周末睡懒觉。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"stay in bed", phonetic:"[steɪ ɪn bed]", pos:"v.", cn:"赖在床上", exEn:"I want to stay in bed all morning.", exCn:"我想整个早上都赖在床上。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"oversleep", phonetic:"[ˌəʊvəˈsliːp]", pos:"v.", cn:"睡过头", exEn:"I overslept and was late.", exCn:"我睡过头迟到了。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"crawl back in bed", phonetic:"[krɔːl bæk ɪn bed]", pos:"phrase", cn:"爬回床上", exEn:"I crawled back in bed after waking up.", exCn:"醒来后我又爬回床上。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"snooze button", phonetic:"[snuːz ˈbʌtn]", pos:"n.", cn:"贪睡按钮", exEn:"I always press the snooze button.", exCn:"我总是按闹钟贪睡键。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"go off", phonetic:"[ɡəʊ ɒf]", pos:"v.", cn:"（闹钟）响起", exEn:"My alarm goes off at 7.", exCn:"我的闹钟7点响。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"turn off", phonetic:"[tɜːn ɒf]", pos:"v.", cn:"关掉", exEn:"Turn off the alarm quickly.", exCn:"快把闹钟关掉。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"miss", phonetic:"[mɪs]", pos:"v.", cn:"错过", exEn:"Don’t miss the bus.", exCn:"别错过公交车。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"in a rush", phonetic:"[ɪn ə rʌʃ]", pos:"phrase", cn:"匆忙赶路", exEn:"I am in a rush every morning.", exCn:"我每天早上都很匆忙。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", chapterClass:"ch1", en:"hurry up", phonetic:"[ˈhʌri ʌp]", pos:"phrase", cn:"快点", exEn:"Hurry up, or you’ll be late.", exCn:"快点，不然要迟到了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"stretch", phonetic:"[stretʃ]", pos:"v.", cn:"伸展", exEn:"I stretch after waking up.", exCn:"我醒来后伸展身体。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"pajamas", phonetic:"[pəˈdʒɑːməz]", pos:"n.", cn:"睡衣", exEn:"I wear comfortable pajamas at night.", exCn:"我晚上穿舒适的睡衣。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"panic", phonetic:"[ˈpænɪk]", pos:"v./n.", cn:"慌张；惊慌", exEn:"Don’t panic when you are late.", exCn:"迟到时不要慌张。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"alarm", phonetic:"[əˈlɑːm]", pos:"n.", cn:"闹钟", exEn:"My alarm rings at 7 every morning.", exCn:"我的闹钟每天7点响。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"wake up", phonetic:"[weɪk ʌp]", pos:"v.", cn:"醒来", exEn:"I usually wake up at 7 AM.", exCn:"我通常早上7点醒来。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"get up", phonetic:"[ɡet ʌp]", pos:"v.", cn:"起床", exEn:"She gets up early every day.", exCn:"她每天早起。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"Rise and shine!", phonetic:"[raɪz ənd ʃaɪn]", pos:"phrase", cn:"起床啦！", exEn:"Rise and shine! It’s morning.", exCn:"起床啦！天亮了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"sleepyhead", phonetic:"[ˈsliːpihed]", pos:"n.", cn:"贪睡鬼", exEn:"Come on, sleepyhead!", exCn:"快点啦，小懒虫！" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"wide awake", phonetic:"[waɪd əˈweɪk]", pos:"phrase", cn:"完全清醒", exEn:"I am wide awake now.", exCn:"我现在完全清醒了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"sleepy", phonetic:"[ˈsliːpi]", pos:"adj.", cn:"困倦的", exEn:"I feel sleepy early at night.", exCn:"我晚上很早就犯困。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"drowsy", phonetic:"[ˈdraʊzi]", pos:"adj.", cn:"昏昏欲睡的", exEn:"He is drowsy in the morning.", exCn:"他早上昏昏欲睡。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"puffy eyes", phonetic:"[ˈpʌfi aɪz]", pos:"n.", cn:"浮肿眼袋", exEn:"I have puffy eyes after sleeping late.", exCn:"熬夜后我有浮肿眼袋。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"dark circles", phonetic:"[dɑːk ˈsɜːklz]", pos:"n.", cn:"黑眼圈", exEn:"She has dark circles from lack of sleep.", exCn:"她因为睡眠不足有黑眼圈。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"morning tantrum", phonetic:"[ˈmɔːnɪŋ ˈtæntrəm]", pos:"n.", cn:"早上闹脾气", exEn:"The kid had a morning tantrum.", exCn:"小孩早上闹脾气。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"sleep in", phonetic:"[sliːp ɪn]", pos:"v.", cn:"睡懒觉", exEn:"I like to sleep in on weekends.", exCn:"我喜欢周末睡懒觉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"stay in bed", phonetic:"[steɪ ɪn bed]", pos:"v.", cn:"赖在床上", exEn:"I want to stay in bed all morning.", exCn:"我想整个早上都赖在床上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"oversleep", phonetic:"[ˌəʊvəˈsliːp]", pos:"v.", cn:"睡过头", exEn:"I overslept and was late.", exCn:"我睡过头迟到了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"crawl back in bed", phonetic:"[krɔːl bæk ɪn bed]", pos:"phrase", cn:"爬回床上", exEn:"I crawled back in bed after waking up.", exCn:"醒来后我又爬回床上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"snooze button", phonetic:"[snuːz ˈbʌtn]", pos:"n.", cn:"贪睡按钮", exEn:"I always press the snooze button.", exCn:"我总是按闹钟贪睡键。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"go off", phonetic:"[ɡəʊ ɒf]", pos:"v.", cn:"（闹钟）响起", exEn:"My alarm goes off at 7.", exCn:"我的闹钟7点响。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"turn off", phonetic:"[tɜːn ɒf]", pos:"v.", cn:"关掉", exEn:"Turn off the alarm quickly.", exCn:"快把闹钟关掉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"miss", phonetic:"[mɪs]", pos:"v.", cn:"错过", exEn:"Don’t miss the bus.", exCn:"别错过公交车。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"in a rush", phonetic:"[ɪn ə rʌʃ]", pos:"phrase", cn:"匆忙赶路", exEn:"I am in a rush every morning.", exCn:"我每天早上都很匆忙。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"hurry up", phonetic:"[ˈhʌri ʌp]", pos:"phrase", cn:"快点", exEn:"Hurry up, or you’ll be late.", exCn:"快点，不然要迟到了。" },
 
   // ================= Unit 1-2 (洗漱与穿搭场景) =================
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"blush", phonetic:"[blʌʃ]", pos:"n.", cn:"腮红", exEn:"Apply a small amount of blush to your cheeks for a natural glow.", exCn:"在脸颊上涂少许腮红，营造自然好气色。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"mascara", phonetic:"[mæsˈkærə]", pos:"n.", cn:"睫毛膏", exEn:"This waterproof mascara makes my lashes look incredibly long.", exCn:"这款防水睫毛膏让我的睫毛显得特别长。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"eye shadow", phonetic:"[aɪ ˈʃædoʊ]", pos:"短语", cn:"眼影", exEn:"She prefers neutral tones for her daily eye shadow look.", exCn:"她日常的眼影妆容更喜欢用大地色系。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"foundation", phonetic:"[faʊnˈdeɪʃən]", pos:"n.", cn:"粉底", exEn:"Choose a liquid foundation that matches your exact skin tone.", exCn:"选择一款与你肤色完全吻合的液体粉底。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"concealer", phonetic:"[kənˈsiːlə]", pos:"n.", cn:"遮瑕膏", exEn:"I use a high-texture concealer to perfectly hide my dark circles.", exCn:"我用高质感的遮瑕膏完美遮盖黑眼圈。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"lipstick", phonetic:"[ˈlɪpˌstɪk]", pos:"n.", cn:"口红", exEn:"A swipe of red lipstick instantly brightens up your whole look.", exCn:"涂上一抹红唇瞬间就能提亮整张脸的色调。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"bad breath", phonetic:"[bæd breθ]", pos:"短语", cn:"口臭", exEn:"Brushing your tongue helps prevent bad breath in the morning.", exCn:"刷舌苔有助于预防早晨出现的口臭。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"toothbrush", phonetic:"[ˈtuːθˌbrʌʃ]", pos:"n.", cn:"牙刷", exEn:"Remember to replace your toothbrush every three months.", exCn:"记得每三个月更换一次牙刷。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"foam", phonetic:"[foʊm]", pos:"n.", cn:"泡沫（剃须 / 洁面）", exEn:"Rub the cleanser until it creates a rich, smooth foam.", exCn:"揉搓洗面奶直至产生丰富细腻的泡沫。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"shaver", phonetic:"[ˈʃeɪvə]", pos:"n.", cn:"刮胡刀；除毛刀", exEn:"He cleaned the electric shaver after finishing his morning routine.", exCn:"他在做完晨间洗漱后清理了电动刮胡刀。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"toothpaste", phonetic:"[ˈtuːθˌpeɪst]", pos:"n.", cn:"牙膏", exEn:"I always prefer mint-flavored toothpaste for a clean feeling.", exCn:"我一向更喜欢薄荷味的牙膏，能带来清爽的感觉。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"washcloth", phonetic:"[ˈwɑːʃˌklɔːθ]", pos:"n.", cn:"毛巾；洗脸巾", exEn:"Gently pat your face dry with a clean, soft washcloth.", exCn:"用一块干净、柔软的洗脸巾轻轻将脸擦干。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"mint", phonetic:"[mɪnt]", pos:"n.", cn:"薄荷（牙膏成分）", exEn:"The mint in the product gives a cooling effect on the skin.", exCn:"产品中的薄荷成分会给肌肤带来冰凉清爽的感觉。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"squeeze", phonetic:"[skwiːz]", pos:"vt. & vi.", cn:"挤（牙膏 / 洗面奶）", exEn:"Squeeze out a pea-sized amount of cream onto your fingers.", exCn:"挤出豌豆大小的乳霜在手指上。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"shower", phonetic:"[ˈʃaʊə]", pos:"n.", cn:"淋浴；冲澡", exEn:"A quick cold shower helps me stay fully wide awake.", exCn:"快速洗个冷水澡能帮我保持彻底的清醒。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"shave", phonetic:"[ʃeɪv]", pos:"vt. & vi.", cn:"刮胡子；剃毛发", exEn:"Applying a warm washcloth to the face makes it easier to shave.", exCn:"用温热的毛巾敷脸可以让刮胡子变得更容易。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"wear", phonetic:"[wer]", pos:"vt.", cn:"穿戴；佩戴", exEn:"She loves to wear minimalist jewelry that looks clean and elegant.", exCn:"她喜欢佩戴干净优雅的极简风格饰品。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"wardrobe", phonetic:"[ˈwɔːrdˌroʊb]", pos:"n.", cn:"衣柜", exEn:"She organized her wardrobe to store all her seasonal outfits.", exCn:"她整理了衣柜，用来存放她所有的季节性穿搭。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"hanger", phonetic:"[ˈhæŋə]", pos:"n.", cn:"衣架", exEn:"Please put the dress on a hanger to prevent any creases.", exCn:"请把衣服挂在衣架上以防产生褶皱。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"outfit", phonetic:"[ˈaʊtˌfɪt]", pos:"n.", cn:"服装；一整套穿搭", exEn:"I spent ten minutes choosing the perfect outfit for today's meeting.", exCn:"我花了十分钟为今天的会议挑选最完美的一整套穿搭。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"choose", phonetic:"[tʃuːz]", pos:"vt.", cn:"选择", exEn:"It takes time to choose the best style that defines your aesthetic.", exCn:"选择出最能定义你审美的风格是需要花时间的。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"makeup", phonetic:"[ˈmeɪkˌʌp]", pos:"n.", cn:"化妆；妆容", exEn:"Her makeup aesthetic focuses on clean, high-texture skin.", exCn:"她的妆容审美专注于干净、高级有质感的原生肌肤。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"cosmetics", phonetic:"[kɑːzˈmetɪks]", pos:"n.", cn:"化妆品", exEn:"She keeps all her essential cosmetics in a minimalist glass box.", exCn:"她把所有必备的化妆品都收纳在一个极简的玻璃盒里。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", chapterClass:"ch1", en:"eyeliner", phonetic:"[ˈaɪˌlaɪnə]", pos:"n.", cn:"眼线笔；眼线", exEn:"A thin stroke of eyeliner can make your eyes look much sharper.", exCn:"一笔细细的眼线就能让双眼看起来更加有神。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"blush", phonetic:"[blʌʃ]", pos:"n.", cn:"腮红", exEn:"Apply a small amount of blush to your cheeks for a natural glow.", exCn:"在脸颊上涂少许腮红，营造自然好气色。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"mascara", phonetic:"[mæsˈkærə]", pos:"n.", cn:"睫毛膏", exEn:"This waterproof mascara makes my lashes look incredibly long.", exCn:"这款防水睫毛膏让我的睫毛显得特别长。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"eye shadow", phonetic:"[aɪ ˈʃædoʊ]", pos:"短语", cn:"眼影", exEn:"She prefers neutral tones for her daily eye shadow look.", exCn:"她日常的眼影妆容更喜欢用大地色系。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"foundation", phonetic:"[faʊnˈdeɪʃən]", pos:"n.", cn:"粉底", exEn:"Choose a liquid foundation that matches your exact skin tone.", exCn:"选择一款与你肤色完全吻合的液体粉底。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"concealer", phonetic:"[kənˈsiːlə]", pos:"n.", cn:"遮瑕膏", exEn:"I use a high-texture concealer to perfectly hide my dark circles.", exCn:"我用高质感的遮瑕膏完美遮盖黑眼圈。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"lipstick", phonetic:"[ˈlɪpˌstɪk]", pos:"n.", cn:"口红", exEn:"A swipe of red lipstick instantly brightens up your whole look.", exCn:"涂上一抹红唇瞬间就能提亮整张脸的色调。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"bad breath", phonetic:"[bæd breθ]", pos:"短语", cn:"口臭", exEn:"Brushing your tongue helps prevent bad breath in the morning.", exCn:"刷舌苔有助于预防早晨出现的口臭。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"toothbrush", phonetic:"[ˈtuːθˌbrʌʃ]", pos:"n.", cn:"牙刷", exEn:"Remember to replace your toothbrush every three months.", exCn:"记得每三个月更换一次牙刷。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"foam", phonetic:"[foʊm]", pos:"n.", cn:"泡沫（剃须 / 洁面）", exEn:"Rub the cleanser until it creates a rich, smooth foam.", exCn:"揉搓洗面奶直至产生丰富细腻的泡沫。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"shaver", phonetic:"[ˈʃeɪvə]", pos:"n.", cn:"刮胡刀；除毛刀", exEn:"He cleaned the electric shaver after finishing his morning routine.", exCn:"他在做完晨间洗漱后清理了电动刮胡刀。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"toothpaste", phonetic:"[ˈtuːθˌpeɪst]", pos:"n.", cn:"牙膏", exEn:"I always prefer mint-flavored toothpaste for a clean feeling.", exCn:"我一向更喜欢薄荷味的牙膏，能带来清爽的感觉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"washcloth", phonetic:"[ˈwɑːʃˌklɔːθ]", pos:"n.", cn:"毛巾；洗脸巾", exEn:"Gently pat your face dry with a clean, soft washcloth.", exCn:"用一块干净、柔软的洗脸巾轻轻将脸擦干。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"mint", phonetic:"[mɪnt]", pos:"n.", cn:"薄荷（牙膏成分）", exEn:"The mint in the product gives a cooling effect on the skin.", exCn:"产品中的薄荷成分会给肌肤带来冰凉清爽的感觉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"squeeze", phonetic:"[skwiːz]", pos:"vt. & vi.", cn:"挤（牙膏 / 洗面奶）", exEn:"Squeeze out a pea-sized amount of cream onto your fingers.", exCn:"挤出豌豆大小的乳霜在手指上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"shower", phonetic:"[ˈʃaʊə]", pos:"n.", cn:"淋浴；冲澡", exEn:"A quick cold shower helps me stay fully wide awake.", exCn:"快速洗个冷水澡能帮我保持彻底的清醒。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"shave", phonetic:"[ʃeɪv]", pos:"vt. & vi.", cn:"刮胡子；剃毛发", exEn:"Applying a warm washcloth to the face makes it easier to shave.", exCn:"用温热的毛巾敷脸可以让刮胡子变得更容易。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"wear", phonetic:"[wer]", pos:"vt.", cn:"穿戴；佩戴", exEn:"She loves to wear minimalist jewelry that looks clean and elegant.", exCn:"她喜欢佩戴干净优雅的极简风格饰品。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"wardrobe", phonetic:"[ˈwɔːrdˌroʊb]", pos:"n.", cn:"衣柜", exEn:"She organized her wardrobe to store all her seasonal outfits.", exCn:"她整理了衣柜，用来存放她所有的季节性穿搭。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"hanger", phonetic:"[ˈhæŋə]", pos:"n.", cn:"衣架", exEn:"Please put the dress on a hanger to prevent any creases.", exCn:"请把衣服挂在衣架上以防产生褶皱。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"outfit", phonetic:"[ˈaʊtˌfɪt]", pos:"n.", cn:"服装；一整套穿搭", exEn:"I spent ten minutes choosing the perfect outfit for today's meeting.", exCn:"我花了十分钟为今天的会议挑选最完美的一整套穿搭。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"choose", phonetic:"[tʃuːz]", pos:"vt.", cn:"选择", exEn:"It takes time to choose the best style that defines your aesthetic.", exCn:"选择出最能定义你审美的风格是需要花时间的。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"makeup", phonetic:"[ˈmeɪkˌʌp]", pos:"n.", cn:"化妆；妆容", exEn:"Her makeup aesthetic focuses on clean, high-texture skin.", exCn:"她的妆容审美专注于干净、高级有质感的原生肌肤。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"cosmetics", phonetic:"[kɑːzˈmetɪks]", pos:"n.", cn:"化妆品", exEn:"She keeps all her essential cosmetics in a minimalist glass box.", exCn:"她把所有必备的化妆品都收纳在一个极简的玻璃盒里。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"eyeliner", phonetic:"[ˈaɪˌlaɪnə]", pos:"n.", cn:"眼线笔；眼线", exEn:"A thin stroke of eyeliner can make your eyes look much sharper.", exCn:"一笔细细的眼线就能让双眼看起来更加有神。" },
 
   // ================= Unit 1-3 (In the Morning - Breakfast) =================
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"walnut", phonetic:"[ˈwɔːlnʌt]", pos:"n.", cn:"核桃", exEn:"There are walnuts in my breakfast bowl.", exCn:"我的早餐碗里有核桃。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"blueberry", phonetic:"[ˈbluːberi]", pos:"n.", cn:"蓝莓", exEn:"I add blueberries to my smoothie.", exCn:"我在奶昔里加了蓝莓。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"smoothie", phonetic:"[ˈsmuːði]", pos:"n.", cn:"奶昔", exEn:"I make a fruit smoothie every morning.", exCn:"我每天早上打一杯水果奶昔。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"soy milk", phonetic:"[ˈsɔɪ mɪlk]", pos:"phrase", cn:"豆浆", exEn:"I drink a cup of hot soy milk for breakfast.", exCn:"我早餐喝一杯热豆浆。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"clay oven roll", phonetic:"", pos:"phrase", cn:"烧饼", exEn:"I eat a clay oven roll with soy milk.", exCn:"我配着豆浆吃烧饼。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"fried bread stick", phonetic:"", pos:"phrase", cn:"油条", exEn:"Fried bread stick and soy milk are a classic combo.", exCn:"油条配豆浆是经典搭配。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"cereal", phonetic:"[ˈsɪəriəl]", pos:"n.", cn:"谷片；麦片", exEn:"I'll have a bowl of cereal for breakfast.", padding:"", exCn:"我要吃一碗麦片当早餐。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"oatmeal", phonetic:"[ˈəʊtmiːl]", pos:"n.", cn:"燕麦粥", exEn:"Oatmeal keeps me full until lunch.", exCn:"燕麦粥能让我撑到午饭。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"omelet", phonetic:"[ˈɒmlət]", pos:"n.", cn:"煎蛋卷", exEn:"I like cheese in my omelet.", exCn:"我喜欢在煎蛋卷里加芝士。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"scrambled eggs", phonetic:"", pos:"phrase", cn:"炒蛋", exEn:"I'm having hash browns and scrambled eggs.", exCn:"我在吃薯饼和炒蛋。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"cornflakes", phonetic:"[ˈkɔːnfleɪks]", pos:"n.", cn:"麦片；玉米片", exEn:"Cornflakes taste good with milk.", exCn:"玉米片配牛奶很好吃。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"decaf", phonetic:"[ˈdiːkæf]", pos:"n.", cn:"低咖啡因咖啡", exEn:"She drinks decaf coffee in the morning.", exCn:"她早上喝低因咖啡。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"black coffee", phonetic:"", pos:"phrase", cn:"黑咖啡", exEn:"I always need black coffee to start a new day.", exCn:"我总是需要黑咖啡来展开新的一天。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"hash browns", phonetic:"", pos:"phrase", cn:"薯饼", exEn:"Breakfast is hash browns and pancakes.", exCn:"早餐是薯饼和美式松饼。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"pancake", phonetic:"[ˈpænkeɪk]", pos:"n.", cn:"美式松饼", exEn:"Breakfast is hash browns and pancakes.", exCn:"早餐是薯饼和美式松饼。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"a slice of toast", phonetic:"", pos:"phrase", cn:"一片烤吐司", exEn:"I eat a slice of toast with butter.", exCn:"我吃一片涂了黄油的烤吐司。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"French toast", phonetic:"", pos:"phrase", cn:"法式吐司", exEn:"French toast is sweet and soft.", exCn:"法式吐司又甜又软。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"radish cake", phonetic:"", pos:"phrase", cn:"萝卜糕", exEn:"We have radish cake for breakfast on weekends.", exCn:"我们周末早餐吃萝卜糕。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"steamed bread", phonetic:"", pos:"phrase", cn:"馒头", exEn:"Steamed bread is my favorite Chinese breakfast.", exCn:"馒头是我最爱的中式早餐。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"congee", phonetic:"[ˈkɒndʒiː]", pos:"n.", cn:"粥", exEn:"How about some congee?", exCn:"来点粥怎么样？" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"rice roll", phonetic:"", pos:"phrase", cn:"饭团", exEn:"A rice roll is easy to eat on the go.", exCn:"饭团很适合路上吃。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", chapterClass:"ch1", en:"fried dumplings", phonetic:"", pos:"phrase", cn:"锅贴", exEn:"Fried dumplings are crispy on the bottom.", exCn:"锅贴底部很脆。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"walnut", phonetic:"[ˈwɔːlnʌt]", pos:"n.", cn:"核桃", exEn:"There are walnuts in my breakfast bowl.", exCn:"我的早餐碗里有核桃。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"blueberry", phonetic:"[ˈbluːberi]", pos:"n.", cn:"蓝莓", exEn:"I add blueberries to my smoothie.", exCn:"我在奶昔里加了蓝莓。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"smoothie", phonetic:"[ˈsmuːði]", pos:"n.", cn:"奶昔", exEn:"I make a fruit smoothie every morning.", exCn:"我每天早上打一杯水果奶昔。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"soy milk", phonetic:"[ˈsɔɪ mɪlk]", pos:"phrase", cn:"豆浆", exEn:"I drink a cup of hot soy milk for breakfast.", exCn:"我早餐喝一杯热豆浆。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"clay oven roll", phonetic:"", pos:"phrase", cn:"烧饼", exEn:"I eat a clay oven roll with soy milk.", exCn:"我配着豆浆吃烧饼。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"fried bread stick", phonetic:"", pos:"phrase", cn:"油条", exEn:"Fried bread stick and soy milk are a classic combo.", exCn:"油条配豆浆是经典搭配。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"cereal", phonetic:"[ˈsɪəriəl]", pos:"n.", cn:"谷片；麦片", exEn:"I'll have a bowl of cereal for breakfast.", exCn:"我要吃一碗麦片当早餐。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"oatmeal", phonetic:"[ˈəʊtmiːl]", pos:"n.", cn:"燕麦粥", exEn:"Oatmeal keeps me full until lunch.", exCn:"燕麦粥能让我撑到午饭。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"omelet", phonetic:"[ˈɒmlət]", pos:"n.", cn:"煎蛋卷", exEn:"I like cheese in my omelet.", exCn:"我喜欢在煎蛋卷里加芝士。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"scrambled eggs", phonetic:"", pos:"phrase", cn:"炒蛋", exEn:"I'm having hash browns and scrambled eggs.", exCn:"我在吃薯饼和炒蛋。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"cornflakes", phonetic:"[ˈkɔːnfleɪks]", pos:"n.", cn:"麦片；玉米片", exEn:"Cornflakes taste good with milk.", exCn:"玉米片配牛奶很好吃。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"decaf", phonetic:"[ˈdiːkæf]", pos:"n.", cn:"低咖啡因咖啡", exEn:"She drinks decaf coffee in the morning.", exCn:"她早上喝低因咖啡。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"black coffee", phonetic:"", pos:"phrase", cn:"黑咖啡", exEn:"I always need black coffee to start a new day.", exCn:"我总是需要黑咖啡来展开新的一天。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"hash browns", phonetic:"", pos:"phrase", cn:"薯饼", exEn:"Breakfast is hash browns and pancakes.", exCn:"早餐是薯饼和美式松饼。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"pancake", phonetic:"[ˈpænkeɪk]", pos:"n.", cn:"美式松饼", exEn:"Breakfast is hash browns and pancakes.", exCn:"早餐是薯饼和美式松饼。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"a slice of toast", phonetic:"", pos:"phrase", cn:"一片烤吐司", exEn:"I eat a slice of toast with butter.", exCn:"我吃一片涂了黄油的烤吐司。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"French toast", phonetic:"", pos:"phrase", cn:"法式吐司", exEn:"French toast is sweet and soft.", exCn:"法式吐司又甜又软。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"radish cake", phonetic:"", pos:"phrase", cn:"萝卜糕", exEn:"We have radish cake for breakfast on weekends.", exCn:"我们周末早餐吃萝卜糕。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"steamed bread", phonetic:"", pos:"phrase", cn:"馒头", exEn:"Steamed bread is my favorite Chinese breakfast.", exCn:"馒头是我最爱的中式早餐。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"congee", phonetic:"[ˈkɒndʒiː]", pos:"n.", cn:"粥", exEn:"How about some congee?", exCn:"来点粥怎么样？" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"rice roll", phonetic:"", pos:"phrase", cn:"饭团", exEn:"A rice roll is easy to eat on the go.", exCn:"饭团很适合路上吃。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-3", unitTitle:"In the Morning - Breakfast", en:"fried dumplings", phonetic:"", pos:"phrase", cn:"锅贴", exEn:"Fried dumplings are crispy on the bottom.", exCn:"锅贴底部很脆。" },
 
-    // ================= Unit 2-1 (In the House - Living Room) =================
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"French windows", phonetic:"", pos:"phrase", cn:"落地窗", exEn:"The French windows provide lots of light.", exCn:"落地窗的采光很棒。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"television", phonetic:"[ˈteləˌvɪʒən]", pos:"n.", cn:"电视", exEn:"I enjoy sitting on the sofa and watching TV.", exCn:"我喜欢窝在沙发上看电视。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"fireplace", phonetic:"[ˈfaɪrˌpleɪs]", pos:"n.", cn:"壁炉；火炉", exEn:"I like to read by the fireplace.", exCn:"我喜欢在壁炉旁看书。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"ceiling fan", phonetic:"", pos:"phrase", cn:"吊扇", exEn:"Can you turn on the ceiling fan?", exCn:"你可以打开吊扇吗？" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"coffee table", phonetic:"", pos:"phrase", cn:"小茶几", exEn:"I put my books on the coffee table.", exCn:"我把书放在小茶几上。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"hardwood floor", phonetic:"", pos:"phrase", cn:"实木地板", exEn:"The hardwood floor looks very expensive.", exCn:"这实木地板看起来很高贵。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"carpet", phonetic:"[ˈkɑːrpɪt]", pos:"n.", cn:"（覆盖整面地板的）地毯", exEn:"The color of the carpet matches the curtains.", exCn:"地毯的颜色和窗帘很搭。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"rug", phonetic:"[rʌɡ]", pos:"n.", cn:"（局部覆盖的）地毯", exEn:"I put a soft rug under the coffee table.", exCn:"我在茶几下放了一块柔软的地毯。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"ceiling", phonetic:"[ˈsiːlɪŋ]", pos:"n.", cn:"天花板", exEn:"The ceiling is painted white.", exCn:"天花板被刷成了白色。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"chandelier", phonetic:"[ˌʃændəˈlɪr]", pos:"n.", cn:"水晶吊灯", exEn:"A crystal chandelier hangs from the ceiling.", exCn:"天花板上挂着一盏水晶吊灯。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"wall", phonetic:"[wɔːl]", pos:"n.", cn:"墙壁", exEn:"There are photos on the wall.", exCn:"墙上挂着照片。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"curtain", phonetic:"[ˈkɜːtn]", pos:"n.", cn:"窗帘", exEn:"She draws the curtains in the evening.", exCn:"她傍晚拉上窗帘。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"sofa", phonetic:"[ˈsoʊfə]", pos:"n.", cn:"长沙发", exEn:"I take a nap on the sofa every afternoon.", exCn:"我每天下午在沙发上小睡。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"couch", phonetic:"[kaʊtʃ]", pos:"n.", cn:"长沙发", exEn:"My friends sit on the couch to chat.", exCn:"我的朋友们坐在沙发上聊天。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"throw pillow", phonetic:"", pos:"phrase", cn:"靠枕", exEn:"I add throw pillows to the sofa for comfort.", exCn:"我在沙发上放了靠枕，坐着更舒服。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"rocking chair", phonetic:"", pos:"phrase", cn:"摇椅", exEn:"She sits in the rocking chair to read.", exCn:"她坐在摇椅上看书。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"armchair", phonetic:"[ˈɑːrmˌtʃer]", pos:"n.", cn:"单人座沙发", exEn:"He relaxes in the armchair after work.", exCn:"他下班后在单人沙发上放松。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"footrest", phonetic:"[ˈfʊtˌrest]", pos:"n.", cn:"脚凳；搁脚架", exEn:"Put your feet up on the footrest.", exCn:"把脚放在脚凳上。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"stool", phonetic:"[stuːl]", pos:"n.", cn:"小凳子", exEn:"We use a stool to reach the high shelf.", exCn:"我们用小凳子够高处的架子。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"TV stand", phonetic:"", pos:"phrase", cn:"电视柜", exEn:"The TV stand holds my game console.", exCn:"电视柜上放着我的游戏机。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"remote (control)", phonetic:"", pos:"phrase", cn:"遥控器", exEn:"Where did you put the remote (control)?", exCn:"你把遥控器放在哪里了？" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"stereo", phonetic:"[ˈsterioʊ]", pos:"n.", cn:"立体声音响", exEn:"I have a high-quality stereo system.", exCn:"我有一套高级的立体音响系统。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", chapterClass:"ch1", en:"floor lamp", phonetic:"", pos:"phrase", cn:"落地灯", exEn:"A floor lamp provides soft light at night.", exCn:"落地灯在晚上提供柔和的光线。" },
-const WORDS = [
-  {
-    book: "基础词汇", // 💡提示：这里记得改成你书架上对应的书名
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 1,
-    Word_EN: "mirror",
-    Phonetic: "[ˈmɪrə]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "镜子",
-    Example_Sentence_EN: "I look at myself in the mirror every morning.",
-    Example_Sentence_CN: "我每天早上照镜子。",
-    Image_Tag: "mirror"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 2,
-    Word_EN: "faucet",
-    Phonetic: "[ˈmɔːsɪt]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "水龙头",
-    Example_Sentence_EN: "Turn off the faucet to save water.",
-    Example_Sentence_CN: "关掉水龙头节约用水。",
-    Image_Tag: "faucet"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 3,
-    Word_EN: "basin",
-    Phonetic: "[ˈbeɪsn]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "洗脸盆",
-    Example_Sentence_EN: "Don't leave your toothpaste in the basin.",
-    Example_Sentence_CN: "不要把牙膏留在洗脸盆里。",
-    Image_Tag: "basin"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 4,
-    Word_EN: "towel",
-    Phonetic: "[ˈtaʊəl]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "毛巾",
-    Example_Sentence_EN: "I dry my hands with a towel.",
-    Example_Sentence_CN: "我用毛巾擦干手。",
-    Image_Tag: "towel"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 5,
-    Word_EN: "bathtub",
-    Phonetic: "[ˈbæθtʌb]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "浴缸",
-    Example_Sentence_EN: "Sitting in the bathtub helps me think.",
-    Example_Sentence_CN: "坐在浴缸里可以帮助我思考。",
-    Image_Tag: "bathtub"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 6,
-    Word_EN: "showerhead",
-    Phonetic: "[ˈʃaʊəhed]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "莲蓬头",
-    Example_Sentence_EN: "The showerhead sprays warm water.",
-    Example_Sentence_CN: "莲蓬头喷出温水。",
-    Image_Tag: "showerhead"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 7,
-    Word_EN: "tiles",
-    Phonetic: "[taɪlz]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "瓷砖",
-    Example_Sentence_EN: "The bathroom tiles are white and clean.",
-    Example_Sentence_CN: "浴室的瓷砖又白又干净。",
-    Image_Tag: "tiles"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 8,
-    Word_EN: "headboard",
-    Phonetic: "[ˈhedbɔːrd]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "床头板",
-    Example_Sentence_EN: "The headboard of my bed is soft.",
-    Example_Sentence_CN: "我的床头板很软。",
-    Image_Tag: "headboard"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 9,
-    Word_EN: "pillow",
-    Phonetic: "[ˈpɪloʊ]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "枕头",
-    Example_Sentence_EN: "I can't sleep well with this pillow.",
-    Example_Sentence_CN: "这个枕头让我睡不好。",
-    Image_Tag: "pillow"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 10,
-    Word_EN: "nightstand",
-    Phonetic: "[ˈnaɪtstænd]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "床头柜",
-    Example_Sentence_EN: "The picture frames don't match the nightstand.",
-    Example_Sentence_CN: "那些相框和床头柜不搭。",
-    Image_Tag: "nightstand"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 11,
-    Word_EN: "quilt",
-    Phonetic: "[kwɪlt]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "被子",
-    Example_Sentence_EN: "I fold the quilt every morning.",
-    Example_Sentence_CN: "我每天早上叠被子。",
-    Image_Tag: "quilt"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 12,
-    Word_EN: "toilet",
-    Phonetic: "[ˈtɔɪlɪt]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "马桶",
-    Example_Sentence_EN: "Who forgot to flush the toilet?",
-    Example_Sentence_CN: "是谁忘了冲马桶？",
-    Image_Tag: "toilet"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 13,
-    Word_EN: "toilet paper",
-    Phonetic: "",
-    Part_of_Speech: "phrase",
-    Meaning_CN: "卫生纸",
-    Example_Sentence_EN: "We are out of toilet paper.",
-    Example_Sentence_CN: "我们的卫生纸用完了。",
-    Image_Tag: "toilet_paper"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 14,
-    Word_EN: "garbage bin",
-    Phonetic: "",
-    Part_of_Speech: "phrase",
-    Meaning_CN: "垃圾桶",
-    Example_Sentence_EN: "Can you take out the garbage bin?",
-    Example_Sentence_CN: "你可以把垃圾桶拿到外面去吗？",
-    Image_Tag: "garbage_bin"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 15,
-    Word_EN: "bath towel",
-    Phonetic: "",
-    Part_of_Speech: "phrase",
-    Meaning_CN: "浴巾",
-    Example_Sentence_EN: "I use a bath towel after showering.",
-    Example_Sentence_CN: "我洗完澡用浴巾擦干身体。",
-    Image_Tag: "bath_towel"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 16,
-    Word_EN: "shower gel",
-    Phonetic: "",
-    Part_of_Speech: "phrase",
-    Meaning_CN: "沐浴乳",
-    Example_Sentence_EN: "My shower gel smells like flowers.",
-    Example_Sentence_CN: "我的沐浴乳闻起来像花。",
-    Image_Tag: "shower_gel"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 17,
-    Word_EN: "shampoo",
-    Phonetic: "[ʃæmˈpuː]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "洗发精",
-    Example_Sentence_EN: "Your shampoo smells so good.",
-    Example_Sentence_CN: "你的洗发精很香。",
-    Image_Tag: "shampoo"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 18,
-    Word_EN: "conditioner",
-    Phonetic: "[kənˈdɪʃənə]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "护发乳",
-    Example_Sentence_EN: "I use conditioner after shampoo.",
-    Example_Sentence_CN: "我洗完头用护发乳。",
-    Image_Tag: "conditioner"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 19,
-    Word_EN: "shower curtain",
-    Phonetic: "",
-    Part_of_Speech: "phrase",
-    Meaning_CN: "浴帘",
-    Example_Sentence_EN: "Close the shower curtain to keep the floor dry.",
-    Example_Sentence_CN: "拉起浴帘以保持地板干燥。",
-    Image_Tag: "shower_curtain"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 20,
-    Word_EN: "mattress",
-    Phonetic: "[ˈmætrɪs]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "床垫",
-    Example_Sentence_EN: "This mattress is very comfortable.",
-    Example_Sentence_CN: "这个床垫很舒服。",
-    Image_Tag: "mattress"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 21,
-    Word_EN: "blanket",
-    Phonetic: "[ˈblæŋkɪt]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "毯子",
-    Example_Sentence_EN: "I use a blanket when I'm cold.",
-    Example_Sentence_CN: "我冷的时候盖毯子。",
-    Image_Tag: "blanket"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 22,
-    Word_EN: "sheet",
-    Phonetic: "[ʃiːt]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "床单",
-    Example_Sentence_EN: "How often do you change your sheets?",
-    Example_Sentence_CN: "你多久换一次床单？",
-    Image_Tag: "sheet"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 23,
-    Word_EN: "picture frame",
-    Phonetic: "",
-    Part_of_Speech: "phrase",
-    Meaning_CN: "相框",
-    Example_Sentence_EN: "I put a photo in the picture frame.",
-    Example_Sentence_CN: "我把照片放进相框里。",
-    Image_Tag: "picture_frame"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 24,
-    Word_EN: "recliner",
-    Phonetic: "[rɪˈklaɪnə]",
-    Part_of_Speech: "n.",
-    Meaning_CN: "躺椅",
-    Example_Sentence_EN: "I relax in the recliner after work.",
-    Example_Sentence_CN: "我下班后在躺椅上放松。",
-    Image_Tag: "recliner"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 25,
-    Word_EN: "chest of drawers",
-    Phonetic: "",
-    Part_of_Speech: "phrase",
-    Meaning_CN: "五斗柜",
-    Example_Sentence_EN: "I keep my clothes in the chest of drawers.",
-    Example_Sentence_CN: "我把衣服放在五斗柜里。",
-    Image_Tag: "chest_of_drawers"
-  },
-  {
-    book: "基础词汇",
-    Chapter: "Chapter 1",
-    Unit: "Unit 2-2",
-    Unit_Title: "In the House - Bedroom & Bathroom",
-    Word_ID: 26,
-    Word_EN: "dressing table / vanity table",
-    Phonetic: "",
-    Part_of_Speech: "phrase",
-    Meaning_CN: "梳妆台",
-    Example_Sentence_EN: "I put my makeup on the dressing table.",
-    Example_Sentence_CN: "我把化妆品放在梳妆台上。",
-    Image_Tag: "dressing_table"
-  }
+  // ================= Unit 2-1 (In the House - Living Room) =================
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"French windows", phonetic:"", pos:"phrase", cn:"落地窗", exEn:"The French windows provide lots of light.", exCn:"落地窗的采光很棒。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"television", phonetic:"[ˈteləˌvɪʒən]", pos:"n.", cn:"电视", exEn:"I enjoy sitting on the sofa and watching TV.", exCn:"我喜欢窝在沙发上看电视。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"fireplace", phonetic:"[ˈfaɪrˌpleɪs]", pos:"n.", cn:"壁炉；火炉", exEn:"I like to read by the fireplace.", exCn:"我喜欢在壁炉旁看书。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"ceiling fan", phonetic:"", pos:"phrase", cn:"吊扇", exEn:"Can you turn on the ceiling fan?", exCn:"你可以打开吊扇吗？" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"coffee table", phonetic:"", pos:"phrase", cn:"小茶几", exEn:"I put my books on the coffee table.", exCn:"我把书放在小茶几上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"hardwood floor", phonetic:"", pos:"phrase", cn:"实木地板", exEn:"The hardwood floor looks very expensive.", exCn:"这实木地板看起来很高贵。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"carpet", phonetic:"[ˈkɑːrpɪt]", pos:"n.", cn:"地毯（通铺）", exEn:"The color of the carpet matches the curtains.", exCn:"地毯的颜色和窗帘很搭。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"rug", phonetic:"[rʌɡ]", pos:"n.", cn:"地毯（局部）", exEn:"I put a soft rug under the coffee table.", exCn:"我在茶几下放了一块柔软的地毯。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"ceiling", phonetic:"[ˈsiːlɪŋ]", pos:"n.", cn:"天花板", exEn:"The ceiling is painted white.", exCn:"天花板被刷成了白色。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"chandelier", phonetic:"[ˌʃændəˈlɪr]", pos:"n.", cn:"水晶吊灯", exEn:"A crystal chandelier hangs from the ceiling.", exCn:"天花板上挂着一盏水晶吊灯。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"wall", phonetic:"[wɔːl]", pos:"n.", cn:"墙壁", exEn:"There are photos on the wall.", exCn:"墙上挂着照片。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"curtain", phonetic:"[ˈkɜːtn]", pos:"n.", cn:"窗帘", exEn:"She draws the curtains in the evening.", exCn:"她傍晚拉上窗帘。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"sofa", phonetic:"[ˈsoʊfə]", pos:"n.", cn:"长沙发", exEn:"I take a nap on the sofa every afternoon.", exCn:"我每天下午在沙发上小睡。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"couch", phonetic:"[kaʊtʃ]", pos:"n.", cn:"长沙发", exEn:"My friends sit on the couch to chat.", exCn:"我的朋友们坐在沙发上聊天。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"throw pillow", phonetic:"", pos:"phrase", cn:"靠枕", exEn:"I add throw pillows to the sofa for comfort.", exCn:"我在沙发上放了靠枕，坐着更舒服。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"rocking chair", phonetic:"", pos:"phrase", cn:"摇椅", exEn:"She sits in the rocking chair to read.", exCn:"她坐在摇椅上看书。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"armchair", phonetic:"[ˈɑːrmˌtʃer]", pos:"n.", cn:"单人座沙发", exEn:"He relaxes in the armchair after work.", exCn:"他下班后在单人沙发上放松。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"footrest", phonetic:"[ˈfʊtˌrest]", pos:"n.", cn:"脚凳；搁脚架", exEn:"Put your feet up on the footrest.", exCn:"把脚放在脚凳上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"stool", phonetic:"[stuːl]", pos:"n.", cn:"小凳子", exEn:"We use a stool to reach the high shelf.", exCn:"我们用小凳子够高处的架子。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"TV stand", phonetic:"", pos:"phrase", cn:"电视柜", exEn:"The TV stand holds my game console.", exCn:"电视柜上放着我的游戏机。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"remote control", phonetic:"", pos:"phrase", cn:"遥控器", exEn:"Where did you put the remote control?", exCn:"你把遥控器放在哪里了？" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"stereo", phonetic:"[ˈsterioʊ]", pos:"n.", cn:"立体声音响", exEn:"I have a high-quality stereo system.", exCn:"我有一套高级的立体音响系统。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"floor lamp", phonetic:"", pos:"phrase", cn:"落地灯", exEn:"A floor lamp provides soft light at night.", exCn:"落地灯在晚上提供柔和的光线。" },
+
+  // ================= Unit 2-2 (In the House - Kitchen & Dining Room) =================
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"refrigerator", phonetic:"[rɪˈfrɪdʒəreɪtə]", pos:"n.", cn:"冰箱", exEn:"Keep the milk in the refrigerator.", exCn:"把牛奶放在冰箱里。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"freezer", phonetic:"[ˈfriːzə]", pos:"n.", cn:"冷冻库", exEn:"Put the ice cream in the freezer.", exCn:"把冰淇淋放进冷冻库。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"microwave", phonetic:"[ˈmaɪkrəweɪv]", pos:"n.", cn:"微波炉", exEn:"Heat the soup in the microwave.", exCn:"用微波炉热一下汤。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"oven", phonetic:"[ˈʌvn]", pos:"n.", cn:"烤箱", exEn:"The chicken is baking in the oven.", exCn:"烤鸡正在烤箱里烤着。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"toaster", phonetic:"[ˈtəʊstə]", pos:"n.", cn:"烤面包机", exEn:"Put two slices of bread in the toaster.", exCn:"放两片面包进烤面包机。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"dishwasher", phonetic:"[ˈdɪʃwɒʃə]", pos:"n.", cn:"洗碗机", exEn:"Load the dirty plates into the dishwasher.", exCn:"把脏盘子放进洗碗机里。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"sink", phonetic:"[sɪŋk]", pos:"n.", cn:"水槽", exEn:"Don't leave dirty dishes in the sink.", exCn:"别把脏碗盘留在水槽里。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"faucet", phonetic:"[ˈfɔːsɪt]", pos:"n.", cn:"水龙头", exEn:"The faucet in the kitchen is leaking.", exCn:"厨房的水龙头在漏水。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"stove", phonetic:"[stəʊv]", pos:"n.", cn:"炉灶", exEn:"Turn off the stove after cooking.", exCn:"做完饭后把炉灶关掉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"cabinet", phonetic:"[ˈkæbɪnət]", pos:"n.", cn:"橱柜", exEn:"The bowls are in the upper cabinet.", exCn:"碗放在上面的橱柜里。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"countertop", phonetic:"[ˈkaʊntətɒp]", pos:"n.", cn:"厨房台面", exEn:"Clean the countertop after prepping food.", exCn:"准备好食物后把台面擦干净。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"cutting board", phonetic:"", pos:"phrase", cn:"砧板", exEn:"Use a separate cutting board for meat.", exCn:"生肉要用单独的砧板。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"apron", phonetic:"[ˈeɪprən]", pos:"n.", cn:"围裙", exEn:"Put on an apron to protect your clothes.", exCn:"穿上围裙以免弄脏衣服。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"pan", phonetic:"[pæn]", pos:"n.", cn:"平底锅", exEn:"Heat some oil in the pan.", exCn:"在平底锅里热一点油。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"pot", phonetic:"[pɒt]", pos:"n.", cn:"汤锅", exEn:"The water is boiling in the pot.", exCn:"锅里的水烧开了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"kettle", phonetic:"[ˈketl]", pos:"n.", cn:"烧水壶", exEn:"The kettle is whistling on the stove.", exCn:"水壶在炉子上响了。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"blender", phonetic:"[ˈblendə]", pos:"n.", cn:"果汁机；搅拌机", exEn:"Use the blender to make a fruit smoothie.", exCn:"用果汁机打一杯水果奶昔。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"dining table", phonetic:"", pos:"phrase", cn:"餐桌", exEn:"Please help me set the dining table.", exCn:"请帮我收拾一下餐桌。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"tablecloth", phonetic:"[ˈteɪblklɒθ]", pos:"n.", cn:"桌布", exEn:"We spread a clean tablecloth for guests.", exCn:"我们为客人铺上了干净的桌布。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"napkin", phonetic:"[ˈnæpkɪn]", pos:"n.", cn:"餐巾纸", exEn:"Wipe your hands with a napkin.", exCn:"用餐巾纸擦擦手。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"sponge", phonetic:"[spʌndʒ]", pos:"n.", cn:"洗碗海绵", exEn:"Squeeze the soap onto the wet sponge.", exCn:"把洗洁精挤在湿海绵上。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"trash can", phonetic:"", pos:"phrase", cn:"垃圾桶", exEn:"Throw the food waste into the trash can.", exCn:"把厨余垃圾扔进垃圾桶。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"pantry", phonetic:"[ˈpæntri]", pos:"n.", cn:"食品储藏室", exEn:"We store snacks and canned food in the pantry.", exCn:"我们在储藏室里存放零食和罐头。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"leftovers", phonetic:"[ˈleftəʊvəz]", pos:"n.", cn:"剩菜剩饭", exEn:"Put the leftovers in a container.", exCn:"把剩菜打包进保鲜盒里。" }
 ];
-
 
 let currentWords = [];
 let currentIdx = 0;
@@ -938,6 +507,10 @@ function showScreen(id){
   document.getElementById('screen-'+id).classList.add('active');
 }
 
+function goBackBookcase(){
+  showScreen('bookshelf');
+}
+
 function openBookPage(idx){
   selectedBook = bookList[idx].name;
   showScreen('home');
@@ -968,7 +541,6 @@ function buildHome() {
   </div>`;
 
   Object.entries(chapters).forEach(([ch, data]) => {
-    // 删除了头部和底部的冗余总词数，交由右侧 Badge 独立呈现，还页面清爽
     html += `<div class="chapter-card ${data.class}">
       <div class="chapter-header" onclick="toggleChapter(this)" style="padding: 16px 14px;">
         <div class="chapter-header-left">
@@ -980,23 +552,20 @@ function buildHome() {
       
     Object.entries(data.unitList).forEach(([unit, unitData]) => {
       const done = unitData.words.filter(w => learnedWords.includes(w.en)).length;
-     // 变成这块干净的、没有硬编码任何字体颜色的新标签：
-html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')" style="padding: 12px; border-radius:12px; display:flex; justify-content:between; align-items:center;">
-  <div class="unit-left">
-    <div>
-      <div class="unit-name" style="font-size:15px; font-weight:600; margin-bottom:2px;">${unit}</div>
-      <div class="unit-sub" style="font-size:12px; max-width:260px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${unitData.title}</div>
-    </div>
-  </div>
-  <span class="unit-badge">${done}/${unitData.words.length}</span>
-</div>`;
-
+      html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')" style="padding: 12px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
+        <div class="unit-left">
+          <div>
+            <div class="unit-name" style="font-size:15px; font-weight:600; margin-bottom:2px;">${unit}</div>
+            <div class="unit-sub" style="font-size:12px; max-width:260px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${unitData.title}</div>
+          </div>
+        </div>
+        <span class="unit-badge">${done}/${unitData.words.length}</span>
+      </div>`;
     });
     html += `</div></div>`;
   });
   bookListEl.innerHTML = html;
 }
-
 
 function toggleChapter(el) {
   const content = el.nextElementSibling;
