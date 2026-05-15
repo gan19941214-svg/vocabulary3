@@ -916,7 +916,8 @@ function renderStudy() {
   document.getElementById('study-result').style.display = 'none';
 
   // 相对路径图片（本地可用）
-  document.getElementById('study-img').src = `images/${w.cn}.png`;
+  document.getElementById('study-img').src =
+`https://res.cloudinary.com/dcuw9ijyx/image/upload/v1778819371/${w.en}.jpg`;
   document.getElementById('study-img').onerror = function(){
     this.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-center;height:100%;color:#2a8a8a;">'+w.cn+'</div>';
   }
@@ -968,7 +969,8 @@ function renderRead() {
   document.getElementById('read-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
 
   // 文本学习页也显示图片（相对路径）
-  let img = `<img src="images/${w.cn}.png">`;
+  let img =
+`<img src="https://res.cloudinary.com/dcuw9ijyx/image/upload/v1778819371/${w.en}.jpg">`;
   document.getElementById('read-image').innerHTML = img;
 }
 
