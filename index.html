@@ -106,15 +106,36 @@
   .chapter-header { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
   .chapter-tag { color: #fff; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 8px; background: #a488e4; }
   /* 寻找原有的 .chapter-tag，在下方追加以下 9 组章节色盘 */
-.chapter-card.ch1 { --ch-primary: #D35400; --ch-dark: #F39C12; --ch-light: #FDEBD0; --ch-text: #A04000; }
-.chapter-card.ch2 { --ch-primary: #1E8449; --ch-dark: #27AE60; --ch-light: #E8F8F5; --ch-text: #117A65; }
-.chapter-card.ch3 { --ch-primary: #2471A3; --ch-dark: #2980B9; --ch-light: #EBF5FB; --ch-text: #1B4F72; }
-.chapter-card.ch4 { --ch-primary: #7D3C98; --ch-dark: #8E44AD; --ch-light: #F5EEF8; --ch-text: #5B2C6F; }
-.chapter-card.ch5 { --ch-primary: #7B241C; --ch-dark: #922B21; --ch-light: #FDEDEC; --ch-text: #641E16; }
-.chapter-card.ch6 { --ch-primary: #717D7E; --ch-dark: #95A5A6; --ch-light: #F2F4F4; --ch-text: #515A5A; }
-.chapter-card.ch7 { --ch-primary: #7D6608; --ch-dark: #9A7D0A; --ch-light: #FEF9E7; --ch-text: #5E4F07; }
-.chapter-card.ch8 { --ch-primary: #0E6251; --ch-dark: #117A65; --ch-light: #E8F8F5; --ch-text: #0B5345; }
-.chapter-card.ch9 { --ch-primary: #6E2C00; --ch-dark: #873600; --ch-light: #FBEEE6; --ch-text: #512E5F; }
+/* 9大章节高级感色盘：大幅降低饱和度，深色不浓，浅色不飘 */
+.chapter-card.ch1 { --ch-primary: #5A7373; --ch-dark: #6C8484; --ch-light: #F4F7F7; --ch-text: #2C3E50; } /* 灰绿茶 */
+.chapter-card.ch2 { --ch-primary: #768070; --ch-dark: #879281; --ch-light: #F4F6F3; --ch-text: #34495E; } /* 鼠尾草 */
+.chapter-card.ch3 { --ch-primary: #637280; --ch-dark: #748494; --ch-light: #F3F5F7; --ch-text: #2C3E50; } /* 雾霾蓝 */
+.chapter-card.ch4 { --ch-primary: #766B7C; --ch-dark: #877C8D; --ch-light: #F5F3F6; --ch-text: #2C3E50; } /* 丁香灰 */
+.chapter-card.ch5 { --ch-primary: #857171; --ch-dark: #968282; --ch-light: #F7F4F4; --ch-text: #2C3E50; } /* 暮色红 */
+.chapter-card.ch6 { --ch-primary: #757B75; --ch-dark: #868C86; --ch-light: #F4F5F4; --ch-text: #2C3E50; } /* 石墨灰 */
+.chapter-card.ch7 { --ch-primary: #827B6E; --ch-dark: #938C7F; --ch-light: #F6F5F2; --ch-text: #2C3E50; } /* 亚麻棕 */
+.chapter-card.ch8 { --ch-primary: #5A786E; --ch-dark: #6C8A80; --ch-light: #F2F6F4; --ch-text: #2C3E50; } /* 薄荷冷灰 */
+.chapter-card.ch9 { --ch-primary: #6E687A; --ch-dark: #7F798C; --ch-light: #F4F3F6; --ch-text: #2C3E50; } /* 暗夜紫灰 */
+
+/* 优化大卡片头部布局与字体 */
+.chapter-card { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.02) !important; margin-bottom: 14px !important; }
+.chapter-card .chapter-tag { background: var(--ch-primary) !important; color: #fff; font-size: 13px !important; padding: 4px 10px !important; border-radius: 6px !important; }
+.chapter-card .chapter-name { color: var(--ch-text); font-size: 16px !important; font-weight: 600 !important; margin-left: 10px; }
+
+/* 单元交替节奏：奇数卡片为低饱和度柔和中间色，偶数卡片为极简奶白色 */
+.chapter-card .unit-item:nth-child(odd) { background: var(--ch-dark) !important; color: #fff !important; }
+.chapter-card .unit-item:nth-child(odd) .unit-name { color: #fff !important; }
+.chapter-card .unit-item:nth-child(odd) .unit-sub { color: rgba(255,255,255,0.7) !important; }
+.chapter-card .unit-item:nth-child(odd) .unit-badge { background: rgba(255,255,255,0.15) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.2); }
+
+.chapter-card .unit-item:nth-child(even) { background: var(--ch-light) !important; color: var(--ch-text) !important; }
+.chapter-card .unit-item:nth-child(even) .unit-name { color: var(--ch-text) !important; }
+.chapter-card .unit-item:nth-child(even) .unit-sub { color: var(--ch-text) !important; opacity: 0.6; }
+.chapter-card .unit-item:nth-child(even) .unit-badge { background: rgba(0,0,0,0.03) !important; color: var(--ch-text) !important; border: 1px solid rgba(0,0,0,0.05); }
+
+/* 统一控制 Badge 的高级质感 */
+.chapter-card .unit-badge { font-size: 12px !important; padding: 4px 12px !important; border-radius: 20px !important; font-weight: 600 !important; }
+
 
 /* 动态应用变量：让大卡片内的元素自动感知所属章节的颜色 */
 .chapter-card .chapter-tag { background: var(--ch-primary) !important; color: #fff; }
@@ -517,7 +538,6 @@ function buildHome() {
   const chapters = {};
   WORDS.filter(w => w.book === selectedBook).forEach(w => {
     if (!chapters[w.chapter]) {
-      // 动态匹配章节类名，如果没有匹配到则默认用 ch1
       const chClass = CHAPTER_CLASS_MAP[w.chapter] || "ch1";
       chapters[w.chapter] = { unitList: {}, class: chClass };
     }
@@ -535,36 +555,34 @@ function buildHome() {
   </div>`;
 
   Object.entries(chapters).forEach(([ch, data]) => {
-    const total = Object.values(data.unitList).reduce((s, u) => s + u.words.length, 0);
-    
-    // 将 data.class 渲染到大卡片的类名上
+    // 删除了头部和底部的冗余总词数，交由右侧 Badge 独立呈现，还页面清爽
     html += `<div class="chapter-card ${data.class}">
-      <div class="chapter-header" onclick="toggleChapter(this)">
+      <div class="chapter-header" onclick="toggleChapter(this)" style="padding: 16px 14px;">
         <div class="chapter-header-left">
           <span class="chapter-tag">${ch}</span>
-          <span class="chapter-name">${ch} · ${selectedBook}</span>
+          <span class="chapter-name">${selectedBook}</span>
         </div>
-        <span class="chapter-count" style="color: var(--ch-text); font-weight:600;">${total} 词</span>
       </div>
-      <div class="unit-list" style="display:none; padding: 10px; display:flex; flex-direction:column; gap:8px;">`;
+      <div class="unit-list" style="display:none; padding: 0 12px 14px 12px; display:flex; flex-direction:column; gap:8px;">`;
       
     Object.entries(data.unitList).forEach(([unit, unitData]) => {
       const done = unitData.words.filter(w => learnedWords.includes(w.en)).length;
-      html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')" style="margin-bottom:0px; border-radius:12px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+      html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')" style="padding: 12px; border-radius:12px; display:flex; justify-content:between; align-items:center;">
         <div class="unit-left">
           <div>
-            <div class="unit-name" style="font-weight:600;">${unit}</div>
-            <div class="unit-sub" style="font-size:11px; max-width:280px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${unitData.title}</div>
-            <div class="unit-sub" style="margin-top:2px; font-size:10px; opacity:0.8;">${unitData.words.length} 词</div>
+            <div class="unit-name" style="font-size:15px; font-weight:600; margin-bottom:2px;">${unit}</div>
+            <div class="unit-sub" style="font-size:12px; max-width:260px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; opacity:0.8;">${unitData.title}</div>
           </div>
         </div>
-        <span class="unit-badge" style="font-weight:600;">${done}/${unitData.words.length}</span>
+        <!-- 右侧进度 Badge，清晰体现 0/23 状态 -->
+        <span class="unit-badge">${done}/${unitData.words.length}</span>
       </div>`;
     });
     html += `</div></div>`;
   });
   bookListEl.innerHTML = html;
 }
+
 
 function toggleChapter(el) {
   const content = el.nextElementSibling;
