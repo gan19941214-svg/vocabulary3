@@ -917,7 +917,7 @@ function renderStudy() {
 
   // 相对路径图片（本地可用）
 document.getElementById('study-img').src =
-`https://res.cloudinary.com/dcuw9ijyx/image/upload/${w.en}_y4sglh.jpg`;
+`https://res.cloudinary.com/dcuw9ijyx/image/upload/f_auto,q_auto,w_800/${imgName}.jpg`;
   document.getElementById('study-img').onerror = function(){
     this.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-center;height:100%;color:#2a8a8a;">'+w.cn+'</div>';
   }
