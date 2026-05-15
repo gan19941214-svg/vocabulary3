@@ -124,16 +124,42 @@
 .chapter-card .chapter-name { color: var(--ch-primary); font-size: 16px !important; font-weight: 600 !important; margin-left: 10px; }
 
 /* 单元交替节奏：奇数卡片采用透明度拉低的深色，文字改回深色以保证清晰度 */
-.chapter-card .unit-item:nth-child(odd) { background: var(--ch-dark) !important; color: var(--ch-text) !important; }
-.chapter-card .unit-item:nth-child(odd) .unit-name { color: var(--ch-text) !important; }
-.chapter-card .unit-item:nth-child(odd) .unit-sub { color: var(--ch-text) !important; opacity: 0.7; }
-.chapter-card .unit-item:nth-child(odd) .unit-badge { background: rgba(0,0,0,0.04) !important; color: var(--ch-text) !important; border: 1px solid rgba(0,0,0,0.05); }
+/* ==================== 1. 奇数单元（半透明深色底 + 统一深色字） ==================== */
+.chapter-card .unit-list .unit-item:nth-child(odd) { 
+  background: var(--ch-dark) !important; 
+}
+/* 确保名字是深色 */
+.chapter-card .unit-list .unit-item:nth-child(odd) .unit-name { 
+  color: var(--ch-text) !important; 
+}
+/* 确保副标题是深色（带点透明度增强层级） */
+.chapter-card .unit-list .unit-item:nth-child(odd) .unit-sub { 
+  color: var(--ch-text) !important; 
+  opacity: 0.7 !important; 
+}
+/* 确保右侧的 0/23 数字也是深色 */
+.chapter-card .unit-list .unit-item:nth-child(odd) .unit-badge { 
+  background: rgba(0, 0, 0, 0.05) !important; 
+  color: var(--ch-text) !important; 
+  border: 1px solid rgba(0, 0, 0, 0.08) !important; 
+}
 
-/* 偶数卡片保持清爽奶白底 */
-.chapter-card .unit-item:nth-child(even) { background: var(--ch-light) !important; color: var(--ch-text) !important; }
-.chapter-card .unit-item:nth-child(even) .unit-name { color: var(--ch-text) !important; }
-.chapter-card .unit-item:nth-child(even) .unit-sub { color: var(--ch-text) !important; opacity: 0.6; }
-.chapter-card .unit-item:nth-child(even) .unit-badge { background: rgba(0,0,0,0.03) !important; color: var(--ch-text) !important; border: 1px solid rgba(0,0,0,0.05); }
+/* ==================== 2. 偶数单元（清爽奶白底 + 统一深色字） ==================== */
+.chapter-card .unit-list .unit-item:nth-child(even) { 
+  background: var(--ch-light) !important; 
+}
+.chapter-card .unit-list .unit-item:nth-child(even) .unit-name { 
+  color: var(--ch-text) !important; 
+}
+.chapter-card .unit-list .unit-item:nth-child(even) .unit-sub { 
+  color: var(--ch-text) !important; 
+  opacity: 0.6 !important; 
+}
+.chapter-card .unit-list .unit-item:nth-child(even) .unit-badge { 
+  background: rgba(0, 0, 0, 0.03) !important; 
+  color: var(--ch-text) !important; 
+  border: 1px solid rgba(0, 0, 0, 0.05) !important; 
+}
 
 /* 统一控制 Badge 的高级质感 */
 .chapter-card .unit-badge { font-size: 12px !important; padding: 4px 12px !important; border-radius: 20px !important; font-weight: 600 !important; }
