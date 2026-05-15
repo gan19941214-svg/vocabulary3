@@ -675,7 +675,7 @@
         <div class="word-cn" id="study-cn">醒来</div>
       </div>
       <div class="image-zone">
-        <img id="study-img">
+        <!-- 容器内部结构在JS中动态生成，防止节点丢失 -->
       </div>
       <div class="word-card-bottom">
         <div class="input-label">默写英文：</div>
@@ -906,7 +906,7 @@ function startMode(mode) {
   }
 }
 
-// 🔥 修复：看图默写页面图片
+// 🔥 已修复：看图默写页面直链路径与 DOM 覆盖逻辑
 function renderStudy() {
   if (currentIdx >= currentWords.length) { 
     alert('学习完成！');
@@ -923,17 +923,18 @@ function renderStudy() {
   document.getElementById('action-row').style.display = 'none';
   document.getElementById('study-result').style.display = 'none';
 
-  // ✅ 已修复：加上 samples/ 路径
   const imgKey = getImgKey(w.en);
-  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/samples/wake-words/${imgKey}.jpg`;
+  // ✅ 核心修正：移除多余的文件夹层级，使用你的 Cloudinary 根目录直链
+  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg`;
+  
+  // ✅ 核心修正：每次切换切词都动态重新创建 <img> 标签，防止 onerror 崩溃后找不到节点
+  const zone = document.querySelector('.image-zone');
+  zone.innerHTML = `<img id="study-img" src="${url}" style="width:100%;height:100%;object-fit:contain;display:block;">`;
   
   const imgEl = document.getElementById('study-img');
-  imgEl.src = url;
-  imgEl.style.display = 'block';
-  
   imgEl.onerror = function () {
-    this.style.display = 'none';
-    this.parentElement.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;">${w.cn}</div>`;
+    // 即使图片由于Public ID错误等原因缺失，也不会摧毁页面的标签逻辑，只会显示友情提示
+    zone.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;font-size:14px;background:rgba(216,238,238,0.3);">⚠️ 暂无对应图片 (${imgKey}.jpg)</div>`;
   };
 }
 
@@ -967,7 +968,7 @@ function nextStudy() {
   renderStudy();
 }
 
-// 🔥 修复：文本学习页面图片
+// 🔥 已修复：文本学习页面同步修正直链路径
 function renderRead() {
   if (currentIdx >= currentWords.length) { 
     alert('学习完成！');
@@ -983,12 +984,17 @@ function renderRead() {
   document.getElementById('read-progress-label').textContent = (currentIdx + 1) + ' / ' + currentWords.length;
   document.getElementById('read-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
 
-  // ✅ 已修复：加上 samples/ 路径
   const imgKey = getImgKey(w.en);
-  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/samples/wake-words/${imgKey}.jpg`;
+  // ✅ 核心修正：移除多余层级路径
+  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg`;
   
-  document.getElementById('read-image').innerHTML = 
-    `<img src="${url}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">`;
+  const readImageZone = document.getElementById('read-image');
+  readImageZone.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;" id="read-img-element">`;
+  
+  const imgEl = document.getElementById('read-img-element');
+  imgEl.onerror = function () {
+    readImageZone.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;font-size:14px;">⚠️ 暂无对应图片 (${imgKey}.jpg)</div>`;
+  };
 }
 
 function prevRead() {
@@ -1003,10 +1009,11 @@ function nextRead() {
   renderRead();
 }
 
+// 唤起本地原生TTS引擎发音
 function speak() {
   const w = currentWords[currentIdx];
   const u = new SpeechSynthesisUtterance(w.en);
-  u.lang = 'en-GB';
+  u.lang = 'en-US';
   speechSynthesis.speak(u);
 }
 
