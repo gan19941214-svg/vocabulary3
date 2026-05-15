@@ -614,16 +614,17 @@ function buildHome() {
       
     Object.entries(data.unitList).forEach(([unit, unitData]) => {
       const done = unitData.words.filter(w => learnedWords.includes(w.en)).length;
-      html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')" style="padding: 12px; border-radius:12px; display:flex; justify-content:between; align-items:center;">
-        <div class="unit-left">
-          <div>
-            <div class="unit-name" style="font-size:15px; font-weight:600; margin-bottom:2px;">${unit}</div>
-            <div class="unit-sub" style="font-size:12px; max-width:260px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; opacity:0.8;">${unitData.title}</div>
-          </div>
-        </div>
-        <!-- 右侧进度 Badge，清晰体现 0/23 状态 -->
-        <span class="unit-badge">${done}/${unitData.words.length}</span>
-      </div>`;
+     // 变成这块干净的、没有硬编码任何字体颜色的新标签：
+html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')" style="padding: 12px; border-radius:12px; display:flex; justify-content:between; align-items:center;">
+  <div class="unit-left">
+    <div>
+      <div class="unit-name" style="font-size:15px; font-weight:600; margin-bottom:2px;">${unit}</div>
+      <div class="unit-sub" style="font-size:12px; max-width:260px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${unitData.title}</div>
+    </div>
+  </div>
+  <span class="unit-badge">${done}/${unitData.words.length}</span>
+</div>`;
+
     });
     html += `</div></div>`;
   });
