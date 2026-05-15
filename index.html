@@ -916,8 +916,8 @@ function renderStudy() {
   document.getElementById('study-result').style.display = 'none';
 
   // 相对路径图片（本地可用）
-  document.getElementById('study-img').src =
-`https://res.cloudinary.com/dcuw9ijyx/image/upload/v1778819371/${w.en}.jpg`;
+ document.getElementById('study-img').src =
+"https://res.cloudinary.com/dcuw9ijyx/image/upload/v1778819371/stretch.jpg";
   document.getElementById('study-img').onerror = function(){
     this.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-center;height:100%;color:#2a8a8a;">'+w.cn+'</div>';
   }
