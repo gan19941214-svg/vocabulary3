@@ -906,6 +906,7 @@ function startMode(mode) {
   }
 }
 
+// 🔥 修复：看图默写页面图片
 function renderStudy() {
   if (currentIdx >= currentWords.length) { 
     alert('学习完成！');
@@ -922,9 +923,9 @@ function renderStudy() {
   document.getElementById('action-row').style.display = 'none';
   document.getElementById('study-result').style.display = 'none';
 
-  // ✅ 已修复：加上 wake-words 文件夹
+  // ✅ 已修复：加上 samples/ 路径
   const imgKey = getImgKey(w.en);
-  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/wake-words/${imgKey}.jpg`;
+  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/samples/wake-words/${imgKey}.jpg`;
   
   const imgEl = document.getElementById('study-img');
   imgEl.src = url;
@@ -966,6 +967,7 @@ function nextStudy() {
   renderStudy();
 }
 
+// 🔥 修复：文本学习页面图片
 function renderRead() {
   if (currentIdx >= currentWords.length) { 
     alert('学习完成！');
@@ -981,9 +983,9 @@ function renderRead() {
   document.getElementById('read-progress-label').textContent = (currentIdx + 1) + ' / ' + currentWords.length;
   document.getElementById('read-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
 
-  // ✅ 已修复：加上 wake-words 文件夹
+  // ✅ 已修复：加上 samples/ 路径
   const imgKey = getImgKey(w.en);
-  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/wake-words/${imgKey}.jpg`;
+  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/samples/wake-words/${imgKey}.jpg`;
   
   document.getElementById('read-image').innerHTML = 
     `<img src="${url}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">`;
