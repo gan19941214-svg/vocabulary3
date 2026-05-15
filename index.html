@@ -107,15 +107,36 @@
   .chapter-tag { color: #fff; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 8px; background: #a488e4; }
   /* 寻找原有的 .chapter-tag，在下方追加以下 9 组章节色盘 */
 /* 9大章节高级感色盘：大幅降低饱和度，深色不浓，浅色不飘 */
-.chapter-card.ch1 { --ch-primary: #5A7373; --ch-dark: #6C8484; --ch-light: #F4F7F7; --ch-text: #2C3E50; } /* 灰绿茶 */
-.chapter-card.ch2 { --ch-primary: #768070; --ch-dark: #879281; --ch-light: #F4F6F3; --ch-text: #34495E; } /* 鼠尾草 */
-.chapter-card.ch3 { --ch-primary: #637280; --ch-dark: #748494; --ch-light: #F3F5F7; --ch-text: #2C3E50; } /* 雾霾蓝 */
-.chapter-card.ch4 { --ch-primary: #766B7C; --ch-dark: #877C8D; --ch-light: #F5F3F6; --ch-text: #2C3E50; } /* 丁香灰 */
-.chapter-card.ch5 { --ch-primary: #857171; --ch-dark: #968282; --ch-light: #F7F4F4; --ch-text: #2C3E50; } /* 暮色红 */
-.chapter-card.ch6 { --ch-primary: #757B75; --ch-dark: #868C86; --ch-light: #F4F5F4; --ch-text: #2C3E50; } /* 石墨灰 */
-.chapter-card.ch7 { --ch-primary: #827B6E; --ch-dark: #938C7F; --ch-light: #F6F5F2; --ch-text: #2C3E50; } /* 亚麻棕 */
-.chapter-card.ch8 { --ch-primary: #5A786E; --ch-dark: #6C8A80; --ch-light: #F2F6F4; --ch-text: #2C3E50; } /* 薄荷冷灰 */
-.chapter-card.ch9 { --ch-primary: #6E687A; --ch-dark: #7F798C; --ch-light: #F4F3F6; --ch-text: #2C3E50; } /* 暗夜紫灰 */
+/* 9大章节洗练色盘：深色全面引入高透明度（0.12），让色彩轻量化 */
+.chapter-card.ch1 { --ch-primary: #5A7373; --ch-dark: rgba(90, 115, 115, 0.12);  --ch-light: #F4F7F7; --ch-text: #3A4D4D; } 
+.chapter-card.ch2 { --ch-primary: #768070; --ch-dark: rgba(118, 128, 112, 0.12); --ch-light: #F4F6F3; --ch-text: #454E41; } 
+.chapter-card.ch3 { --ch-primary: #637280; --ch-dark: rgba(99, 114, 128, 0.12);  --ch-light: #F3F5F7; --ch-text: #3D4954; } 
+.chapter-card.ch4 { --ch-primary: #766B7C; --ch-dark: rgba(118, 107, 124, 0.12); --ch-light: #F5F3F6; --ch-text: #463E4B; } 
+.chapter-card.ch5 { --ch-primary: #857171; --ch-dark: rgba(133, 113, 113, 0.12); --ch-light: #F7F4F4; --ch-text: #524242; } 
+.chapter-card.ch6 { --ch-primary: #757B75; --ch-dark: rgba(117, 123, 117, 0.12); --ch-light: #F4F5F4; --ch-text: #444A44; } 
+.chapter-card.ch7 { --ch-primary: #827B6E; --ch-dark: rgba(130, 123, 110, 0.12); --ch-light: #F6F5F2; --ch-text: #4E4940; } 
+.chapter-card.ch8 { --ch-primary: #5A786E; --ch-dark: rgba(90, 120, 110, 0.12);  --ch-light: #F2F6F4; --ch-text: #3A4C46; } 
+.chapter-card.ch9 { --ch-primary: #6E687A; --ch-dark: rgba(110, 104, 122, 0.12); --ch-light: #F4F3F6; --ch-text: #413B4A; } 
+
+/* 优化大卡片头部布局与字体 */
+.chapter-card { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.02) !important; margin-bottom: 14px !important; background: transparent !important; }
+.chapter-card .chapter-tag { background: var(--ch-primary) !important; color: #fff; font-size: 13px !important; padding: 4px 10px !important; border-radius: 6px !important; }
+.chapter-card .chapter-name { color: var(--ch-primary); font-size: 16px !important; font-weight: 600 !important; margin-left: 10px; }
+
+/* 单元交替节奏：奇数卡片采用透明度拉低的深色，文字改回深色以保证清晰度 */
+.chapter-card .unit-item:nth-child(odd) { background: var(--ch-dark) !important; color: var(--ch-text) !important; }
+.chapter-card .unit-item:nth-child(odd) .unit-name { color: var(--ch-text) !important; }
+.chapter-card .unit-item:nth-child(odd) .unit-sub { color: var(--ch-text) !important; opacity: 0.7; }
+.chapter-card .unit-item:nth-child(odd) .unit-badge { background: rgba(0,0,0,0.04) !important; color: var(--ch-text) !important; border: 1px solid rgba(0,0,0,0.05); }
+
+/* 偶数卡片保持清爽奶白底 */
+.chapter-card .unit-item:nth-child(even) { background: var(--ch-light) !important; color: var(--ch-text) !important; }
+.chapter-card .unit-item:nth-child(even) .unit-name { color: var(--ch-text) !important; }
+.chapter-card .unit-item:nth-child(even) .unit-sub { color: var(--ch-text) !important; opacity: 0.6; }
+.chapter-card .unit-item:nth-child(even) .unit-badge { background: rgba(0,0,0,0.03) !important; color: var(--ch-text) !important; border: 1px solid rgba(0,0,0,0.05); }
+
+/* 统一控制 Badge 的高级质感 */
+.chapter-card .unit-badge { font-size: 12px !important; padding: 4px 12px !important; border-radius: 20px !important; font-weight: 600 !important; }
 
 /* 优化大卡片头部布局与字体 */
 .chapter-card { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.02) !important; margin-bottom: 14px !important; }
