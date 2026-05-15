@@ -729,6 +729,12 @@
   </div>
 
 <script>
+  function getImgKey(word) {
+  return word
+    .toLowerCase()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-z0-9_]/g, '');
+}
 const WORDS = [
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"stretch", phonetic:"[stretʃ]", pos:"v.", cn:"伸展", exEn:"I stretch after waking up.", exCn:"我醒来后伸展身体。" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1", unitTitle:"In the Morning", chapterClass:"ch1", en:"pajamas", phonetic:"[pəˈdʒɑːməz]", pos:"n.", cn:"睡衣", exEn:"I wear comfortable pajamas at night.", exCn:"我晚上穿舒适的睡衣。" },
@@ -918,8 +924,17 @@ function renderStudy() {
   document.getElementById('study-result').style.display = 'none';
 
   // 相对路径图片（本地可用）
+const imgKey = getImgKey(w.en);
+
 document.getElementById('study-img').src =
-`https://res.cloudinary.com/dcuw9ijyx/image/upload/f_auto,q_auto,w_800/${imgName}.jpg`;
+`https://res.cloudinary.com/dcuw9ijyx/image/upload/f_auto,q_auto,w_800/${imgKey}.jpg`;
+
+document.getElementById('study-img').onerror = function () {
+  this.parentElement.innerHTML =
+    `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;">
+      ${w.cn}
+    </div>`;
+};
   document.getElementById('study-img').onerror = function(){
     this.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-center;height:100%;color:#2a8a8a;">'+w.cn+'</div>';
   }
@@ -971,8 +986,13 @@ function renderRead() {
   document.getElementById('read-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
 
   // 文本学习页也显示图片（相对路径）
- let img =
-`<img src="https://res.cloudinary.com/dcuw9ijyx/image/upload/${w.en}.jpg">`;
+const imgKey = getImgKey(w.en);
+
+let img =
+`<img src="https://res.cloudinary.com/dcuw9ijyx/image/upload/f_auto,q_auto,w_800/${imgKey}.jpg"
+      onerror="this.style.display='none'">`;
+
+document.getElementById('read-image').innerHTML = img;
   document.getElementById('read-image').innerHTML = img;
 }
 
