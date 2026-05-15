@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WAKE的书库</title>
+<title>WAKE的图书馆</title>
 <style>
   :root {
     --bg: #F0F7F7;
@@ -778,13 +778,12 @@ function renderBookShelf(){
   const wrap = document.getElementById('bookshelf');
   let html = '';
   bookList.forEach((item,idx)=>{
-    // 直接用你给的封面图链接
     html += `
       <div class="book-card" onclick="openBookPage(${idx})">
         <img class="book-cover" src="https://cdn.weread.qq.com/outpic/281/3001246281.jpg" alt="封面">
         <div class="book-info">
           <div class="book-title">${item.name}</div>
-          <div class="book-desc">Chapter 1 · 20 词</div>
+          <div class="book-desc">Chapter 1 · 24 词</div>
         </div>
       </div>
     `;
@@ -923,21 +922,18 @@ function renderStudy() {
   document.getElementById('action-row').style.display = 'none';
   document.getElementById('study-result').style.display = 'none';
 
-  // 相对路径图片（本地可用）
-const imgKey = getImgKey(w.en);
-
-document.getElementById('study-img').src =
-`https://res.cloudinary.com/dcuw9ijyx/image/upload/f_auto,q_auto,w_800/${imgKey}.jpg`;
-
-document.getElementById('study-img').onerror = function () {
-  this.parentElement.innerHTML =
-    `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;">
-      ${w.cn}
-    </div>`;
-};
-  document.getElementById('study-img').onerror = function(){
-    this.parentElement.innerHTML = '<div style="display:flex;align-items:center;justify-center;height:100%;color:#2a8a8a;">'+w.cn+'</div>';
-  }
+  // ✅ 已修复：加上 wake-words 文件夹
+  const imgKey = getImgKey(w.en);
+  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/wake-words/${imgKey}.jpg`;
+  
+  const imgEl = document.getElementById('study-img');
+  imgEl.src = url;
+  imgEl.style.display = 'block';
+  
+  imgEl.onerror = function () {
+    this.style.display = 'none';
+    this.parentElement.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;">${w.cn}</div>`;
+  };
 }
 
 function checkStudy() {
@@ -985,15 +981,12 @@ function renderRead() {
   document.getElementById('read-progress-label').textContent = (currentIdx + 1) + ' / ' + currentWords.length;
   document.getElementById('read-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
 
-  // 文本学习页也显示图片（相对路径）
-const imgKey = getImgKey(w.en);
-
-let img =
-`<img src="https://res.cloudinary.com/dcuw9ijyx/image/upload/f_auto,q_auto,w_800/${imgKey}.jpg"
-      onerror="this.style.display='none'">`;
-
-document.getElementById('read-image').innerHTML = img;
-  document.getElementById('read-image').innerHTML = img;
+  // ✅ 已修复：加上 wake-words 文件夹
+  const imgKey = getImgKey(w.en);
+  const url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/wake-words/${imgKey}.jpg`;
+  
+  document.getElementById('read-image').innerHTML = 
+    `<img src="${url}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">`;
 }
 
 function prevRead() {
