@@ -119,9 +119,40 @@
   .chapter-card .unit-list .unit-item:nth-child(even) .unit-sub { color: var(--ch-text) !important; opacity: 0.6 !important; }
   .chapter-card .unit-list .unit-item:nth-child(even) .unit-badge { background: rgba(0, 0, 0, 0.03) !important; color: var(--ch-text) !important; border: 1px solid rgba(0, 0, 0, 0.05) !important; }
 
-  .chapter-card .unit-badge { font-size: 12px !important; padding: 4px 12px !important; border-radius: 20px !important; font-weight: 600 !important; }
-  .chapter-card .unit-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 12px; cursor: pointer; transition: filter 0.2s; }
-  .chapter-card .unit-item:hover { filter: brightness(0.95); }
+ /* 单元固定深浅 1浅2深3浅4深5浅 */
+.unit-Unit-1-1,
+.unit-Unit-1-2,
+.unit-Unit-1-3 {
+  background: var(--ch-light) !important;
+}
+.unit-Unit-2-1,
+.unit-Unit-2-2,
+.unit-Unit-2-3 {
+  background: var(--ch-dark) !important;
+}
+.unit-Unit-3-1,
+.unit-Unit-3-2,
+.unit-Unit-3-3 {
+  background: var(--ch-light) !important;
+}
+.unit-Unit-4-1,
+.unit-Unit-4-2,
+.unit-Unit-4-3 {
+  background: var(--ch-dark) !important;
+}
+.unit-Unit-5-1,
+.unit-Unit-5-2,
+.unit-Unit-5-3 {
+  background: var(--ch-light) !important;
+}
+
+[class*="unit-"] .unit-name { color: var(--ch-text) !important; }
+[class*="unit-"] .unit-sub { color: var(--ch-text) !important; opacity: 0.7; }
+[class*="unit-"] .unit-badge {
+  background: rgba(0,0,0,0.05);
+  color: var(--ch-text);
+  border: 1px solid rgba(0,0,0,0.08);
+}
 
   .mode-header { background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; border: 1px solid rgba(200,222,222,0.5); padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
   .mode-header-icon { width: 48px; height: 48px; background: #D4F0F0; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
@@ -589,7 +620,7 @@ function buildHome() {
       
     Object.entries(data.unitList).forEach(([unit, unitData]) => {
       const done = unitData.words.filter(w => learnedWords.includes(w.en)).length;
-      html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')" style="padding: 12px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
+      html += `<div class="unit-item unit-${unit.replace(' ','-')}" onclick="selectUnit('${ch}','${unit}','${data.class}')" style="padding: 12px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
         <div class="unit-left">
           <div>
             <div class="unit-name" style="font-size:15px; font-weight:600; margin-bottom:2px;">${unit}</div>
