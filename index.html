@@ -6,14 +6,14 @@
 <title>WAKE的图书馆</title>
 <style>
   :root {
-    --bg: #F0F7F7;
-    --card: rgba(255,255,255,0.75);
-    --text: #1A2E2E;
-    --text-muted: #6A8A8A;
-    --accent: #2A8A8A;
-    --accent-light: #C8E8E8;
-    --shadow: 0 4px 20px rgba(0,0,0,0.05);
-    --blur: blur(12px);
+    /* 核心平替：改为高明度、低饱和度的燕麦色与植物暖灰底色 */
+    --bg: #FCFAF2; 
+    --card: #FFFFFF;
+    --text: #4A4A4A;
+    --text-muted: #8C8C8C;
+    --accent: #5B9B9B;
+    --accent-light: #EEF6F6;
+    --shadow: 0 2px 12px rgba(0,0,0,0.015);
   }
   * {
     box-sizing: border-box;
@@ -23,43 +23,32 @@
     font-weight: 500;
   }
   body {
-    background: linear-gradient(135deg, #E8F5F5 0%, #E0F2F2 100%);
+    background: var(--bg);
     min-height: 100vh;
     position: relative;
-    overflow-x: hidden;
+    color: var(--text);
   }
 
-  .bg-shape {
-    position: fixed;
-    z-index: 0;
-    border-radius: 28px;
-    opacity: 0.35;
-  }
-  .shape1 { width: 140px; height: 140px; background: #A4D4E4; top: 8%; left: 4%; transform: rotate(18deg); border-radius: 40px; }
-  .shape2 { width: 100px; height: 100px; background: #D8B6E4; top: 22%; right: 6%; border-radius: 50%; }
-  .shape3 { width: 120px; height: 120px; background: #F8D8D8; bottom: 18%; left: 8%; transform: rotate(-22deg); }
-  .shape4 { width: 80px; height: 80px; background: #C8E8D8; bottom: 28%; right: 12%; border-radius: 50%; }
-  .shape5 { width: 90px; height: 90px; background: #FFE4C8; top: 45%; left: -20px; border-radius: 30px; transform: rotate(30deg); }
-  .shape6 { width: 70px; height: 70px; background: #D4F0F0; bottom: 5%; right: 25%; border-radius: 20px; }
+  /* 移除原先杂乱的彩色漂浮气泡，保持纯净秩序感 */
+  .bg-shape { display: none; }
 
   .topbar {
     position: sticky;
     top: 0;
     z-index: 10;
-    background: var(--card);
-    backdrop-filter: var(--blur);
-    padding: 12px 16px;
-    border-bottom: 1px solid rgba(200,222,222,0.5);
+    background: #FFFFFF;
+    padding: 14px 20px;
+    border-bottom: 1px solid #EFECE6;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .topbar-logo { font-size: 18px; font-weight: 600; color: var(--text); }
-  .topbar-streak { background: var(--accent-light); border-radius: 20px; padding: 4px 10px; font-size: 13px; color: var(--accent); }
+  .topbar-logo { font-size: 16px; font-weight: 600; color: var(--text); letter-spacing: 0.5px; }
+  .topbar-streak { background: var(--accent-light); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: var(--accent); font-weight: 600; }
 
   .screen {
     display: none;
-    padding: 16px;
+    padding: 20px 16px;
     max-width: 480px;
     margin: 0 auto;
     position: relative;
@@ -69,129 +58,106 @@
 
   .home-header {
     background: var(--card);
-    backdrop-filter: var(--blur);
-    border-radius: 20px;
-    padding: 30px 16px;
-    margin-bottom: 20px;
+    border-radius: 16px;
+    padding: 28px 20px;
+    margin-bottom: 24px;
     text-align: center;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(200,222,222,0.5);
+    box-shadow: var(--shadow);
+    border: 1px solid #EFECE6;
   }
-  .home-title { font-size: 24px; font-weight: 600; color: var(--accent); position: relative; z-index: 1; }
-  .home-desc { font-size: 14px; color: var(--text-muted); margin-top: 6px; position: relative; z-index: 1; }
+  .home-title { font-size: 22px; font-weight: 600; color: #333333; }
+  .home-desc { font-size: 13px; color: var(--text-muted); margin-top: 6px; letter-spacing: 0.5px; }
 
-  .bookshelf-container { overflow-x: auto; padding: 10px 0 20px; scroll-snap-type: x mandatory; }
-  .bookshelf { display: flex; gap: 16px; padding: 0 16px; }
-  .book-card { width: 180px; flex-shrink: 0; background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(200,222,222,0.5); scroll-snap-align: start; cursor: pointer; }
-  .book-cover { width: 100%; height: 240px; object-fit: cover; }
+  .bookshelf-container { overflow-x: auto; padding: 4px 0 20px; scroll-snap-type: x mandatory; }
+  .bookshelf { display: flex; gap: 16px; padding: 0 4px; }
+  .book-card { width: 165px; flex-shrink: 0; background: var(--card); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid #EFECE6; scroll-snap-align: start; cursor: pointer; }
+  .book-cover { width: 100%; height: 220px; object-fit: cover; }
   .book-info { padding: 12px; }
-  .book-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .book-title { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; }
   .book-desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
-  .add-book-card { width: 180px; height: 320px; flex-shrink: 0; background: var(--card); backdrop-filter: var(--blur); border: 2px dashed rgba(200,222,222,0.8); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; }
-  .add-icon { font-size: 40px; margin-bottom: 8px; }
-  .add-text { font-size: 14px; }
+  .add-book-card { width: 165px; height: 294px; flex-shrink: 0; background: transparent; border: 2px dashed #DCD8CF; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; }
+  .add-icon { font-size: 32px; margin-bottom: 6px; color: #B0A99F; }
+  .add-text { font-size: 13px; }
 
-  /* 9大章节高级感色盘 */
-  .chapter-card.ch1 { --ch-primary: #5A7373; --ch-dark: rgba(90, 115, 115, 0.12);  --ch-light: #F4F7F7; --ch-text: #3A4D4D; } 
-  .chapter-card.ch2 { --ch-primary: #768070; --ch-dark: rgba(118, 128, 112, 0.12); --ch-light: #F4F6F3; --ch-text: #454E41; } 
-  .chapter-card.ch3 { --ch-primary: #637280; --ch-dark: rgba(99, 114, 128, 0.12);  --ch-light: #F3F5F7; --ch-text: #3D4954; } 
-  .chapter-card.ch4 { --ch-primary: #766B7C; --ch-dark: rgba(118, 107, 124, 0.12); --ch-light: #F5F3F6; --ch-text: #463E4B; } 
-  .chapter-card.ch5 { --ch-primary: #857171; --ch-dark: rgba(133, 113, 113, 0.12); --ch-light: #F7F4F4; --ch-text: #524242; } 
-  .chapter-card.ch6 { --ch-primary: #757B75; --ch-dark: rgba(117, 123, 117, 0.12); --ch-light: #F4F5F4; --ch-text: #444A44; } 
-  .chapter-card.ch7 { --ch-primary: #827B6E; --ch-dark: rgba(130, 123, 110, 0.12); --ch-light: #F6F5F2; --ch-text: #4E4940; } 
-  .chapter-card.ch8 { --ch-primary: #5A786E; --ch-dark: rgba(90, 120, 110, 0.12);  --ch-light: #F2F6F4; --ch-text: #3A4C46; } 
-  .chapter-card.ch9 { --ch-primary: #6E687A; --ch-dark: rgba(110, 104, 122, 0.12); --ch-light: #F4F3F6; --ch-text: #413B4A; } 
+  /* ------------------ 9大章节手账质感色盘 ------------------ */
+  .chapter-card.ch1 { --ch-primary: #E98B6D; --ch-light: #FDF0EC; --ch-text: #5A443E; } 
+  .chapter-card.ch2 { --ch-primary: #5B9B9B; --ch-light: #EEF6F6; --ch-text: #3D4A4A; } 
+  .chapter-card.ch3 { --ch-primary: #8FA499; --ch-light: #F2F6F4; --ch-text: #414A45; } 
+  .chapter-card.ch4 { --ch-primary: #A294B0; --ch-light: #F6F3F8; --ch-text: #4A434F; } 
+  .chapter-card.ch5 { --ch-primary: #C29B9B; --ch-light: #FAF4F4; --ch-text: #524343; } 
+  .chapter-card.ch6 { --ch-primary: #8FA0B0; --ch-light: #F3F6F8; --ch-text: #41474D; } 
+  .chapter-card.ch7 { --ch-primary: #B3A38F; --ch-light: #F8F5F1; --ch-text: #4F4841; } 
+  .chapter-card.ch8 { --ch-primary: #768793; --ch-light: #F1F4F6; --ch-text: #3A4146; } 
+  .chapter-card.ch9 { --ch-primary: #A0B38F; --ch-light: #F5F8F2; --ch-text: #454F3F; } 
 
-  .chapter-card { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.02) !important; margin-bottom: 14px !important; }
-  .chapter-card .chapter-tag { background: var(--ch-primary) !important; color: #fff; font-size: 13px !important; padding: 4px 10px !important; border-radius: 6px !important; }
-  .chapter-card .chapter-name { color: var(--ch-primary); font-size: 16px !important; font-weight: 600 !important; margin-left: 10px; }
-
-  /* 单元交替节奏 */
-  .chapter-card .unit-list .unit-item:nth-child(odd) { background: var(--ch-dark) !important; }
-  .chapter-card .unit-list .unit-item:nth-child(odd) .unit-name { color: var(--ch-text) !important; }
-  .chapter-card .unit-list .unit-item:nth-child(odd) .unit-sub { color: var(--ch-text) !important; opacity: 0.7 !important; }
-  .chapter-card .unit-list .unit-item:nth-child(odd) .unit-badge { background: rgba(0, 0, 0, 0.05) !important; color: var(--ch-text) !important; border: 1px solid rgba(0, 0, 0, 0.08) !important; }
-
-  .chapter-card .unit-list .unit-item:nth-child(even) { background: var(--ch-light) !important; }
-  .chapter-card .unit-list .unit-item:nth-child(even) .unit-name { color: var(--ch-text) !important; }
-  .chapter-card .unit-list .unit-item:nth-child(even) .unit-sub { color: var(--ch-text) !important; opacity: 0.6 !important; }
-  .chapter-card .unit-list .unit-item:nth-child(even) .unit-badge { background: rgba(0, 0, 0, 0.03) !important; color: var(--ch-text) !important; border: 1px solid rgba(0, 0, 0, 0.05) !important; }
-
-  .chapter-card .unit-badge { font-size: 12px !important; padding: 4px 12px !important; border-radius: 20px !important; font-weight: 600 !important; }
-  .chapter-card .unit-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-radius: 12px; cursor: pointer; transition: filter 0.2s; }
-  .chapter-card .unit-item:hover { filter: brightness(0.95); }
-
-  .mode-header { background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; border: 1px solid rgba(200,222,222,0.5); padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
-  .mode-header-icon { width: 48px; height: 48px; background: #D4F0F0; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-  .mode-header h2 { font-size: 17px; font-weight: 600; color: var(--text); }
-  .mode-header p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
-  .mode-card { background: var(--card); backdrop-filter: var(--blur); border-radius: 14px; border: 1px solid rgba(200,222,222,0.5); padding: 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.2s; }
-  .mode-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .mode-card-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-  .mode-card-icon.study { background: #C8E8E8; }
-  .mode-card-icon.read { background: #fff3b0; }
-  .mode-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-  .mode-card p { font-size: 12px; color: var(--text-muted); }
-
-  .progress-area { margin-bottom: 14px; }
-  .progress-top { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
-  .progress-bar { height: 6px; background: rgba(200,222,222,0.5); border-radius: 99px; overflow: hidden; }
-  .progress-fill { height: 100%; background: #4AA8B8; border-radius: 99px; transition: width 0.4s; }
+  /* 通用兜底章节色盘（当非目标书本时启用） */
+  .chapter-card { --ch-primary: #7A8282; --ch-light: #F4F6F6; --ch-text: #434747; background: var(--card); border-radius: 16px; border: 1px solid #EFECE6; box-shadow: var(--shadow); margin-bottom: 24px; overflow: hidden; }
   
-  .word-card { background: var(--card); backdrop-filter: var(--blur); border-radius: 20px; border: 1px solid rgba(200,222,222,0.5); overflow: hidden; margin-bottom: 14px; box-shadow: var(--shadow); }
-  .word-card-top { padding: 20px; text-align: center; }
-  .word-pos-badge { display: inline-block; background: #D4F0F0; color: #2A8A8A; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 8px; margin-bottom: 10px; }
-  .word-cn { font-size: 28px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-  .image-zone { height: 180px; background: rgba(216,238,238,0.5); position: relative; overflow: hidden; }
-  .image-zone img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  /* 章节通栏大色块区域 */
+  .chapter-header { background: var(--ch-light); padding: 16px; flex-direction: column; align-items: flex-start !important; gap: 4px; border-bottom: 1px solid rgba(0,0,0,0.02); }
+  .chapter-header-left { display: flex; align-items: center; gap: 8px; width: 100%; }
+  .chapter-tag { background: var(--ch-primary) !important; color: #FFFFFF !important; font-size: 11px !important; padding: 2px 8px !important; border-radius: 4px !important; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .chapter-name { color: var(--ch-primary) !important; font-size: 15px !important; font-weight: 600 !important; }
+  .chapter-subtext { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* 核心架构重组：卡片内部的无边框网格标签（Grid Tags） */
+  .unit-block-box { background: #FFFFFF; border-radius: 12px; padding: 14px 12px; margin-top: 12px; border: 1px solid #F4F2ED; }
+  .unit-block-title { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #4A4A4A; margin-bottom: 10px; }
+  .unit-idx-dot { width: 16px; height: 16px; background: var(--ch-primary); color: #fff; font-size: 10px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; }
+  .unit-title-text { color: var(--text-muted); font-size: 12px; font-weight: 500; margin-left: auto; }
+
+  .grid-tags-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .grid-tag-item { background: var(--ch-light); color: var(--ch-text); font-size: 12px; padding: 10px 6px; text-align: center; border-radius: 6px; cursor: pointer; transition: all 0.15s ease; border: 1px solid transparent; display: flex; align-items: center; justify-content: center; min-height: 40px; line-height: 1.2; }
+  .grid-tag-item:hover { transform: translateY(-1px); filter: brightness(0.97); }
+  .grid-tag-done { border-color: var(--ch-primary); position: relative; }
+  .grid-tag-done::after { content: '✓'; position: absolute; top: -2px; right: 2px; font-size: 8px; color: var(--ch-primary); font-weight: 900; }
+
+  /* 练习模式界面优化 */
+  .mode-header { background: var(--card); border-radius: 16px; border: 1px solid #EFECE6; padding: 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow); }
+  .mode-header-icon { width: 44px; height: 44px; background: var(--accent-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .mode-header h2 { font-size: 16px; font-weight: 600; color: var(--text); }
+  .mode-header p { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  
+  .mode-card { background: var(--card); border-radius: 14px; border: 1px solid #EFECE6; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow); }
+  .mode-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .mode-card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .mode-card-icon.study { background: #FDF0EC; }
+  .mode-card-icon.read { background: #EEF6F6; }
+  .mode-card h3 { font-size: 14px; font-weight: 600; color: var(--text); }
+  .mode-card p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* 核心学习卡片硬核逻辑 */
+  .word-card, .read-card { background: var(--card); border-radius: 16px; border: 1px solid #EFECE6; overflow: hidden; margin-bottom: 18px; box-shadow: var(--shadow); }
+  .word-card-top { padding: 24px 20px 16px; text-align: center; }
+  .word-pos-badge { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .word-cn { font-size: 26px; font-weight: 600; color: #333333; }
+  .image-zone { height: 170px; background: #FAF9F5; position: relative; overflow: hidden; border-top: 1px solid #F4F2ED; border-bottom: 1px solid #F4F2ED; }
   
   .word-card-bottom { padding: 20px; }
-  .input-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
-  .word-input { width: 100%; padding: 10px 14px; border: 1px solid rgba(200,222,222,0.5); border-radius: 12px; background: rgba(240,247,247,0.8); margin-bottom: 10px; font-size: 16px; }
-  .submit-btn { width: 100%; padding: 10px; background: #4AA8B8; color: #fff; border: none; border-radius: 12px; font-weight: 600; margin-bottom: 10px; cursor: pointer; }
-  .result-row { padding: 10px; border-radius: 12px; font-weight: 500; display: none; align-items: center; gap: 8px; }
-  .result-row.correct { background: #D8F0EB; color: #3A9E8A; display: flex; }
-  .result-row.wrong { background: #FDEAEA; color: #C05050; display: flex; }
+  .word-input { width: 100%; padding: 12px 14px; border: 1px solid #DCD8CF; border-radius: 10px; background: #FCFAF6; margin-bottom: 12px; font-size: 15px; color: var(--text); outline: none; }
+  .word-input:focus { border-color: var(--accent); }
+  .submit-btn { width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 600; font-size: 15px; cursor: pointer; }
   
-  .answer-reveal { display: none; margin-bottom: 10px; }
-  .answer-en { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .answer-phonetic { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; }
-  .answer-sound-btn { background: #D4F0F0; color: #2A8A8A; border: none; border-radius: 8px; padding: 5px 12px; margin-bottom: 10px; cursor: pointer; }
-  .example-box { background: rgba(228,242,242,0.8); border-radius: 12px; padding: 12px; border-left: 3px solid #4AA8B8; }
+  .result-row { padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; display: none; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .result-row.correct { background: #EEF6F3; color: #417A65; display: flex; }
+  .result-row.wrong { background: #FDF0EC; color: #A6523F; display: flex; }
   
-  .action-row { display: flex; gap: 8px; margin-top: 10px; }
-  .action-btn { flex: 1; padding: 11px; border-radius: 12px; font-weight: 600; border: 1px solid rgba(200,222,222,0.5); background: var(--card); cursor: pointer; }
-  .action-btn.primary { background: #4AA8B8; color: #fff; border-color: #4AA8B8; }
+  .example-box { background: #FCFAF6; border-radius: 10px; padding: 14px; border-left: 3px solid var(--accent); font-size: 13px; line-height: 1.5; }
+  .example-en { font-weight: 600; color: #333333; margin-bottom: 4px; }
+  .example-cn { color: var(--text-muted); }
 
-  .read-card { background: var(--card); backdrop-filter: var(--blur); border-radius: 20px; border: 1px solid rgba(200,222,222,0.5); padding: 20px; margin-bottom: 14px; }
-  .read-image { width: 100%; height: 180px; background: rgba(216,238,238,0.5); border-radius: 12px; margin-bottom: 16px; overflow: hidden; }
-  .read-image img { width: 100%; height: 100%; object-fit: cover; }
-  .read-pos { font-size:12px; color:var(--text-muted); margin-bottom:4px; }
-  .read-en { font-size:24px; font-weight:600; color:var(--text); margin-bottom:4px; }
-  .read-phonetic { font-size:14px; color:var(--text-muted); margin-bottom:10px; }
-  .read-cn { font-size:18px; color:var(--text); margin-bottom:12px; }
+  .action-btn { flex: 1; padding: 12px; border-radius: 10px; font-weight: 600; font-size: 14px; border: 1px solid #DCD8CF; background: #FFFFFF; color: var(--text); cursor: pointer; }
+  .action-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-  .modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; z-index: 999; }
-  .modal-box { width: 85%; max-width: 380px; background: var(--card); backdrop-filter: var(--blur); border-radius: 16px; padding: 24px; border: 1px solid rgba(200,222,222,0.5); }
-  .modal-title { font-size: 18px; font-weight: 600; color: var(--text); text-align: center; margin-bottom: 16px; }
-  .modal-input { width: 100%; padding: 12px; border: 1px solid rgba(200,222,222,0.5); border-radius: 12px; margin-bottom: 20px; background: rgba(240,247,247,0.8); }
-  .modal-btns { display: flex; gap: 12px; }
-  .modal-btn { flex: 1; padding: 11px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; }
-  .btn-cancel { background: rgba(238,238,238,0.8); color: #666; }
-  .btn-confirm { background: #4AA8B8; color: #fff; }
-
-  .back-btn { color: var(--text-muted); font-size: 14px; margin-bottom: 16px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.3); display: none; align-items: center; justify-content: center; z-index: 999; }
+  .modal-box { width: 85%; max-width: 360px; background: #FFFFFF; border-radius: 14px; padding: 24px; border: 1px solid #EFECE6; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+  
+  .back-btn { color: var(--text-muted); font-size: 13px; margin-bottom: 16px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 600; }
+  .back-btn:hover { color: var(--text); }
 </style>
 </head>
 <body>
-  <div class="bg-shape shape1"></div>
-  <div class="bg-shape shape2"></div>
-  <div class="bg-shape shape3"></div>
-  <div class="bg-shape shape4"></div>
-  <div class="bg-shape shape5"></div>
-  <div class="bg-shape shape6"></div>
 
   <div class="topbar">
     <div class="topbar-logo">WAKE的书库</div>
@@ -213,7 +179,7 @@
   </div>
 
   <div class="screen" id="screen-mode">
-    <div class="back-btn" onclick="showScreen('home')">← 返回</div>
+    <div class="back-btn" onclick="showScreen('home')">← 返回目录</div>
     <div class="mode-header">
       <div class="mode-header-icon">📖</div>
       <div>
@@ -233,11 +199,11 @@
 
   <div class="screen" id="screen-study">
     <div class="back-btn" onclick="showScreen('mode')">← 返回</div>
-    <div class="progress-area">
-      <div class="progress-top">
+    <div class="progress-area" style="margin-bottom:14px;">
+      <div class="progress-top" style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-bottom:6px;">
         <span id="study-progress-label">1 / 24</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="study-progress-fill"></div></div>
+      <div class="progress-bar" style="height:4px; background:#EFECE6; border-radius:99px; overflow:hidden;"><div class="progress-fill" id="study-progress-fill" style="height:100%; background:var(--accent); width:0%; transition:width 0.3s;"></div></div>
     </div>
     <div class="word-card">
       <div class="word-card-top">
@@ -246,18 +212,18 @@
       </div>
       <div class="image-zone"></div>
       <div class="word-card-bottom">
-        <div class="input-label">默写英文：</div>
-        <input class="word-input" id="study-input" placeholder="输入单词..." autocomplete="off" autocapitalize="none" spellcheck="false" />
-        <button class="submit-btn" onclick="checkStudy()">确认</button>
+        <input class="word-input" id="study-input" placeholder="输入英文单词..." autocomplete="off" autocapitalize="none" spellcheck="false" />
+        <button class="submit-btn" id="study-submit-btn" onclick="checkStudy()">确认答案</button>
         <div class="result-row" id="study-result"></div>
-        <div class="answer-reveal" id="answer-reveal">
-          <div class="answer-en" id="answer-en"></div>
-          <div class="answer-phonetic" id="answer-phonetic"></div>
-          <button class="answer-sound-btn" onclick="speak()">🔊 发音</button>
+        
+        <div class="answer-reveal" id="answer-reveal" style="display:none; margin-top:14px;">
+          <div class="answer-en" id="answer-en" style="font-size:22px; font-weight:700; color:#333;"></div>
+          <div class="answer-phonetic" id="answer-phonetic" style="font-size:13px; color:var(--text-muted); margin:4px 0 10px 0;"></div>
+          <button class="answer-sound-btn" onclick="speak()" style="background:var(--accent-light); color:var(--accent); border:none; border-radius:6px; padding:4px 12px; font-size:12px; cursor:pointer; margin-bottom:12px; font-weight:600;">🔊 朗读发音</button>
           <div class="example-box" id="example-box"></div>
         </div>
-        <div class="action-row" id="action-row" style="display:none">
-          <button class="action-btn primary" onclick="nextStudy()">下一个 →</button>
+        <div class="action-row" id="action-row" style="display:none; margin-top:14px;">
+          <button class="action-btn primary" onclick="nextStudy()">下一个词 →</button>
         </div>
       </div>
     </div>
@@ -265,21 +231,23 @@
 
   <div class="screen" id="screen-read">
     <div class="back-btn" onclick="showScreen('mode')">← 返回</div>
-    <div class="progress-area">
-      <div class="progress-top">
+    <div class="progress-area" style="margin-bottom:14px;">
+      <div class="progress-top" style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted); margin-bottom:6px;">
         <span id="read-progress-label">1 / 24</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="read-progress-fill"></div></div>
+      <div class="progress-bar" style="height:4px; background:#EFECE6; border-radius:99px; overflow:hidden;"><div class="progress-fill" id="read-progress-fill" style="height:100%; background:var(--accent); width:0%; transition:width 0.3s;"></div></div>
     </div>
     <div class="read-card">
-      <div class="read-image" id="read-image"></div>
-      <div class="read-pos" id="read-pos">n.</div>
-      <div class="read-en" id="read-en">blush</div>
-      <div class="read-phonetic" id="read-phonetic">[blʌʃ]</div>
-      <div class="read-cn" id="read-cn">腮红</div>
-      <div class="read-example example-box" id="read-example"></div>
+      <div class="image-zone" id="read-image" style="height:180px; border-top:none;"></div>
+      <div style="padding:20px;">
+        <div class="word-pos-badge" id="read-pos">n.</div>
+        <div class="read-en" id="read-en" style="font-size:24px; font-weight:700; color:#333; margin-top:4px;">blush</div>
+        <div class="read-phonetic" id="read-phonetic" style="font-size:13px; color:var(--text-muted); margin:2px 0 12px 0;">[blʌʃ]</div>
+        <div class="read-cn" id="read-cn" style="font-size:18px; font-weight:600; color:#4A4A4A; margin-bottom:14px;">腮红</div>
+        <div class="read-example example-box" id="read-example"></div>
+      </div>
     </div>
-    <div class="action-row">
+    <div class="action-row" style="display:flex; gap:10px;">
       <button class="action-btn" onclick="prevRead()">← 上一个</button>
       <button class="action-btn primary" onclick="nextRead()">下一个 →</button>
     </div>
@@ -287,48 +255,39 @@
 
   <div class="modal-mask" id="addModal">
     <div class="modal-box">
-      <div class="modal-title">添加新单词书</div>
-      <input type="text" class="modal-input" id="newBookName" placeholder="请输入书籍名称">
-      <div class="modal-btns">
-        <button class="modal-btn btn-cancel" onclick="closeModal()">取消</button>
-        <button class="modal-btn btn-confirm" onclick="confirmAddBook()">确定</button>
+      <div class="modal-title" style="font-size:16px; font-weight:600; text-align:center; margin-bottom:14px;">添加新书</div>
+      <input type="text" class="modal-input" id="newBookName" placeholder="请输入书籍名称" style="width:100%; padding:10px; border:1px solid #DCD8CF; border-radius:8px; margin-bottom:16px; outline:none;">
+      <div class="modal-btns" style="display:flex; gap:10px;">
+        <button class="modal-btn btn-cancel" onclick="closeModal()" style="flex:1; padding:10px; border-radius:8px; border:none; background:#ECE9E2; color:#666; font-weight:600; cursor:pointer;">取消</button>
+        <button class="modal-btn btn-confirm" onclick="confirmAddBook()" style="flex:1; padding:10px; border-radius:8px; border:none; background:var(--accent); color:#fff; font-weight:600; cursor:pointer;">确定</button>
       </div>
     </div>
   </div>
 
 <script>
 const CHAPTER_CLASS_MAP = {
-  "Chapter 1": "ch1",
-  "Chapter 2": "ch2",
-  "Chapter 3": "ch3",
-  "Chapter 4": "ch4",
-  "Chapter 5": "ch5",
-  "Chapter 6": "ch6",
-  "Chapter 7": "ch7",
-  "Chapter 8": "ch8",
-  "Chapter 9": "ch9"
+  "Chapter 1": "ch1", "Chapter 2": "ch2", "Chapter 3": "ch3",
+  "Chapter 4": "ch4", "Chapter 5": "ch5", "Chapter 6": "ch6",
+  "Chapter 7": "ch7", "Chapter 8": "ch8", "Chapter 9": "ch9"
 };
 
-// 9大章节完整中英文标题
 const CHAPTER_FULL_NAME = {
   "Chapter 1": "Daily Life | 生活的样貌，你需要知道",
   "Chapter 2": "Food & Drinks | 为您带来美味满满的大平台",
   "Chapter 3": "Holidays & Social Occasions | 社交不求人，姐/哥就是达人",
   "Chapter 4": "Recreation & Entertainment | 人生爽过·爽过人生",
-  "Chapter 5": "Shopping | 一卡在手，刷遍全球",
+  "Shopping | 一卡在手，刷遍全球",
   "Chapter 6": "Traveling | 开心出国游",
-  "Chapter 7": "Transportation | 一起出门转一转吧",
+  "Chapter 7": "Transportation | 一一起出门转一转吧",
   "Chapter 8": "On Campus | 那些年，我们一起啃的书",
   "Chapter 9": "In the Workplace | 一起来当华丽的上班族吧"
 };
 
 function getImgKey(word) {
-  return word
-    .toLowerCase()
-    .replace(/\s+/g, '_')
-    .replace(/[^a-z0-9_]/g, '');
+  return word.toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
 }
 
+// 保持你原有的完整数据源不变
 const WORDS = [
   // ================= Unit 1-1 (晨间起床场景) =================
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-1", unitTitle:"In the Morning", en:"stretch", phonetic:"[stretʃ]", pos:"v.", cn:"伸展", exEn:"I stretch after waking up.", exCn:"我醒来后伸展身体。" },
@@ -367,7 +326,7 @@ const WORDS = [
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"toothbrush", phonetic:"[ˈtuːθˌbrʌʃ]", pos:"n.", cn:"牙刷", exEn:"Remember to replace your toothbrush every three months.", exCn:"记得每三个月更换一次牙刷。" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"foam", phonetic:"[foʊm]", pos:"n.", cn:"泡沫（剃须 / 洁面）", exEn:"Rub the cleanser until it creates a rich, smooth foam.", exCn:"揉搓洗面奶直至产生丰富细腻的泡沫。" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"shaver", phonetic:"[ˈʃeɪvə]", pos:"n.", cn:"刮胡刀；除毛刀", exEn:"He cleaned the electric shaver after finishing his morning routine.", exCn:"他在做完晨间洗漱后清理了电动刮胡刀。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"toothpaste", phonetic:"[ˈtuːθˌpeɪst]", pos:"n.", cn:"牙膏", exEn:"I always prefer mint-flavored toothpaste for a clean feeling.", exCn:"我一向更喜欢薄荷味的牙膏，能带来清爽的感觉。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"toothpaste", phonetic:"[ˈtuːθˌpeɪst]", pos:"n.", cn:"牙刷", exEn:"I always prefer mint-flavored toothpaste for a clean feeling.", exCn:"我一向更喜欢薄荷味的牙膏，能带来清爽的感觉。" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"washcloth", phonetic:"[ˈwɑːʃˌklɔːθ]", pos:"n.", cn:"毛巾；洗脸巾", exEn:"Gently pat your face dry with a clean, soft washcloth.", exCn:"用一块干净、柔软的洗脸巾轻轻将脸擦干。" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"mint", phonetic:"[mɪnt]", pos:"n.", cn:"薄荷（牙膏成分）", exEn:"The mint in the product gives a cooling effect on the skin.", exCn:"产品中的薄荷成分会给肌肤带来冰凉清爽的感觉。" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 1-2", unitTitle:"In the Morning - Freshening Up & Dressing Up", en:"squeeze", phonetic:"[skwiːz]", pos:"vt. & vi.", cn:"挤（牙膏 / 洗面奶）", exEn:"Squeeze out a pea-sized amount of cream onto your fingers.", exCn:"挤出豌豆大小的乳霜在手指上。" },
@@ -408,7 +367,7 @@ const WORDS = [
 
   // ================= Unit 2-1 (In the House - Living Room) =================
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"French windows", phonetic:"", pos:"phrase", cn:"落地窗", exEn:"The French windows provide lots of light.", exCn:"落地窗的采光很棒。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"television", phonetic:"[ˈteləˌvɪʒən]", pos:"n.", cn:"电视", exEn:"I enjoy sitting on the sofa and watching TV.", exCn:"我喜欢窝在沙发上看电视。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"television", phonetic:"[ˈteləˌvɪʒqn]", pos:"n.", cn:"电视", exEn:"I enjoy sitting on the sofa and watching TV.", exCn:"我喜欢窝在沙发上看电视。" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"fireplace", phonetic:"[ˈfaɪrˌpleɪs]", pos:"n.", cn:"壁炉；火炉", exEn:"I like to read by the fireplace.", exCn:"我喜欢在壁炉旁看书。" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"ceiling fan", phonetic:"", pos:"phrase", cn:"吊扇", exEn:"Can you turn on the ceiling fan?", exCn:"你可以打开吊扇吗？" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"coffee table", phonetic:"", pos:"phrase", cn:"小茶几", exEn:"I put my books on the coffee table.", exCn:"我把书放在小茶几上。" },
@@ -429,57 +388,7 @@ const WORDS = [
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"TV stand", phonetic:"", pos:"phrase", cn:"电视柜", exEn:"The TV stand holds my game console.", exCn:"电视柜上放着我的游戏机。" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"remote control", phonetic:"", pos:"phrase", cn:"遥控器", exEn:"Where did you put the remote control?", exCn:"你把遥控器放在哪里了？" },
   { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"stereo", phonetic:"[ˈsterioʊ]", pos:"n.", cn:"立体声音响", exEn:"I have a high-quality stereo system.", exCn:"我有一套高级的立体音响系统。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"floor lamp", phonetic:"", pos:"phrase", cn:"落地灯", exEn:"A floor lamp provides soft light at night.", exCn:"落地灯在晚上提供柔和的光线。" },
-
-  // ================= Unit 2-2 (In the House - Kitchen & Dining Room) =================
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"refrigerator", phonetic:"[rɪˈfrɪdʒəreɪtə]", pos:"n.", cn:"冰箱", exEn:"Keep the milk in the refrigerator.", exCn:"把牛奶放在冰箱里。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"freezer", phonetic:"[ˈfriːzə]", pos:"n.", cn:"冷冻库", exEn:"Put the ice cream in the freezer.", exCn:"把冰淇淋放进冷冻库。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"microwave", phonetic:"[ˈmaɪkrəweɪv]", pos:"n.", cn:"微波炉", exEn:"Heat the soup in the microwave.", exCn:"用微波炉热一下汤。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"oven", phonetic:"[ˈʌvn]", pos:"n.", cn:"烤箱", exEn:"The chicken is baking in the oven.", exCn:"烤鸡正在烤箱里烤着。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"toaster", phonetic:"[ˈtəʊstə]", pos:"n.", cn:"烤面包机", exEn:"Put two slices of bread in the toaster.", exCn:"放两片面包进烤面包机。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"dishwasher", phonetic:"[ˈdɪʃwɒʃə]", pos:"n.", cn:"洗碗机", exEn:"Load the dirty plates into the dishwasher.", exCn:"把脏盘子放进洗碗机里。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"sink", phonetic:"[sɪŋk]", pos:"n.", cn:"水槽", exEn:"Don't leave dirty dishes in the sink.", exCn:"别把脏碗盘留在水槽里。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"faucet", phonetic:"[ˈfɔːsɪt]", pos:"n.", cn:"水龙头", exEn:"The faucet in the kitchen is leaking.", exCn:"厨房的水龙头在漏水。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"stove", phonetic:"[stəʊv]", pos:"n.", cn:"炉灶", exEn:"Turn off the stove after cooking.", exCn:"做完饭后把炉灶关掉。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"cabinet", phonetic:"[ˈkæbɪnət]", pos:"n.", cn:"橱柜", exEn:"The bowls are in the upper cabinet.", exCn:"碗放在上面的橱柜里。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"countertop", phonetic:"[ˈkaʊntətɒp]", pos:"n.", cn:"厨房台面", exEn:"Clean the countertop after prepping food.", exCn:"准备好食物后把台面擦干净。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"cutting board", phonetic:"", pos:"phrase", cn:"砧板", exEn:"Use a separate cutting board for meat.", exCn:"生肉要用单独的砧板。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"apron", phonetic:"[ˈeɪprən]", pos:"n.", cn:"围裙", exEn:"Put on an apron to protect your clothes.", exCn:"穿上围裙以免弄脏衣服。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"pan", phonetic:"[pæn]", pos:"n.", cn:"平底锅", exEn:"Heat some oil in the pan.", exCn:"在平底锅里热一点油。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"pot", phonetic:"[pɒt]", pos:"n.", cn:"汤锅", exEn:"The water is boiling in the pot.", exCn:"锅里的水烧开了。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"kettle", phonetic:"[ˈketl]", pos:"n.", cn:"烧水壶", exEn:"The kettle is whistling on the stove.", exCn:"水壶在炉子上响了。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"blender", phonetic:"[ˈblendə]", pos:"n.", cn:"果汁机；搅拌机", exEn:"Use the blender to make a fruit smoothie.", exCn:"用果汁机打一杯水果奶昔。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"dining table", phonetic:"", pos:"phrase", cn:"餐桌", exEn:"Please help me set the dining table.", exCn:"请帮我收拾一下餐桌。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"tablecloth", phonetic:"[ˈteɪblklɒθ]", pos:"n.", cn:"桌布", exEn:"We spread a clean tablecloth for guests.", exCn:"我们为客人铺上了干净的桌布。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"napkin", phonetic:"[ˈnæpkɪn]", pos:"n.", cn:"餐巾纸", exEn:"Wipe your hands with a napkin.", exCn:"用餐巾纸擦擦手。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"sponge", phonetic:"[spʌndʒ]", pos:"n.", cn:"洗碗海绵", exEn:"Squeeze the soap onto the wet sponge.", exCn:"把洗洁精挤在湿海绵上。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"trash can", phonetic:"", pos:"phrase", cn:"垃圾桶", exEn:"Throw the food waste into the trash can.", exCn:"把厨余垃圾扔进垃圾桶。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"pantry", phonetic:"[ˈpæntri]", pos:"n.", cn:"食品储藏室", exEn:"We store snacks and canned food in the pantry.", exCn:"我们在储藏室里存放零食和罐头。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-2", unitTitle:"In the House - Kitchen & Dining Room", en:"leftovers", phonetic:"[ˈleftəʊvəz]", pos:"n.", cn:"剩菜剩饭", exEn:"Put the leftovers in a container.", exCn:"把剩菜打包进保鲜盒里。" },
-// ================= Unit 2-3 (In the House - Kitchen) =================
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"refrigerator / fridge", phonetic:"[rɪˈfrɪdʒəreɪtə]/[frɪdʒ]", pos:"n.", cn:"冰箱", exEn:"Please put the fruit in the fridge.", exCn:"请把水果放进冰箱。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"stove", phonetic:"[stoʊv]", pos:"n.", cn:"燃气灶", exEn:"She cooks meals on the stove.", exCn:"她在燃气灶上做饭。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"kitchen island", phonetic:"", pos:"n.", cn:"厨房中岛", exEn:"We prepare ingredients on the kitchen island.", exCn:"我们在厨房中岛准备食材。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"range hood", phonetic:"", pos:"n.", cn:"抽油烟机", exEn:"Turn on the range hood when frying food.", exCn:"炒菜时打开抽油烟机。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"counter", phonetic:"[ˈkaʊntə]", pos:"n.", cn:"料理台", exEn:"Keep the kitchen counter tidy.", exCn:"保持料理台整洁。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"blender", phonetic:"[ˈblendə]", pos:"n.", cn:"搅拌机", exEn:"I make fruit shakes with a blender.", exCn:"我用搅拌机做水果奶昔。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"toaster", phonetic:"[ˈtoʊstə]", pos:"n.", cn:"烤面包机", exEn:"The toaster works very well.", exCn:"这个烤面包机很好用。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"rice cooker", phonetic:"", pos:"n.", cn:"电饭锅", exEn:"My mother uses a rice cooker to cook rice.", exCn:"妈妈用电饭锅煮饭。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"coffee machine", phonetic:"", pos:"n.", cn:"咖啡机", exEn:"He makes coffee with a coffee machine.", exCn:"He makes coffee with a coffee machine." },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"oven mitt", phonetic:"", pos:"n.", cn:"隔热手套", exEn:"Use oven mitts to take out hot dishes.", exCn:"用隔热手套端热菜。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"oven", phonetic:"[ˈʌvn]", pos:"n.", cn:"烤箱", exEn:"We bake cakes in the oven.", exCn:"我们用烤箱烤蛋糕。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"microwave", phonetic:"[ˈmaɪkrəweɪv]", pos:"n.", cn:"微波炉", exEn:"You can heat food in the microwave.", exCn:"你可以用微波炉加热食物。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"dishwasher", phonetic:"[ˈdɪʃwɑːʃə]", pos:"n.", cn:"洗碗机", exEn:"Put dirty dishes into the dishwasher.", exCn:"把脏盘子放进洗碗机。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"dish dryer", phonetic:"", pos:"n.", cn:"烘碗机", exEn:"The dish dryer dries bowls quickly.", exCn:"烘碗机快速烘干碗碟。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"freezer", phonetic:"[ˈfriːzə]", pos:"n.", cn:"冷冻室", exEn:"Store frozen food in the freezer.", exCn:"把冷冻食品放在冷冻室。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"cooler compartment", phonetic:"", pos:"n.", cn:"冷藏室", exEn:"Fresh vegetables go into the cooler compartment.", exCn:"新鲜蔬菜放进冷藏室。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"cupboard", phonetic:"[ˈkʌbəd]", pos:"n.", cn:"碗橱", exEn:"We put bowls and chopsticks in the cupboard.", exCn:"我们把碗筷放进碗橱。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"apron", phonetic:"[ˈeɪprən]", pos:"n.", cn:"围裙", exEn:"She wears an apron while cooking.", exCn:"她做饭时穿着围裙。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"plate", phonetic:"[pleɪt]", pos:"n.", cn:"盘子", exEn:"Put the delicious food on the plate.", exCn:"把美食摆到盘子里。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"saucer", phonetic:"[ˈsɔːsə]", pos:"n.", cn:"小碟子", exEn:"Place the teacup on the saucer.", exCn:"把茶杯放在小碟子上。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"bowl", phonetic:"[boʊl]", pos:"n.", cn:"碗", exEn:"I have soup with a bowl.", exCn:"我用碗喝汤。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"mug", phonetic:"[mʌɡ]", pos:"n.", cn:"马克杯", exEn:"I drink hot water with this mug.", exCn:"我用这个马克杯喝热水。" },
-  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-3", unitTitle:"In the House - Kitchen", en:"kitchen towel", phonetic:"", pos:"n.", cn:"厨房纸巾", exEn:"Wipe the table with a kitchen towel.", exCn:"用厨房纸巾擦拭桌子。" },
+  { book:"美国人每天说的话", chapter:"Chapter 1", unit:"Unit 2-1", unitTitle:"In the House - Living Room", en:"floor lamp", phonetic:"", pos:"phrase", cn:"落地灯", exEn:"A floor lamp provides soft light at night.", exCn:"落地灯在晚上提供柔和的光线。" }
 ];
 
 let currentWords = [];
@@ -505,7 +414,7 @@ function renderBookShelf(){
         <img class="book-cover" src="https://cdn.weread.qq.com/outpic/281/3001246281.jpg" alt="封面">
         <div class="book-info">
           <div class="book-title">${item.name}</div>
-          <div class="book-desc">Chapter 1 · ${totalWords} 词</div>
+          <div class="book-desc">${totalWords} 词</div>
         </div>
       </div>
     `;
@@ -519,20 +428,12 @@ function renderBookShelf(){
   wrap.innerHTML = html;
 }
 
-function openModal(){
-  document.getElementById('addModal').style.display = 'flex';
-  document.getElementById('newBookName').value = '';
-}
-function closeModal(){
-  document.getElementById('addModal').style.display = 'none';
-}
+function openModal(){ document.getElementById('addModal').style.display = 'flex'; document.getElementById('newBookName').value = ''; }
+function closeModal(){ document.getElementById('addModal').style.display = 'none'; }
 
 function confirmAddBook(){
   let name = document.getElementById('newBookName').value.trim();
-  if(!name){
-    alert('请输入书籍名称');
-    return;
-  }
+  if(!name) { alert('请输入书籍名称'); return; }
   bookList.push({ name: name });
   localStorage.setItem('wakeBookList', JSON.stringify(bookList));
   renderBookShelf();
@@ -544,9 +445,7 @@ function showScreen(id){
   document.getElementById('screen-'+id).classList.add('active');
 }
 
-function goBackBookcase(){
-  showScreen('bookshelf');
-}
+function goBackBookcase(){ showScreen('bookshelf'); }
 
 function openBookPage(idx){
   selectedBook = bookList[idx].name;
@@ -554,6 +453,9 @@ function openBookPage(idx){
   buildHome();
 }
 
+/* 架构优化核心：重构 buildHome。
+  将大分类单元展开，并用三列网格（Grid Tags）完美还原手账排版布局。
+*/
 function buildHome() {
   document.getElementById('streak-num').textContent = streak;
   const bookListEl = document.getElementById('chapter-list');
@@ -572,58 +474,102 @@ function buildHome() {
 
   let html = `
   <div class="back-btn" onclick="goBackBookcase()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align: middle;">
       <path d="M19 12H5M12 5l-7 7 7 7"/>
     </svg> 返回我的书库
   </div>`;
 
-  Object.entries(chapters).forEach(([ch, data]) => {
-    html += `<div class="chapter-card ${data.class}">
-      <div class="chapter-header" onclick="toggleChapter(this)" style="padding: 16px 14px;">
+  // 判断是否为目标书籍，绑定专属中英文长标题副文本
+  const isTargetBook = (selectedBook === "美国人每天说的话");
+
+  Object.entries(chapters).forEach(([ch, data], chIdx) => {
+    const subTitleText = isTargetBook ? (CHAPTER_FULL_NAME[ch] || "") : "暂无章节描述";
+
+    html += `
+    <div class="chapter-card ${data.class}">
+      <div class="chapter-header flex">
         <div class="chapter-header-left">
           <span class="chapter-tag">${ch}</span>
           <span class="chapter-name">${selectedBook}</span>
         </div>
+        <div class="chapter-subtext">${subTitleText}</div>
       </div>
-      <div class="unit-list" style="display:none; padding: 0 12px 14px 12px; display:flex; flex-direction:column; gap:8px;">`;
       
-    Object.entries(data.unitList).forEach(([unit, unitData]) => {
-      const done = unitData.words.filter(w => learnedWords.includes(w.en)).length;
-      html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')" style="padding: 12px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
-        <div class="unit-left">
-          <div>
-            <div class="unit-name" style="font-size:15px; font-weight:600; margin-bottom:2px;">${unit}</div>
-            <div class="unit-sub" style="font-size:12px; max-width:260px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${unitData.title}</div>
+      <div style="padding: 4px 14px 16px 14px; background: #FFFFFF;">`;
+
+    // 遍历单元：将每个 Unit 独立渲染为细分大方块框
+    Object.entries(data.unitList).forEach(([unit, unitData], uIdx) => {
+      const unitNumber = uIdx + 1;
+      
+      html += `
+        <div class="unit-block-box">
+          <div class="unit-block-title">
+            <span class="unit-idx-dot">${unitNumber}</span>
+            <span style="font-weight:700;">${unit}</span>
+            <span class="unit-title-text">${unitData.title}</span>
           </div>
-        </div>
-        <span class="unit-badge">${done}/${unitData.words.length}</span>
-      </div>`;
+          
+          <div class="grid-tags-container">`;
+
+      // 处理方块细分元素标签逻辑。将单词拆解或按批次生成网格
+      const step = 8; 
+      const totalWords = unitData.words.length;
+      const tagCount = Math.ceil(totalWords / step);
+
+      for (let i = 0; i < tagCount; i++) {
+        const start = i * step;
+        const end = Math.min(start + step, totalWords);
+        const slicedWords = unitData.words.slice(start, end);
+        
+        // 判定该网格块内的词是否已经全部背完
+        const doneCount = slicedWords.filter(w => learnedWords.includes(w.en)).length;
+        const isAllDone = (doneCount === slicedWords.length && totalWords > 0);
+        const tagClass = isAllDone ? "grid-tag-item grid-tag-done" : "grid-tag-item";
+
+        // 标签命名展示逻辑
+        let tagLabel = `第 ${start+1}-${end} 词`;
+        if(start + 1 === end) tagLabel = `第 ${end} 词`;
+
+        html += `
+          <div class="${tagClass}" onclick="selectUnitBatch('${ch}','${unit}','${data.class}', ${start}, ${end})">
+            <div>
+              <div style="font-weight:600;">${tagLabel}</div>
+              <div style="font-size:10px; opacity:0.6; margin-top:1px;">${doneCount}/${slicedWords.length} 已学</div>
+            </div>
+          </div>`;
+      }
+
+      html += `</div></div>`;
     });
+
     html += `</div></div>`;
   });
   bookListEl.innerHTML = html;
 }
 
-function toggleChapter(el) {
-  const content = el.nextElementSibling;
-  content.style.display = content.style.display === 'none' ? 'block' : 'none';
-}
+// 颗粒度拆分：点击具体批次标签时的入口分发
+let batchStartIdx = 0;
+let batchEndIdx = 0;
 
-function selectUnit(chapter, unit, chapterClass) {
+function selectUnitBatch(chapter, unit, chapterClass, start, end) {
   selectedChapterClass = chapterClass;
   selectedUnit = unit; 
-  const data = WORDS.filter(w => w.chapter === chapter && w.unit === unit);
+  batchStartIdx = start;
+  batchEndIdx = end;
+
+  const fullData = WORDS.filter(w => w.chapter === chapter && w.unit === unit);
+  const currentBatchData = fullData.slice(start, end);
+
   document.getElementById('mode-unit-name').textContent = unit;
-  document.getElementById('mode-unit-sub').textContent = data[0]?.unitTitle + ' · ' + data.length + ' 词';
+  document.getElementById('mode-unit-sub').textContent = fullData[0]?.unitTitle + ` (第${start+1}-${end}词)`;
   showScreen('mode');
 }
 
 function startMode(mode) {
   currentIdx = 0;
-  currentWords = WORDS.filter(w => 
-    w.book === selectedBook &&
-    w.unit === selectedUnit
-  );
+  // 核心过滤：仅提取选中批次范围内的单词
+  const fullUnitWords = WORDS.filter(w => w.book === selectedBook && w.unit === selectedUnit);
+  currentWords = fullUnitWords.slice(batchStartIdx, batchEndIdx);
 
   if (mode === 'study') {
     showScreen('study');
@@ -636,7 +582,7 @@ function startMode(mode) {
 
 function renderStudy() {
   if (currentIdx >= currentWords.length) { 
-    alert('学习完成！');
+    alert('本组单词练习完成！');
     showScreen('home');
     buildHome(); 
     return; 
@@ -650,6 +596,7 @@ function renderStudy() {
   document.getElementById('answer-reveal').style.display = 'none';
   document.getElementById('action-row').style.display = 'none';
   document.getElementById('study-result').style.display = 'none';
+  document.getElementById('study-submit-btn').style.display = 'block';
 
   const imgKey = getImgKey(w.en);
   let url = `https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg`;
@@ -659,7 +606,7 @@ function renderStudy() {
   
   const imgEl = document.getElementById('study-img');
   imgEl.onerror = function () {
-    zone.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;font-size:14px;background:rgba(216,238,238,0.3);">⚠️ 暂无对应图片 (${imgKey}.jpg)</div>`;
+    zone.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--accent);font-size:13px;background:#FCFAF6;">⚠️ 暂无对应图片 (${imgKey}.jpg)</div>`;
   };
 }
 
@@ -672,19 +619,22 @@ function checkStudy() {
   
   const correct = cleanInput === cleanAnswer;
   const resultEl = document.getElementById('study-result');
+  
   if (correct) {
     correctCount++;
     resultEl.className = 'result-row correct';
-    resultEl.innerHTML = '✅ 回答正确！';
+    resultEl.innerHTML = '<span>✅ 回答正确！精准无误。</span>';
     if (!learnedWords.includes(w.en)) { 
       learnedWords.push(w.en); 
       localStorage.setItem('learnedWords', JSON.stringify(learnedWords)); 
     }
   } else {
     resultEl.className = 'result-row wrong';
-    resultEl.innerHTML = `❌ 正确答案：${w.en}`;
+    resultEl.innerHTML = `<span>❌ 拼写有误。正确：<b>${w.en}</b></span>`;
   }
+  
   resultEl.style.display = 'flex';
+  document.getElementById('study-submit-btn').style.display = 'none';
   document.getElementById('answer-en').textContent = w.en;
   document.getElementById('answer-phonetic').textContent = w.phonetic || '(暂无音标)';
   document.getElementById('example-box').innerHTML = `<div class="example-en">${w.exEn}</div><div class="example-cn">${w.exCn}</div>`;
@@ -699,7 +649,7 @@ function nextStudy() {
 
 function renderRead() {
   if (currentIdx >= currentWords.length) { 
-    alert('学习完成！');
+    alert('本组单词文本浏览完成！');
     showScreen('home');
     buildHome(); 
     return; 
@@ -721,21 +671,12 @@ function renderRead() {
   
   const imgEl = document.getElementById('read-img-element');
   imgEl.onerror = function () {
-    readImageZone.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#2a8a8a;font-size:14px;background:rgba(216,238,238,0.3);">⚠️ 暂无对应图片 (${imgKey}.jpg)</div>`;
+    readImageZone.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--accent);font-size:13px;background:#FCFAF6;">⚠️ 暂无对应图片 (${imgKey}.jpg)</div>`;
   };
 }
 
-function prevRead() {
-  if (currentIdx > 0) {
-    currentIdx--;
-    renderRead();
-  }
-}
-
-function nextRead() {
-  currentIdx++;
-  renderRead();
-}
+function prevRead() { if (currentIdx > 0) { currentIdx--; renderRead(); } }
+function nextRead() { currentIdx++; renderRead(); }
 
 function speak() {
   const w = currentWords[currentIdx];
