@@ -124,7 +124,16 @@
   .chapter-card .unit-list .unit-item:nth-child(even) .unit-badge { background: rgba(0, 0, 0, 0.03) !important; color: var(--ch-text) !important; border: 1px solid rgba(0, 0, 0, 0.05) !important; }
 
   .chapter-card .unit-badge { font-size: 12px !important; padding: 4px 12px !important; border-radius: 20px !important; font-weight: 600 !important; }
-  ..chapter-card .unit-item { display: flex; flex-direction: column; align-items: flex-start;gap: 6px; padding: 14px 16px;border-radius: 14px; cursor: pointer;transition: all 0.2s ease;
+  ..unit-list {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 12px 14px 12px;
+}
+.unit-list.open {
+  display: flex;
+}
+  .chapter-card .unit-item { display: flex; flex-direction: column; align-items: flex-start;gap: 6px; padding: 14px 16px;border-radius: 14px; cursor: pointer;transition: all 0.2s ease;
 }
   .chapter-card .unit-item:hover { filter: brightness(0.95); }
 .chapter-card .unit-name {font-size: 15px;font-weight: 700;letter-spacing: 0.2px;
@@ -594,10 +603,10 @@ function buildHome() {
       <div class="chapter-header" onclick="toggleChapter(this)" style="padding: 16px 14px;">
         <div class="chapter-header-left">
           <span class="chapter-tag">${ch}</span>
-          <span class="chapter-name">${${CHAPTER_FULL_NAME[ch]}selectedBook}</span>
+          <span class="chapter-name">${CHAPTER_FULL_NAME[ch]}</span>
         </div>
       </div>
-      <div class="unit-list" style="display:none; padding: 0 12px 14px 12px; display:flex; flex-direction:column; gap:8px;">`;
+      <div class="unit-list">
       
     Object.entries(data.unitList).forEach(([unit, unitData]) => {
       const done = unitData.words.filter(w => learnedWords.includes(w.en)).length;
@@ -618,7 +627,7 @@ function buildHome() {
 
 function toggleChapter(el) {
   const content = el.nextElementSibling;
-  content.style.display = content.style.display === 'none' ? 'block' : 'none';
+  content.classList.toggle('open');
 }
 
 function selectUnit(chapter, unit, chapterClass) {
