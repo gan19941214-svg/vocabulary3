@@ -124,7 +124,7 @@
   .chapter-card .unit-list .unit-item:nth-child(even) .unit-badge { background: rgba(0, 0, 0, 0.03) !important; color: var(--ch-text) !important; border: 1px solid rgba(0, 0, 0, 0.05) !important; }
 
   .chapter-card .unit-badge { font-size: 12px !important; padding: 4px 12px !important; border-radius: 20px !important; font-weight: 600 !important; }
-  ..unit-list {
+  .unit-list {
   display: none;
   flex-direction: column;
   gap: 8px;
@@ -606,8 +606,8 @@ function buildHome() {
           <span class="chapter-name">${CHAPTER_FULL_NAME[ch]}</span>
         </div>
       </div>
-      <div class="unit-list">
-      
+     <div class="unit-list">`;
+
     Object.entries(data.unitList).forEach(([unit, unitData]) => {
       const done = unitData.words.filter(w => learnedWords.includes(w.en)).length;
       html += `<div class="unit-item" onclick="selectUnit('${ch}','${unit}','${data.class}')" style="padding: 12px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
