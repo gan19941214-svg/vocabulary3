@@ -202,7 +202,28 @@ body {
 .answer-en { font-size: 22px; font-weight: 700; color: #1A2E2E; margin-bottom: 3px; }
 .answer-phonetic { font-size: 13px; color: #6A8A8A; margin-bottom: 10px; }
 .answer-sound-btn { background: #D4EEEE; color: #2A8A8A; border: none; border-radius: 7px; padding: 5px 12px; margin-bottom: 10px; cursor: pointer; font-size: 13px; }
-.example-box { background: #EEF6F6; border-radius: 10px; padding: 12px; border-left: 3px solid #4AA8B8; font-size: 13px; line-height: 1.6; color: #2A4040; }
+
+/* ===== EXAMPLE BOX — 优化高亮样式 ===== */
+.example-box {
+  background: #EEF6F6;
+  border-radius: 10px;
+  padding: 12px;
+  border-left: 3px solid #4AA8B8;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #2A4040;
+}
+.example-en { color: #1A2E2E; font-weight: 500; margin-bottom: 4px; }
+.example-cn { color: #5A7A7A; opacity: 0.85; font-size: 12px; }
+/* 例句中单词高亮 */
+.word-highlight {
+  color: #2A8A8A;
+  font-weight: 700;
+  background: rgba(74,168,184,0.12);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
 .action-row { display: flex; gap: 8px; margin-top: 12px; }
 .action-btn { flex: 1; padding: 11px; border-radius: 10px; font-weight: 600; border: 1px solid #E4EEEE; background: #FFFFFF; cursor: pointer; font-size: 14px; color: #1A2E2E; }
 .action-btn.primary { background: #4AA8B8; color: #fff; border-color: #4AA8B8; }
@@ -255,7 +276,7 @@ body {
   <div style="padding:16px; max-width:480px; margin:0 auto;">
     <div class="home-header">
       <div class="home-title">WAKE 的书库</div>
-      <div class="home-desc">此人职业生涯就要爆发了</div>
+      <div class="home-desc">此人职业生涯就要迸发了</div>
     </div>
     <div class="bookshelf-container">
       <div class="bookshelf" id="bookshelf"></div>
@@ -266,9 +287,7 @@ body {
 <!-- 目录 -->
 <div class="screen" id="screen-home">
   <div style="max-width:480px; margin:0 auto;">
-    <div class="back-btn" onclick="goBackBookcase()">
-      ← 返回我的书库
-    </div>
+    <div class="back-btn" onclick="goBackBookcase()">← 返回书架</div>
     <div id="chapter-list"></div>
   </div>
 </div>
@@ -285,11 +304,11 @@ body {
       </div>
     </div>
     <div class="mode-card" onclick="startMode('study')">
-      <div class="mode-card-icon study">✏️</div>
+      <div class="mode-card-icon study">🎯</div>
       <div><h3>看图默写</h3><p>看中文+图片默写，深度记忆</p></div>
     </div>
     <div class="mode-card" onclick="startMode('read')">
-      <div class="mode-card-icon read">📚</div>
+      <div class="mode-card-icon read">📖</div>
       <div><h3>文本学习</h3><p>单词+图片+例句，全面复习</p></div>
     </div>
   </div>
@@ -306,7 +325,7 @@ body {
     <div class="word-card">
       <div class="word-card-top">
         <div class="word-pos-badge" id="study-pos">n.</div>
-        <div class="word-cn" id="study-cn">腮红</div>
+        <div class="word-cn" id="study-cn">加载中</div>
       </div>
       <div class="image-zone" id="study-image-zone"></div>
       <div class="word-card-bottom">
@@ -339,9 +358,9 @@ body {
     <div class="read-card">
       <div class="read-image" id="read-image"></div>
       <div class="read-pos" id="read-pos">n.</div>
-      <div class="read-en" id="read-en">blush</div>
-      <div class="read-phonetic" id="read-phonetic">[blʌʃ]</div>
-      <div class="read-cn" id="read-cn">腮红</div>
+      <div class="read-en" id="read-en"></div>
+      <div class="read-phonetic" id="read-phonetic"></div>
+      <div class="read-cn" id="read-cn"></div>
       <div class="example-box" id="read-example"></div>
     </div>
     <div class="action-row">
@@ -383,120 +402,459 @@ const chapterThemes = {
 };
 
 /* =============================================
-   9 章 × 3 单元 × 3 文章 完整骨架
+   完整 9 章目录（原版三级结构：章 → 单元 → 三篇文章）
+   每篇文章的 id 格式：「章-单元-篇」，cn 来自原书目录
    ============================================= */
 const bookDirectoryGrid = [
   {
     chapter: 1, title: "Daily Life", cn: "生活的样貌，你需要知道",
     units: [
-      { unit: "Unit 1", en: "In the Morning", cn: "晨间起床场景", articles: [{ id: "1-1-1", title: "Part 1", cn: "睁眼起床" }, { id: "1-1-2", title: "Part 2", cn: "洗漱更衣" }, { id: "1-1-3", title: "Part 3", cn: "准备出门" }] },
-      { unit: "Unit 2", en: "Freshening Up", cn: "洗漱与穿搭", articles: [{ id: "1-2-1", title: "Part 1", cn: "日常护肤" }, { id: "1-2-2", title: "Part 2", cn: "精致妆容" }, { id: "1-2-3", title: "Part 3", cn: "挑选衣服" }] },
-      { unit: "Unit 3", en: "Heading Out", cn: "准备出门", articles: [{ id: "1-3-1", title: "Part 1", cn: "等候电梯" }, { id: "1-3-2", title: "Part 2", cn: "检查随身物品" }, { id: "1-3-3", title: "Part 3", cn: "锁门出发" }] }
+      { unit: "Unit 1", en: "In the Morning",        cn: "晨间起床场景", articles: [
+        { id:"1-1-1", title:"1-1", cn:"起床和迟到" },
+        { id:"1-1-2", title:"1-2", cn:"沐浴和化妆换衣" },
+        { id:"1-1-3", title:"1-3", cn:"早餐" }
+      ]},
+      { unit: "Unit 2", en: "In the House",           cn: "居家环境", articles: [
+        { id:"1-2-1", title:"2-1", cn:"客厅" },
+        { id:"1-2-2", title:"2-2", cn:"卧房与浴室" },
+        { id:"1-2-3", title:"2-3", cn:"厨房" }
+      ]},
+      { unit: "Unit 3", en: "Maintenance",            cn: "环境整理", articles: [
+        { id:"1-3-1", title:"3-1", cn:"打扫与洗衣服" },
+        { id:"1-3-2", title:"3-2", cn:"园艺" },
+        { id:"1-3-3", title:"3-3", cn:"故障维修与工具" }
+      ]},
+      { unit: "Unit 4", en: "Interpersonal Relations",cn: "人际关系", articles: [
+        { id:"1-4-1", title:"4-1", cn:"情绪与表达" },
+        { id:"1-4-2", title:"4-2", cn:"家人与亲友" },
+        { id:"1-4-3", title:"4-3", cn:"恋爱与感情状态" }
+      ]},
+      { unit: "Unit 5", en: "Health",                 cn: "个人健康", articles: [
+        { id:"1-5-1", title:"5-1", cn:"睡眠" },
+        { id:"1-5-2", title:"5-2", cn:"维持身材" },
+        { id:"1-5-3", title:"5-3", cn:"身体不适与就诊" }
+      ]}
     ]
   },
   {
-    chapter: 2, title: "Food & Drinks", cn: "为您带来美味满满的大平台",
+    chapter: 2, title: "Food & Drinks", cn: "为你带来美味满满的大平台",
     units: [
-      { unit: "Unit 1", en: "At the Cafe", cn: "咖啡馆表达", articles: [{ id: "2-1-1", title: "Part 1", cn: "点单意式" }, { id: "2-1-2", title: "Part 2", cn: "甜品搭配" }, { id: "2-1-3", title: "Part 3", cn: "外带打包" }] },
-      { unit: "Unit 2", en: "Restaurant", cn: "餐厅订位与就餐", articles: [{ id: "2-2-1", title: "Part 1", cn: "前台招待" }, { id: "2-2-2", title: "Part 2", cn: "看单点菜" }, { id: "2-2-3", title: "Part 3", cn: "买单结账" }] },
-      { unit: "Unit 3", en: "Bar & Nightlife", cn: "酒吧与夜生活", articles: [{ id: "2-3-1", title: "Part 1", cn: "预订卡座" }, { id: "2-3-2", title: "Part 2", cn: "调制鸡尾酒" }, { id: "2-3-3", title: "Part 3", cn: "深夜小酌" }] }
+      { unit: "Unit 1", en: "Ingredients",         cn: "食材", articles: [
+        { id:"2-1-1", title:"1-1", cn:"海鲜与肉类" },
+        { id:"2-1-2", title:"1-2", cn:"谷物与乳制品" },
+        { id:"2-1-3", title:"1-3", cn:"蔬果" }
+      ]},
+      { unit: "Unit 2", en: "Cooking & Tasting",   cn: "烹调与品尝", articles: [
+        { id:"2-2-1", title:"2-1", cn:"香草、调味料与酱料" },
+        { id:"2-2-2", title:"2-2", cn:"口感与味道" },
+        { id:"2-2-3", title:"2-3", cn:"烹饪方式与厨具" }
+      ]},
+      { unit: "Unit 3", en: "Foreign Dishes",      cn: "各国料理", articles: [
+        { id:"2-3-1", title:"3-1", cn:"美式与意式料理" },
+        { id:"2-3-2", title:"3-2", cn:"中式美食与夜市小吃" },
+        { id:"2-3-3", title:"3-3", cn:"其他异国美食" }
+      ]},
+      { unit: "Unit 4", en: "Restaurants & Foods", cn: "餐厅类型与餐点", articles: [
+        { id:"2-4-1", title:"4-1", cn:"咖啡厅" },
+        { id:"2-4-2", title:"4-2", cn:"泰方与速食店" },
+        { id:"2-4-3", title:"4-3", cn:"西餐厅与小酒馆" }
+      ]},
+      { unit: "Unit 5", en: "Restaurant Services", cn: "餐厅服务", articles: [
+        { id:"2-5-1", title:"5-1", cn:"餐厅订位与入座" },
+        { id:"2-5-2", title:"5-2", cn:"用餐" },
+        { id:"2-5-3", title:"5-3", cn:"用餐结束" }
+      ]}
     ]
   },
   {
     chapter: 3, title: "Holidays & Social Occasions", cn: "社交不求人，姐/哥就是达人",
     units: [
-      { unit: "Unit 1", en: "Festival Celebrations", cn: "节日庆典", articles: [{ id: "3-1-1", title: "Part 1", cn: "节日派对" }, { id: "3-1-2", title: "Part 2", cn: "互赠礼物" }, { id: "3-1-3", title: "Part 3", cn: "节日祝福" }] },
-      { unit: "Unit 2", en: "Social Gathering", cn: "社交聚会", articles: [{ id: "3-2-1", title: "Part 1", cn: "认识新朋友" }, { id: "3-2-2", title: "Part 2", cn: "聊天话题" }, { id: "3-2-3", title: "Part 3", cn: "派对道别" }] },
-      { unit: "Unit 3", en: "Home Party", cn: "做客与款待", articles: [{ id: "3-3-1", title: "Part 1", cn: "拜访做客" }, { id: "3-3-2", title: "Part 2", cn: "热情款待" }, { id: "3-3-3", title: "Part 3", cn: "致谢评价" }] }
+      { unit: "Unit 1", en: "Social 101",       cn: "基本社交用语", articles: [
+        { id:"3-1-1", title:"1-1", cn:"问候寒暄" },
+        { id:"3-1-2", title:"1-2", cn:"道别与邀约" },
+        { id:"3-1-3", title:"1-3", cn:"其他社交情景" }
+      ]},
+      { unit: "Unit 2", en: "Popular Topics",   cn: "热门话题", articles: [
+        { id:"3-2-1", title:"2-1", cn:"谈论天气" },
+        { id:"3-2-2", title:"2-2", cn:"体育赛事" },
+        { id:"3-2-3", title:"2-3", cn:"影视娱乐" }
+      ]},
+      { unit: "Unit 3", en: "Social Occasions", cn: "社交场合", articles: [
+        { id:"3-3-1", title:"3-1", cn:"婚宴派对" },
+        { id:"3-3-2", title:"3-2", cn:"庆生会与婴儿送礼会" },
+        { id:"3-3-3", title:"3-3", cn:"丧礼" }
+      ]},
+      { unit: "Unit 4", en: "Holidays (I)",     cn: "重要节日（一）", articles: [
+        { id:"3-4-1", title:"4-1", cn:"情人节" },
+        { id:"3-4-2", title:"4-2", cn:"复活节与圣帕特里克节" },
+        { id:"3-4-3", title:"4-3", cn:"美国国庆日" }
+      ]},
+      { unit: "Unit 5", en: "Holidays (II)",    cn: "重要节日（二）", articles: [
+        { id:"3-5-1", title:"5-1", cn:"万圣节" },
+        { id:"3-5-2", title:"5-2", cn:"感恩节" },
+        { id:"3-5-3", title:"5-3", cn:"圣诞节与跨年" }
+      ]}
     ]
   },
   {
-    chapter: 4, title: "Recreation & Entertainment", cn: "人生爽过·爽过人生",
+    chapter: 4, title: "Recreation & Entertainment", cn: "人生活过·活过人生",
     units: [
-      { unit: "Unit 1", en: "Movies & Theater", cn: "电影与剧场", articles: [{ id: "4-1-1", title: "Part 1", cn: "在线选座" }, { id: "4-1-2", title: "Part 2", cn: "观影体验" }, { id: "4-1-3", title: "Part 3", cn: "影评讨论" }] },
-      { unit: "Unit 2", en: "Music & Concerts", cn: "音乐与演唱会", articles: [{ id: "4-2-1", title: "Part 1", cn: "抢门票" }, { id: "4-2-2", title: "Part 2", cn: "现场氛围" }, { id: "4-2-3", title: "Part 3", cn: "周边购买" }] },
-      { unit: "Unit 3", en: "Outdoor Sports", cn: "户外与运动", articles: [{ id: "4-3-1", title: "Part 1", cn: "健身房打卡" }, { id: "4-3-2", title: "Part 2", cn: "户外慢跑" }, { id: "4-3-3", title: "Part 3", cn: "周末露营" }] }
+      { unit: "Unit 1", en: "Movies & Music",                   cn: "电影及音乐", articles: [
+        { id:"4-1-1", title:"1-1", cn:"看电影" },
+        { id:"4-1-2", title:"1-2", cn:"讨论电影" },
+        { id:"4-1-3", title:"1-3", cn:"讨论音乐" }
+      ]},
+      { unit: "Unit 2", en: "In the Nightclub",                 cn: "在夜店", articles: [
+        { id:"4-2-1", title:"2-1", cn:"去夜店" },
+        { id:"4-2-2", title:"2-2", cn:"点酒和饮料" },
+        { id:"4-2-3", title:"2-3", cn:"跳舞搭讪" }
+      ]},
+      { unit: "Unit 3", en: "Sports & Household Entertainment", cn: "运动与居家娱乐", articles: [
+        { id:"4-3-1", title:"3-1", cn:"运动与运动场地" },
+        { id:"4-3-2", title:"3-2", cn:"去健身房" },
+        { id:"4-3-3", title:"3-3", cn:"娱乐在家" }
+      ]},
+      { unit: "Unit 4", en: "Art & Cultural Activities",        cn: "艺文活动", articles: [
+        { id:"4-4-1", title:"4-1", cn:"阅读" },
+        { id:"4-4-2", title:"4-2", cn:"博物馆" },
+        { id:"4-4-3", title:"4-3", cn:"剧院与音乐会" }
+      ]},
+      { unit: "Unit 5", en: "Outdoor Activities",               cn: "户外活动", articles: [
+        { id:"4-5-1", title:"5-1", cn:"海边活动" },
+        { id:"4-5-2", title:"5-2", cn:"健行与露营" },
+        { id:"4-5-3", title:"5-3", cn:"游乐园" }
+      ]}
     ]
   },
   {
     chapter: 5, title: "Shopping", cn: "一卡在手，刷遍全球",
     units: [
-      { unit: "Unit 1", en: "Malls & Boutiques", cn: "商场与精品店", articles: [{ id: "5-1-1", title: "Part 1", cn: "柜台试用" }, { id: "5-1-2", title: "Part 2", cn: "寻找尺码" }, { id: "5-1-3", title: "Part 3", cn: "结账打包" }] },
-      { unit: "Unit 2", en: "Bargaining & Discounts", cn: "折扣与议价", articles: [{ id: "5-2-1", title: "Part 1", cn: "询问折扣" }, { id: "5-2-2", title: "Part 2", cn: "砍价交涉" }, { id: "5-2-3", title: "Part 3", cn: "免税申请" }] },
-      { unit: "Unit 3", en: "Returns & Service", cn: "退换货与客服", articles: [{ id: "5-3-1", title: "Part 1", cn: "申请退款" }, { id: "5-3-2", title: "Part 2", cn: "瑕疵换货" }, { id: "5-3-3", title: "Part 3", cn: "投诉反馈" }] }
+      { unit: "Unit 1", en: "Shopping Places",       cn: "各类商店", articles: [
+        { id:"5-1-1", title:"1-1", cn:"便利商店" },
+        { id:"5-1-2", title:"1-2", cn:"量贩店与购物中心" },
+        { id:"5-1-3", title:"1-3", cn:"市场" }
+      ]},
+      { unit: "Unit 2", en: "Shopping Procedures",   cn: "购物流程", articles: [
+        { id:"5-2-1", title:"2-1", cn:"价格与优惠" },
+        { id:"5-2-2", title:"2-2", cn:"消费服务" },
+        { id:"5-2-3", title:"2-3", cn:"付款与运送" }
+      ]},
+      { unit: "Unit 3", en: "Daily Necessities",     cn: "日常必需品", articles: [
+        { id:"5-3-1", title:"3-1", cn:"家居消耗品" },
+        { id:"5-3-2", title:"3-2", cn:"保养品" },
+        { id:"5-3-3", title:"3-3", cn:"急救箱与药品" }
+      ]},
+      { unit: "Unit 4", en: "Fashion & Trends (I)",  cn: "潮流时尚（一）", articles: [
+        { id:"5-4-1", title:"4-1", cn:"上衣款式" },
+        { id:"5-4-2", title:"4-2", cn:"下着款式" },
+        { id:"5-4-3", title:"4-3", cn:"布料与图案" }
+      ]},
+      { unit: "Unit 5", en: "Fashion & Trends (II)", cn: "潮流时尚（二）", articles: [
+        { id:"5-5-1", title:"5-1", cn:"配件（一）" },
+        { id:"5-5-2", title:"5-2", cn:"配件（二）" },
+        { id:"5-5-3", title:"5-3", cn:"轮廓剪裁与穿衣风格" }
+      ]}
     ]
   },
   {
     chapter: 6, title: "Traveling", cn: "开心出国游",
     units: [
-      { unit: "Unit 1", en: "Booking & Check-in", cn: "航班预订与登机", articles: [{ id: "6-1-1", title: "Part 1", cn: "办理值机" }, { id: "6-1-2", title: "Part 2", cn: "行李托运" }, { id: "6-1-3", title: "Part 3", cn: "海关安检" }] },
-      { unit: "Unit 2", en: "Hotel Stay", cn: "酒店入住", articles: [{ id: "6-2-1", title: "Part 1", cn: "登记入住" }, { id: "6-2-2", title: "Part 2", cn: "客房服务" }, { id: "6-2-3", title: "Part 3", cn: "退房结账" }] },
-      { unit: "Unit 3", en: "Sightseeing", cn: "景区观光", articles: [{ id: "6-3-1", title: "Part 1", cn: "购买门票" }, { id: "6-3-2", title: "Part 2", cn: "向导指路" }, { id: "6-3-3", title: "Part 3", cn: "拍照留念" }] }
+      { unit: "Unit 1", en: "Travel Plans",           cn: "旅行规划", articles: [
+        { id:"6-1-1", title:"1-1", cn:"行程与住宿" },
+        { id:"6-1-2", title:"1-2", cn:"护照、签证与货币" },
+        { id:"6-1-3", title:"1-3", cn:"打包行李" }
+      ]},
+      { unit: "Unit 2", en: "Going to the Airport",   cn: "搭飞机", articles: [
+        { id:"6-2-1", title:"2-1", cn:"抵达机场" },
+        { id:"6-2-2", title:"2-2", cn:"飞机上" },
+        { id:"6-2-3", title:"2-3", cn:"入境" }
+      ]},
+      { unit: "Unit 3", en: "Hotels",                 cn: "饭店", articles: [
+        { id:"6-3-1", title:"3-1", cn:"入住" },
+        { id:"6-3-2", title:"3-2", cn:"饭店人员与设施" },
+        { id:"6-3-3", title:"3-3", cn:"客房与饭店服务" }
+      ]},
+      { unit: "Unit 4", en: "On a Trip",              cn: "旅行中", articles: [
+        { id:"6-4-1", title:"4-1", cn:"热门旅游地区与城市" },
+        { id:"6-4-2", title:"4-2", cn:"必去旅游景点" },
+        { id:"6-4-3", title:"4-3", cn:"终极旅游清单" }
+      ]},
+      { unit: "Unit 5", en: "Accidents & Going Home", cn: "旅途意外与回国", articles: [
+        { id:"6-5-1", title:"5-1", cn:"旅途意外" },
+        { id:"6-5-2", title:"5-2", cn:"回到家" },
+        { id:"6-5-3", title:"5-3", cn:"分享经验与纪念品" }
+      ]}
     ]
   },
   {
     chapter: 7, title: "Transportation", cn: "一起出门转一转吧",
     units: [
-      { unit: "Unit 1", en: "Subway & Bus", cn: "地铁与公交", articles: [{ id: "7-1-1", title: "Part 1", cn: "扫码进站" }, { id: "7-1-2", title: "Part 2", cn: "换乘路线" }, { id: "7-1-3", title: "Part 3", cn: "不小心坐过站" }] },
-      { unit: "Unit 2", en: "Taxi & Ride-Hailing", cn: "出租车与网约车", articles: [{ id: "7-2-1", title: "Part 1", cn: "呼叫网约车" }, { id: "7-2-2", title: "Part 2", cn: "路线沟通" }, { id: "7-2-3", title: "Part 3", cn: "线上支付" }] },
-      { unit: "Unit 3", en: "Car Rental & Driving", cn: "自驾与租车", articles: [{ id: "7-3-1", title: "Part 1", cn: "办理租车" }, { id: "7-3-2", title: "Part 2", cn: "加油站加油" }, { id: "7-3-3", title: "Part 3", cn: "寻找停车位" }] }
+      { unit: "Unit 1", en: "Mass Transportation",     cn: "大众交通", articles: [
+        { id:"7-1-1", title:"1-1", cn:"待填充" },
+        { id:"7-1-2", title:"1-2", cn:"待填充" },
+        { id:"7-1-3", title:"1-3", cn:"待填充" }
+      ]},
+      { unit: "Unit 2", en: "Personal Transportation", cn: "个人交通", articles: [
+        { id:"7-2-1", title:"2-1", cn:"待填充" },
+        { id:"7-2-2", title:"2-2", cn:"待填充" },
+        { id:"7-2-3", title:"2-3", cn:"待填充" }
+      ]},
+      { unit: "Unit 3", en: "Traffic Rules",           cn: "交通规则", articles: [
+        { id:"7-3-1", title:"3-1", cn:"待填充" },
+        { id:"7-3-2", title:"3-2", cn:"待填充" },
+        { id:"7-3-3", title:"3-3", cn:"待填充" }
+      ]},
+      { unit: "Unit 4", en: "Driving on the Road",     cn: "驾车上路", articles: [
+        { id:"7-4-1", title:"4-1", cn:"待填充" },
+        { id:"7-4-2", title:"4-2", cn:"待填充" },
+        { id:"7-4-3", title:"4-3", cn:"待填充" }
+      ]},
+      { unit: "Unit 5", en: "Accident",                cn: "事故", articles: [
+        { id:"7-5-1", title:"5-1", cn:"待填充" },
+        { id:"7-5-2", title:"5-2", cn:"待填充" },
+        { id:"7-5-3", title:"5-3", cn:"待填充" }
+      ]}
     ]
   },
   {
-    chapter: 8, title: "On Campus", cn: "那些年，我们一起啃的书",
+    chapter: 8, title: "On Campus", cn: "那些年，我们一起哭的书",
     units: [
-      { unit: "Unit 1", en: "Library & Research", cn: "图书馆与资料检索", articles: [{ id: "8-1-1", title: "Part 1", cn: "借阅图书" }, { id: "8-1-2", title: "Part 2", cn: "自习室占座" }, { id: "8-1-3", title: "Part 3", cn: "查阅论文" }] },
-      { unit: "Unit 2", en: "Classroom", cn: "课堂互动", articles: [{ id: "8-2-1", title: "Part 1", cn: "点名提问" }, { id: "8-2-2", title: "Part 2", cn: "小组讨论" }, { id: "8-2-3", title: "Part 3", cn: "课后交作业" }] },
-      { unit: "Unit 3", en: "Exams & Graduation", cn: "考试与毕业", articles: [{ id: "8-3-1", title: "Part 1", cn: "期末通宵复习" }, { id: "8-3-2", title: "Part 2", cn: "查询成绩" }, { id: "8-3-3", title: "Part 3", cn: "参加毕业典礼" }] }
+      { unit: "Unit 1", en: "Registering Courses",     cn: "注册选课", articles: [
+        { id:"8-1-1", title:"1-1", cn:"待填充" },
+        { id:"8-1-2", title:"1-2", cn:"待填充" },
+        { id:"8-1-3", title:"1-3", cn:"待填充" }
+      ]},
+      { unit: "Unit 2", en: "Campus Life",              cn: "校园生活", articles: [
+        { id:"8-2-1", title:"2-1", cn:"待填充" },
+        { id:"8-2-2", title:"2-2", cn:"待填充" },
+        { id:"8-2-3", title:"2-3", cn:"待填充" }
+      ]},
+      { unit: "Unit 3", en: "Campus Environment",       cn: "校园环境", articles: [
+        { id:"8-3-1", title:"3-1", cn:"待填充" },
+        { id:"8-3-2", title:"3-2", cn:"待填充" },
+        { id:"8-3-3", title:"3-3", cn:"待填充" }
+      ]},
+      { unit: "Unit 4", en: "Study",                    cn: "学习", articles: [
+        { id:"8-4-1", title:"4-1", cn:"待填充" },
+        { id:"8-4-2", title:"4-2", cn:"待填充" },
+        { id:"8-4-3", title:"4-3", cn:"待填充" }
+      ]},
+      { unit: "Unit 5", en: "Performance & Graduation", cn: "成绩与毕业", articles: [
+        { id:"8-5-1", title:"5-1", cn:"待填充" },
+        { id:"8-5-2", title:"5-2", cn:"待填充" },
+        { id:"8-5-3", title:"5-3", cn:"待填充" }
+      ]}
     ]
   },
   {
     chapter: 9, title: "In the Workplace", cn: "一起来当华丽的上班族吧",
     units: [
-      { unit: "Unit 1", en: "Job Interview", cn: "求职面试", articles: [{ id: "9-1-1", title: "Part 1", cn: "自我介绍" }, { id: "9-1-2", title: "Part 2", cn: "谈论薪资" }, { id: "9-1-3", title: "Part 3", cn: "录用通知" }] },
-      { unit: "Unit 2", en: "Daily & Meetings", cn: "日常办公与会议", articles: [{ id: "9-2-1", title: "Part 1", cn: "早会工作汇报" }, { id: "9-2-2", title: "Part 2", cn: "跨部门邮件" }, { id: "9-2-3", title: "Part 3", cn: "策划方案探讨" }] },
-      { unit: "Unit 3", en: "Business Solicitation", cn: "项目招商与谈判", articles: [{ id: "9-3-1", title: "Part 1", cn: "接待重要客户" }, { id: "9-3-2", title: "Part 2", cn: "业务合同拟定" }, { id: "9-3-3", title: "Part 3", cn: "达成战略合作" }] }
+      { unit: "Unit 1", en: "Job Application",  cn: "求职", articles: [
+        { id:"9-1-1", title:"1-1", cn:"履历表" },
+        { id:"9-1-2", title:"1-2", cn:"相关文件" },
+        { id:"9-1-3", title:"1-3", cn:"公司及职位资格" }
+      ]},
+      { unit: "Unit 2", en: "Interviews",        cn: "面试", articles: [
+        { id:"9-2-1", title:"2-1", cn:"面试准备与面试中" },
+        { id:"9-2-2", title:"2-2", cn:"工作经验与能力" },
+        { id:"9-2-3", title:"2-3", cn:"个人特质" }
+      ]},
+      { unit: "Unit 3", en: "Occupations",       cn: "职业类别", articles: [
+        { id:"9-3-1", title:"3-1", cn:"商业、法务与医药专业" },
+        { id:"9-3-2", title:"3-2", cn:"公职、媒体与艺术工作者" },
+        { id:"9-3-3", title:"3-3", cn:"服务业与其他专业" }
+      ]},
+      { unit: "Unit 4", en: "In the Office",     cn: "办公室环境", articles: [
+        { id:"9-4-1", title:"4-1", cn:"组织与职称" },
+        { id:"9-4-2", title:"4-2", cn:"办公设备、电话与邮件" },
+        { id:"9-4-3", title:"4-3", cn:"办公室闲聊" }
+      ]},
+      { unit: "Unit 5", en: "Human Resources",   cn: "人力资源", articles: [
+        { id:"9-5-1", title:"5-1", cn:"公司福利" },
+        { id:"9-5-2", title:"5-2", cn:"休假与加班" },
+        { id:"9-5-3", title:"5-3", cn:"人事变动" }
+      ]}
     ]
   }
 ];
 
 /* =============================================
-   单词数据库（保留原有数据，articleId 字段对应目录）
+   单词数据库
+   articleId 路由规则：「章-单元-Part」
+   Ch1 Unit3 → 1-3-1 / 1-3-2 / 1-3-3
    ============================================= */
 const WORDS = [
-  // Ch1 Unit1 Part1 睁眼起床
-  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"stretch", phonetic:"[stretʃ]", pos:"v.", cn:"伸展", exEn:"I stretch after waking up.", exCn:"我醒来后伸展身体。" },
-  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"pajamas", phonetic:"[pəˈdʒɑːməz]", pos:"n.", cn:"睡衣", exEn:"I wear comfortable pajamas at night.", exCn:"我晚上穿舒适的睡衣。" },
-  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"alarm", phonetic:"[əˈlɑːm]", pos:"n.", cn:"闹钟", exEn:"My alarm rings at 7 every morning.", exCn:"我的闹钟每天7点响。" },
-  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"wake up", phonetic:"[weɪk ʌp]", pos:"v.", cn:"醒来", exEn:"I usually wake up at 7 AM.", exCn:"我通常早上7点醒来。" },
-  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"get up", phonetic:"[ɡet ʌp]", pos:"v.", cn:"起床", exEn:"She gets up early every day.", exCn:"她每天早起。" },
-  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"sleepy", phonetic:"[ˈsliːpi]", pos:"adj.", cn:"困倦的", exEn:"I feel sleepy early at night.", exCn:"我晚上很早就犯困。" },
-  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"drowsy", phonetic:"[ˈdraʊzi]", pos:"adj.", cn:"昏昏欲睡的", exEn:"He is drowsy in the morning.", exCn:"他早上昏昏欲睡。" },
-  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"oversleep", phonetic:"[ˌəʊvəˈsliːp]", pos:"v.", cn:"睡过头", exEn:"I overslept and was late.", exCn:"我睡过头迟到了。" },
-  // Ch1 Unit1 Part2 洗漱更衣
-  { articleId:"1-1-2", chapter:1, unit:"Unit 1", en:"snooze button", phonetic:"[snuːz ˈbʌtn]", pos:"n.", cn:"贪睡按钮", exEn:"I always press the snooze button.", exCn:"我总是按闹钟贪睡键。" },
-  { articleId:"1-1-2", chapter:1, unit:"Unit 1", en:"in a rush", phonetic:"[ɪn ə rʌʃ]", pos:"phrase", cn:"匆忙赶路", exEn:"I am in a rush every morning.", exCn:"我每天早上都很匆忙。" },
-  { articleId:"1-1-2", chapter:1, unit:"Unit 1", en:"hurry up", phonetic:"[ˈhʌri ʌp]", pos:"phrase", cn:"快点", exEn:"Hurry up, or you'll be late.", exCn:"快点，不然要迟到了。" },
-  { articleId:"1-1-2", chapter:1, unit:"Unit 1", en:"Rise and shine!", phonetic:"[raɪz ənd ʃaɪn]", pos:"phrase", cn:"起床啦！", exEn:"Rise and shine! It's morning.", exCn:"起床啦！天亮了。" },
-  // Ch1 Unit1 Part3 准备出门
-  { articleId:"1-1-3", chapter:1, unit:"Unit 1", en:"sleep in", phonetic:"[sliːp ɪn]", pos:"v.", cn:"睡懒觉", exEn:"I like to sleep in on weekends.", exCn:"我喜欢周末睡懒觉。" },
-  { articleId:"1-1-3", chapter:1, unit:"Unit 1", en:"stay in bed", phonetic:"[steɪ ɪn bed]", pos:"v.", cn:"赖在床上", exEn:"I want to stay in bed all morning.", exCn:"我想整个早上都赖在床上。" },
-  { articleId:"1-1-3", chapter:1, unit:"Unit 1", en:"miss", phonetic:"[mɪs]", pos:"v.", cn:"错过", exEn:"Don't miss the bus.", exCn:"别错过公交车。" },
-  // Ch1 Unit2 Part1 日常护肤
-  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"blush", phonetic:"[blʌʃ]", pos:"n.", cn:"腮红", exEn:"Apply a small amount of blush to your cheeks.", exCn:"在脸颊上涂少许腮红。" },
-  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"foundation", phonetic:"[faʊnˈdeɪʃən]", pos:"n.", cn:"粉底", exEn:"Choose a foundation that matches your skin tone.", exCn:"选择一款与你肤色吻合的液体粉底。" },
-  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"concealer", phonetic:"[kənˈsiːlə]", pos:"n.", cn:"遮瑕膏", exEn:"I use concealer to hide my dark circles.", exCn:"我用遮瑕膏遮盖黑眼圈。" },
-  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"foam", phonetic:"[foʊm]", pos:"n.", cn:"泡沫（洁面）", exEn:"Rub the cleanser until it creates foam.", exCn:"揉搓洗面奶直至产生丰富泡沫。" },
-  // Ch1 Unit2 Part2 精致妆容
-  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"mascara", phonetic:"[mæsˈkærə]", pos:"n.", cn:"睫毛膏", exEn:"This waterproof mascara makes my lashes look long.", exCn:"这款防水睫毛膏让我的睫毛显得特别长。" },
-  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"eye shadow", phonetic:"[aɪ ˈʃædoʊ]", pos:"n.", cn:"眼影", exEn:"She prefers neutral tones for daily eye shadow.", exCn:"她日常的眼影更喜欢用大地色系。" },
-  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"lipstick", phonetic:"[ˈlɪpˌstɪk]", pos:"n.", cn:"口红", exEn:"A swipe of red lipstick brightens your look.", exCn:"涂上一抹红唇瞬间就能提亮整张脸的色调。" },
-  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"eyeliner", phonetic:"[ˈaɪˌlaɪnə]", pos:"n.", cn:"眼线笔", exEn:"A thin stroke of eyeliner sharpens your eyes.", exCn:"一笔细细的眼线就能让双眼看起来更加有神。" },
-  // Ch1 Unit2 Part3 挑选衣服
-  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"wardrobe", phonetic:"[ˈwɔːrdˌroʊb]", pos:"n.", cn:"衣柜", exEn:"She organized her wardrobe for seasonal outfits.", exCn:"她整理了衣柜，用来存放她所有的季节性穿搭。" },
-  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"outfit", phonetic:"[ˈaʊtˌfɪt]", pos:"n.", cn:"服装；一整套穿搭", exEn:"I spent ten minutes choosing the perfect outfit.", exCn:"我花了十分钟为今天的会议挑选最完美的一整套穿搭。" },
-  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"hanger", phonetic:"[ˈhæŋə]", pos:"n.", cn:"衣架", exEn:"Please put the dress on a hanger.", exCn:"请把衣服挂在衣架上以防产生褶皱。" },
-  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"makeup", phonetic:"[ˈmeɪkˌʌp]", pos:"n.", cn:"化妆；妆容", exEn:"Her makeup focuses on clean, high-texture skin.", exCn:"她的妆容审美专注于干净、高级有质感的原生肌肤。" },
+
+  // ── Ch1 Unit1 · In the Morning ──────────────────────────────────
+  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"stretch",     phonetic:"[stretʃ]",        pos:"v.",      cn:"伸展",         exEn:"I stretch after waking up.",           exCn:"我醒来后伸展身体。" },
+  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"pajamas",     phonetic:"[pəˈdʒɑːməz]",   pos:"n.",      cn:"睡衣",         exEn:"I wear comfortable pajamas at night.", exCn:"我晚上穿舒适的睡衣。" },
+  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"alarm",       phonetic:"[əˈlɔːm]",       pos:"n.",      cn:"闹钟",         exEn:"My alarm rings at 7 every morning.",   exCn:"我的闹钟每天7点响。" },
+  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"wake up",     phonetic:"[weɪk ʌp]",      pos:"v.",      cn:"醒来",         exEn:"I usually wake up at 7 AM.",           exCn:"我通常早上7点醒来。" },
+  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"get up",      phonetic:"[ɡet ʌp]",       pos:"v.",      cn:"起床",         exEn:"She gets up early every day.",         exCn:"她每天早起。" },
+  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"sleepy",      phonetic:"[ˈsliːpi]",      pos:"adj.",    cn:"疲倦的",       exEn:"I feel sleepy early at night.",        exCn:"我晚上很早就犯困。" },
+  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"drowsy",      phonetic:"[ˈdraʊzi]",      pos:"adj.",    cn:"昏昏欲睡的",   exEn:"He is drowsy in the morning.",         exCn:"他早上昏昏欲睡。" },
+  { articleId:"1-1-1", chapter:1, unit:"Unit 1", en:"oversleep",   phonetic:"[ˌoʊvəˈsliːp]", pos:"v.",      cn:"睡过头",       exEn:"I overslept and was late.",            exCn:"我睡过头迟到了。" },
+  { articleId:"1-1-2", chapter:1, unit:"Unit 1", en:"snooze button",phonetic:"[snuːz ˈbʌtn]", pos:"n.",      cn:"贪睡按钮",     exEn:"I always press the snooze button.",    exCn:"我总是按闹钟贪睡键。" },
+  { articleId:"1-1-2", chapter:1, unit:"Unit 1", en:"in a rush",   phonetic:"[ɪn ə rʌʃ]",    pos:"phrase",  cn:"匆忙赶路",     exEn:"I am in a rush every morning.",        exCn:"我每天早上都很匆忙。" },
+  { articleId:"1-1-2", chapter:1, unit:"Unit 1", en:"hurry up",    phonetic:"[ˈhʌri ʌp]",    pos:"phrase",  cn:"快点",         exEn:"Hurry up, or you'll be late.",         exCn:"快点，不然要迟到了。" },
+  { articleId:"1-1-2", chapter:1, unit:"Unit 1", en:"Rise and shine!", phonetic:"[raɪz ənd ʃaɪn]", pos:"phrase", cn:"起床啦！",  exEn:"Rise and shine! It's morning.",        exCn:"起床啦！天亮了。" },
+  { articleId:"1-1-3", chapter:1, unit:"Unit 1", en:"sleep in",    phonetic:"[sliːp ɪn]",     pos:"v.",      cn:"睡懒觉",       exEn:"I like to sleep in on weekends.",      exCn:"我喜欢周末睡懒觉。" },
+  { articleId:"1-1-3", chapter:1, unit:"Unit 1", en:"stay in bed", phonetic:"[steɪ ɪn bed]",  pos:"v.",      cn:"赖在床上",     exEn:"I want to stay in bed all morning.",   exCn:"我想整个早上都赖在床上。" },
+  { articleId:"1-1-3", chapter:1, unit:"Unit 1", en:"miss",        phonetic:"[mɪs]",          pos:"v.",      cn:"错过",         exEn:"Don't miss the bus.",                  exCn:"别错过公交车。" },
+
+  // ── Ch1 Unit2-1 · In the House · 客厅 ────────────────────────────
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"French windows",   phonetic:"/frentʃ ˈwɪndoʊz/",    pos:"phrase",    cn:"落地窗",                 exEn:"The French windows in the living room let in plenty of natural light.", exCn:"客厅的落地窗让大量自然光透进来。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"television",       phonetic:"/ˈteləˌvɪʒən/",        pos:"n.",        cn:"电视；电视机；电视节目", exEn:"We watched a movie on the television last night.",    exCn:"我们昨晚在电视上看了一部电影。",    exEn2:"The event was shown live on national television.",  exCn2:"该事件在全国电视上直播。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"fireplace",        phonetic:"/ˈfaɪrˌpleɪs/",        pos:"n.",        cn:"壁炉；火炉",             exEn:"We love sitting by the fireplace on cold winter nights.", exCn:"我们喜欢在寒冷的冬夜坐在壁炉边。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"ceiling fan",      phonetic:"/ˈsiːlɪŋ fæn/",        pos:"phrase",    cn:"吊扇；天花板风扇",       exEn:"We turned on the ceiling fan to cool down the room.",exCn:"我们打开吊扇给房间降温。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"coffee table",     phonetic:"/ˈkɔːfi ˈteɪbl/",      pos:"phrase",    cn:"小茶几；咖啡桌",         exEn:"She put the magazines and snacks on the coffee table.", exCn:"她把杂志和零食放在了小茶几上。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"hardwood floor",   phonetic:"/ˈhɔːrdwʊd flɔːr/",   pos:"phrase",    cn:"实木地板",               exEn:"The hardwood floor in the living room looks very expensive.", exCn:"客厅的实木地板看起来很高档。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"carpet",           phonetic:"/ˈkɔːrpɪt/",           pos:"n.",        cn:"地毯；毛毯；覆盖物",     exEn:"We bought a soft carpet for the living room to make it warmer.", exCn:"我们给客厅买了一块柔软的地毯，让房间更温暖。", exEn2:"A thick carpet of leaves covered the ground in autumn.", exCn2:"秋天，地上覆盖着一层厚厚的落叶。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"rug",              phonetic:"/rʌɡ/",                 pos:"n.",        cn:"（局部覆盖的）地毯；小地毯", exEn:"We placed a colorful rug under the coffee table in the living room.", exCn:"我们在客厅的小茶几下方放了一块彩色的小地毯。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"ceiling",          phonetic:"/ˈsiːlɪŋ/",            pos:"n.",        cn:"天花板；顶部；上限",     exEn:"The ceiling of the living room is painted white.",   exCn:"客厅的天花板被漆成了白色。",        exEn2:"The government has set a ceiling on the price of gasoline.", exCn2:"政府对汽油价格设定了上限。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"chandelier",       phonetic:"/ˌʃændəˈlɪr/",         pos:"n.",        cn:"水晶吊灯；枝形吊灯",     exEn:"The chandelier in the living room is made of crystal and looks very luxurious.", exCn:"客厅的水晶吊灯看起来非常奢华。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"wall",             phonetic:"/wɔːl/",                pos:"n.",        cn:"墙壁；墙；屏障",         exEn:"We hung a family photo on the wall in the living room.", exCn:"我们在客厅的墙上挂了一张全家福。",   exEn2:"The Great Wall is a famous landmark in China.",    exCn2:"长城是中国著名的地标。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"curtain",          phonetic:"/ˈkɜːrtn/",            pos:"n.",        cn:"窗帘；门帘；幕布；屏障", exEn:"She closed the curtains to keep the sun out of the living room.", exCn:"她拉上窗帘，挡住了客厅的阳光。",     exEn2:"The curtains fell at the end of the play.",        exCn2:"剧终时幕布落下。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"sofa",             phonetic:"/ˈsoʊfə/",             pos:"n.",        cn:"长沙发；沙发床",         exEn:"She sat on the sofa and read a book while listening to music.", exCn:"她坐在沙发上一边听音乐一边看书。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"couch",            phonetic:"/kaʊtʃ/",              pos:"n.",        cn:"长沙发；睡椅",           exEn:"He fell asleep on the couch while watching TV.",     exCn:"他看电视的时候在沙发上睡着了。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"throw pillow",     phonetic:"/θroʊ ˈpɪloʊ/",       pos:"phrase",    cn:"靠枕；抱枕；装饰枕",     exEn:"She put several colorful throw pillows on the sofa to make it look cozier.", exCn:"她在沙发上放了几个彩色靠枕，让它看起来更温馨。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"rocking chair",    phonetic:"/ˈrɔːkɪŋ tʃer/",      pos:"phrase",    cn:"摇椅；摇摆椅",           exEn:"He sat in the rocking chair and read the newspaper on the weekend.", exCn:"他周末坐在摇椅上看报纸。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"armchair",         phonetic:"/ˈɔːrmˌtʃer/",        pos:"n.",        cn:"单人坐沙发；扶手椅",     exEn:"She bought a comfortable armchair for the corner of the living room.", exCn:"她给客厅的角落买了一把舒适的扶手椅。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"footrest",         phonetic:"/ˈfʊtˌrest/",          pos:"n.",        cn:"脚踏；搁脚架；踏脚踏",   exEn:"He put his feet on the footrest while sitting in the armchair.", exCn:"他坐在扶手椅上，把脚放在脚踏上。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"stool",            phonetic:"/stuːl/",               pos:"n.",        cn:"小凳子；凳子；马桶",     exEn:"We used the stool to reach the high shelf in the living room.", exCn:"我们用小凳子够到了客厅里的高架子。",  exEn2:"The stool in the bathroom needs to be cleaned.",   exCn2:"卫生间的马桶需要清洁。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"TV stand",         phonetic:"/ˈtiːviː stænd/",      pos:"phrase",    cn:"电视柜；电视架",         exEn:"We placed the TV on the TV stand against the wall in the living room.", exCn:"我们把电视放在了客厅靠墙的电视柜上。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"remote (control)", phonetic:"/rɪˈmoʊt kənˈtroʊl/", pos:"phrase",    cn:"遥控器；远程控制",       exEn:"She couldn't find the remote control for the TV in the living room.", exCn:"她找不到客厅电视的遥控器了。",        exEn2:"The remote control system allows you to operate the device from a distance.", exCn2:"远程控制系统允许你远距离操作设备。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"stereo",           phonetic:"/ˈsterioʊ/",           pos:"n.",        cn:"立体声音响；立体声系统", exEn:"He turned on the stereo and played his favorite music in the living room.", exCn:"他打开音响，在客厅里放起了他最喜欢的音乐。", exEn2:"The movie has excellent stereo sound quality.",   exCn2:"这部电影的立体声效果非常好。" },
+  { articleId:"1-2-1", chapter:1, unit:"Unit 2", en:"floor lamp",       phonetic:"/flɔːr læmp/",         pos:"phrase",    cn:"落地灯；立灯",           exEn:"We put a floor lamp next to the armchair in the living room for reading.", exCn:"我们在客厅的扶手椅旁放了一盏落地灯，方便阅读。" },
+
+  // ── Ch1 Unit2-2 · In the House · 卧房与浴室 ──────────────────────
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"mirror",           phonetic:"/ˈmɪrər/",             pos:"n.",        cn:"镜子；反光镜；写照",     exEn:"She looked at herself in the mirror in the bathroom before going out.", exCn:"她出门前在浴室的镜子里照了照自己。", exEn2:"The novel is a mirror of the society in that time.", exCn2:"这部小说是当时社会的一面镜子。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"faucet",           phonetic:"/ˈfɔːsɪt/",            pos:"n.",        cn:"水龙头；旋转阀；开关",   exEn:"She turned on the faucet to wash her hands in the bathroom.", exCn:"她打开浴室的水龙头洗手。",           exEn2:"The faucet on the gas pipe needs to be checked regularly.", exCn2:"煤气管道上的阀门需要定期检查。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"basin",            phonetic:"/ˈbeɪsn/",             pos:"n.",        cn:"洗脸盆；盆；盆地",       exEn:"She washed her face in the basin in the bathroom every morning.", exCn:"她每天早上都在浴室的洗脸盆里洗脸。", exEn2:"The Amazon Basin is home to many rare plants and animals.", exCn2:"亚马逊盆地是许多珍稀动植物的家园。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"towel",            phonetic:"/ˈtaʊəl/",             pos:"n.",        cn:"毛巾；抹布；纸巾",       exEn:"She hung a clean towel on the towel rack in the bathroom.", exCn:"她在浴室的毛巾架上挂了一条干净的毛巾。", exEn2:"Use a towel to wipe up the spilled water on the floor.", exCn2:"用毛巾把地上洒出来的水擦干净。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"bathtub",          phonetic:"/ˈbæθˌtʌb/",          pos:"n.",        cn:"浴缸；浴盆；浴池",       exEn:"She took a relaxing bath in the bathtub after a long day at work.", exCn:"她工作了一整天后在浴缸里泡了个放松的澡。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"showerhead",       phonetic:"/ˈʃaʊərˌhed/",        pos:"n.",        cn:"莲蓬头；淋浴喷头；花洒", exEn:"She adjusted the showerhead to make the water pressure stronger.", exCn:"她调整了淋浴喷头，让水压更大。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"tiles",            phonetic:"/taɪlz/",              pos:"n.",        cn:"瓷砖；屋瓦；铺瓷砖",     exEn:"We installed new tiles on the floor of the bathroom.",  exCn:"我们在浴室的地板上铺了新瓷砖。",     exEn2:"The roof tiles were damaged in the storm.",        exCn2:"屋顶的瓦片在暴风雨中损坏了。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"headboard",        phonetic:"/ˈhedˌbɔːrd/",        pos:"n.",        cn:"床头板；床头板；床靠",   exEn:"She chose a wooden headboard for her bed in the bedroom.", exCn:"她给卧室的床选了一个木质的床头板。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"pillow",           phonetic:"/ˈpɪloʊ/",            pos:"n.",        cn:"枕头；靠垫；枕状物",     exEn:"She put two soft pillows on her bed in the bedroom.",   exCn:"她在卧室的床上放了两个柔软的枕头。",  exEn2:"He used a rolled-up sweater as a pillow during the trip.", exCn2:"他旅行时用一件卷起来的毛衣当枕头。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"nightstand",       phonetic:"/ˈnaɪtˌstænd/",       pos:"n.",        cn:"床头柜；床头架",         exEn:"She put her lamp and alarm clock on the nightstand next to her bed.", exCn:"她把台灯和闹钟放在了床边的床头柜上。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"quilt",            phonetic:"/kwɪlt/",              pos:"n.",        cn:"被子；棉被；被状物",     exEn:"She covered herself with a warm quilt on cold nights.",  exCn:"她在寒冷的夜晚盖着温暖的被子。",     exEn2:"The quilt of snow covered the fields in winter.",  exCn2:"冬天，一层厚厚的雪覆盖了田野。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"toilet",           phonetic:"/ˈtɔɪlɪt/",           pos:"n.",        cn:"马桶；厕所；卫生间",     exEn:"She flushed the toilet after using it.",                exCn:"她用完马桶后冲了水。",               exEn2:"Is there a public toilet near the park?",          exCn2:"公园附近有公共厕所吗？" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"toilet paper",     phonetic:"/ˈtɔɪlɪt ˈpeɪpər/",  pos:"phrase",    cn:"卫生纸；厕纸；手纸",     exEn:"We need to buy more toilet paper for the bathroom.",    exCn:"我们需要给浴室多买点卫生纸。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"garbage bin",      phonetic:"/ˈɡɔːrbɪdʒ bɪn/",    pos:"phrase",    cn:"垃圾桶；垃圾箱；废物箱", exEn:"She threw the used tissues into the garbage bin in the bathroom.", exCn:"她把用过的纸巾扔进了浴室的垃圾桶。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"bath towel",       phonetic:"/bæθ ˈtaʊəl/",       pos:"phrase",    cn:"浴巾；洗澡巾；大毛巾",   exEn:"She wrapped herself in a soft bath towel after taking a shower.", exCn:"她洗完澡后用一条柔软的浴巾把自己裹了起来。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"shower gel",       phonetic:"/ˈʃaʊər dʒel/",      pos:"phrase",    cn:"沐浴乳；沐浴露；沐浴凝胶", exEn:"She used a lavender-scented shower gel when she took a bath.", exCn:"她洗澡时用了薰衣草味的沐浴露。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"shampoo",          phonetic:"/ʃæmˈpuː/",           pos:"n.",        cn:"洗发精；洗发水；洗发液", exEn:"She bought a new bottle of shampoo for her hair.",       exCn:"她买了一瓶新的洗发水。",             exEn2:"The company launched a new line of shampoos for different hair types.", exCn2:"该公司推出了一系列针对不同发质的洗发水。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"conditioner",      phonetic:"/kənˈdɪʃənər/",       pos:"n.",        cn:"护发乳；护发素；调节器", exEn:"She used conditioner to make her hair soft and smooth after washing it.", exCn:"她洗完头发后用护发素让头发变得柔顺。", exEn2:"The air conditioner in the bedroom keeps the room cool in summer.", exCn2:"卧室的空调在夏天保持房间凉爽。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"shower curtain",   phonetic:"/ˈʃaʊər ˈkɜːrtn/",   pos:"phrase",    cn:"浴帘；淋浴帘；防水帘",   exEn:"She closed the shower curtain to keep the floor dry when she took a shower.", exCn:"她洗澡时拉上浴帘，防止地板溅湿。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"mattress",         phonetic:"/ˈmætrɪs/",           pos:"n.",        cn:"床垫；褥垫；气垫",       exEn:"She bought a new mattress for her bed to make it more comfortable.", exCn:"她给床买了一个新床垫，让它更舒适。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"blanket",          phonetic:"/ˈblæŋkɪt/",          pos:"n.",        cn:"毯子；毛毯；覆盖物",     exEn:"She wrapped herself in a soft blanket while reading in the bedroom.", exCn:"她在卧室看书时用一条柔软的毯子把自己裹了起来。", exEn2:"The snow blanketed the ground in winter.",         exCn2:"冬天，雪覆盖了地面。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"sheet",            phonetic:"/ʃiːt/",               pos:"n.",        cn:"床单；被单；薄片；纸张", exEn:"She changed the sheets on her bed every week.",          exCn:"她每周都换床单。",                   exEn2:"He wrote his notes on a sheet of paper.",          exCn2:"他把笔记写在了一张纸上。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"picture frame",    phonetic:"/ˈpɪktʃər freɪm/",   pos:"phrase",    cn:"相框；画框；镜框",       exEn:"She put a family photo in a picture frame and hung it on the bedroom wall.", exCn:"她把一张全家福放进相框，挂在了卧室的墙上。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"recliner",         phonetic:"/rɪˈklaɪnər/",        pos:"n.",        cn:"躺椅；可躺椅；斜心椅",   exEn:"He sat in the recliner in the bedroom and watched TV before going to bed.", exCn:"他睡前坐在卧室的躺椅上看电视。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"chest of drawers", phonetic:"/tʃest əv ˈdrɔːrz/", pos:"phrase",    cn:"五斗柜；抽屉柜；五斗橱", exEn:"She stored her clothes in the chest of drawers in the bedroom.", exCn:"她把衣服存放在卧室的五斗柜里。" },
+  { articleId:"1-2-2", chapter:1, unit:"Unit 2", en:"dressing table",   phonetic:"/ˈdresɪŋ ˈteɪbl/",   pos:"phrase",    cn:"梳妆台；化妆台；梳妆桌", exEn:"She sat at the dressing table in the bedroom and did her makeup.", exCn:"她坐在卧室的梳妆台前化妆。" },
+
+  // ── Ch1 Unit2-3 · In the House · 厨房 ────────────────────────────
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"refrigerator",     phonetic:"/rɪˈfrɪdʒəreɪtər/",  pos:"n.",        cn:"冰箱；冰柜；冷藏库",     exEn:"She put the fresh food in the refrigerator to keep it cold.",   exCn:"她把新鲜食物放进冰箱冷藏。",        exEn2:"The project was kept in the refrigerator due to lack of funding.", exCn2:"由于资金不足，这个项目被搁置了。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"stove",            phonetic:"/stoʊv/",              pos:"n.",        cn:"燃气灶；炉子；火炉；炉灶", exEn:"She cooked dinner on the stove in the kitchen.",               exCn:"她在厨房的燃气灶上做了晚饭。",      exEn2:"The stove in the cabin kept us warm during the cold night.",   exCn2:"小屋里的炉子让我们在寒冷的夜晚保持温暖。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"kitchen island",   phonetic:"/ˈkɪtʃɪn ˈaɪlənd/",  pos:"phrase",    cn:"中岛；厨房岛台；料理台", exEn:"We prepared the food on the kitchen island in the middle of the kitchen.", exCn:"我们在厨房中间的中岛上准备食物。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"range hood",       phonetic:"/reɪndʒ hʊd/",        pos:"phrase",    cn:"抽油烟机；排油烟机",     exEn:"She turned on the range hood when she was cooking to get rid of the smoke.", exCn:"她做饭时打开抽油烟机排走油烟。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"counter",          phonetic:"/ˈkaʊntər/",          pos:"n.",        cn:"料理台；柜台；计数器；吧台", exEn:"She chopped the vegetables on the kitchen counter.",           exCn:"她在厨房的料理台上切蔬菜。",        exEn2:"He paid for his coffee at the counter of the café.",           exCn2:"他在咖啡馆的吧台付了咖啡钱。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"blender",          phonetic:"/ˈblendər/",          pos:"n.",        cn:"果汁机；搅拌机；混合器", exEn:"She made a smoothie with a blender in the kitchen.",            exCn:"她在厨房用果汁机做了一杯奶昔。",    exEn2:"The blender of different cultures makes this city unique.",    exCn2:"不同文化的融合让这座城市独具特色。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"toaster",          phonetic:"/ˈtoʊstər/",          pos:"n.",        cn:"烤面包机；烤片机；吐司炉", exEn:"She toasted the bread in the toaster for breakfast.",           exCn:"她用烤面包机烤了面包当早餐。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"rice cooker",      phonetic:"/raɪs ˈkʊkər/",      pos:"phrase",    cn:"电饭锅；电饭煲；电锅",   exEn:"She cooked rice in the rice cooker in the kitchen.",            exCn:"她在厨房用电饭锅煮了米饭。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"coffee machine",   phonetic:"/ˈkɔːfi məˈʃiːn/",  pos:"phrase",    cn:"咖啡机；咖啡壶；咖啡制作机", exEn:"She brewed a cup of coffee with the coffee machine in the morning.", exCn:"她早上用咖啡机煮了一杯咖啡。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"oven mitt",        phonetic:"/ˈʌvən mɪt/",        pos:"phrase",    cn:"隔热手套；烤箱手套；防烫手套", exEn:"She wore oven mitts to take the hot food out of the oven.",  exCn:"她戴上隔热手套把热食物从烤箱里拿出来。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"oven",             phonetic:"/ˈʌvən/",             pos:"n.",        cn:"烤箱；烤炉；烤面包炉；烘箱", exEn:"She baked cookies in the oven for the kids.",                 exCn:"她用烤箱给孩子们烤了饼干。",        exEn2:"The sun is like a huge oven in summer.",               exCn2:"夏天的太阳就像一个巨大的烤箱。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"microwave",        phonetic:"/ˈmaɪkroʊweɪv/",     pos:"n.",        cn:"微波炉；微波；微波设备", exEn:"She heated the leftover food in the microwave.",                exCn:"她用微波炉加热了剩菜。",            exEn2:"Microwaves are used in radar and communication systems.",      exCn2:"微波被用于雷达和通信系统。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"dishwasher",       phonetic:"/ˈdɪʃˌwɔːʃər/",     pos:"n.",        cn:"洗碗机；洗盘机；洗餐具机", exEn:"She loaded the dirty dishes into the dishwasher after dinner.", exCn:"她晚饭后把脏盘子放进了洗碗机。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"dish dryer",       phonetic:"/dɪʃ draɪər/",       pos:"phrase",    cn:"烘碗机；碗盘烘干机",     exEn:"She put the washed dishes in the dish dryer to dry them quickly.", exCn:"她把洗好的碗盘放进烘碗机，让它们快点干。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"freezer",          phonetic:"/ˈfriːzər/",          pos:"n.",        cn:"冷冻室；冰柜；冷冻柜",   exEn:"She stored the meat in the freezer to keep it fresh for a long time.", exCn:"她把肉存放在冷冻室里，让它长时间保鲜。", exEn2:"The cold weather froze the lake solid.",               exCn2:"寒冷的天气把湖冻得结了冰。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"cooler compartment",phonetic:"/ˈkuːlər kəmˈpɔːrtmənt/",pos:"phrase",cn:"冷藏室；冷藏格；保鲜室", exEn:"She kept the fruits and vegetables in the cooler compartment of the fridge.", exCn:"她把水果和蔬菜放在冰箱的冷藏室里。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"cupboard",         phonetic:"/ˈkʌbərd/",           pos:"n.",        cn:"碗橱；厨柜；壁橱；食橱", exEn:"She put the plates and bowls in the cupboard in the kitchen.", exCn:"她把盘子和碗放进了厨房的碗橱里。",   exEn2:"The cupboard under the sink holds cleaning supplies.",         exCn2:"水槽下的橱柜里放着清洁用品。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"apron",            phonetic:"/ˈeɪprən/",           pos:"n.",        cn:"围裙；围兜；防护衣",     exEn:"She wore an apron while cooking to keep her clothes clean.",   exCn:"她做饭时系着围裙，防止弄脏衣服。",   exEn2:"The company issued aprons to all the staff in the restaurant.", exCn2:"餐厅给所有员工都发了围裙。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"plate",            phonetic:"/pleɪt/",              pos:"n.",        cn:"盘子；碟子；金属板；板块", exEn:"She put the food on the plate and served it to the guests.",   exCn:"她把食物放在盘子里，端给了客人。",   exEn2:"The Earth's tectonic plates are constantly moving.",           exCn2:"地球的板块在不断运动。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"saucer",           phonetic:"/ˈsɔːsər/",           pos:"n.",        cn:"小碟子；茶碟；碟形物；浅碟", exEn:"She placed the cup on the saucer to prevent spills.",          exCn:"她把杯子放在小碟子上，防止洒出来。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"bowl",             phonetic:"/boʊl/",               pos:"n.",        cn:"碗；碗状物；碗形物；球", exEn:"She poured the soup into a bowl and gave it to her child.",    exCn:"她把汤倒进碗里，给了她的孩子。",     exEn2:"He rolled the ball into the bowl in the game.",               exCn2:"他在游戏里把球滚进了碗里。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"mug",              phonetic:"/mʌɡ/",                pos:"n.",        cn:"马克杯；杯子；大杯；缸子", exEn:"She drank her morning coffee from a ceramic mug.",             exCn:"她用一个陶瓷马克杯喝了早上的咖啡。", exEn2:"He used a mug to hold his pens on his desk.",                 exCn2:"他在书桌上用一个杯子装笔。" },
+  { articleId:"1-2-3", chapter:1, unit:"Unit 2", en:"kitchen towel",    phonetic:"/ˈkɪtʃɪn ˈtaʊəl/",  pos:"phrase",    cn:"厨房纸巾；厨房抹布；厨房毛巾", exEn:"She wiped the counter with a kitchen towel after cooking.",   exCn:"她做完饭后用厨房纸巾擦了料理台。" },
+
+  // ── Ch1 Unit3-1 · Maintenance · 打扫与洗衣服 ────────────────────
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"spray",          phonetic:"/spreɪ/",             pos:"n./v.",      cn:"喷雾；喷射；喷出言辞",  exEn:"He sprays cleaner on the table.",          exCn:"他往桌上喷清洁剂。",        exEn2:"He sprayed angry words at others.",         exCn2:"他喷出言辞攻击他人。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"glove",          phonetic:"/ɡlʌv/",             pos:"n.",         cn:"手套；防护手段",        exEn:"Put on rubber gloves before cleaning.",    exCn:"打扫前戴上橡胶手套。",      exEn2:"We need legal gloves to protect rights.",   exCn2:"我们需要法律手段维护权益。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"mop",            phonetic:"/mɑp/",              pos:"n./v.",      cn:"拖把；拖地；擦汗",      exEn:"She mops the floor every morning.",        exCn:"她每天早上拖地。",          exEn2:"He mopped sweat from his face.",            exCn2:"他擦去脸上的汗水。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"laundry",        phonetic:"/ˈlɔːndri/",         pos:"n.",         cn:"待洗衣物；洗衣店；家丑",exEn:"Please take out the laundry basket.",      exCn:"请拿出洗衣篮。",            exEn2:"They don't want to expose family laundry.", exCn2:"他们不想暴露自家丑事。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"washing machine", phonetic:"/ˈwɑʃɪŋ məˈʃiːn/", pos:"n.",         cn:"洗衣机",                exEn:"I often use the washing machine.",         exCn:"我经常使用洗衣机。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"stain",          phonetic:"/steɪn/",            pos:"n./v.",      cn:"污渍；沾染；玷污",      exEn:"There is an ink stain on clothes.",        exCn:"衣服上有墨水污渍。",        exEn2:"His fault stained his good name.",          exCn2:"他的过错玷污了美名。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"dust",           phonetic:"/dʌst/",             pos:"n./v.",      cn:"灰尘；除尘；淡忘",      exEn:"Wipe dust off the shelf regularly.",       exCn:"定期擦去架子灰尘。",        exEn2:"Old dreams dust away with time.",           exCn2:"旧日梦想渐渐被淡忘。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"rag",            phonetic:"/ræɡ/",              pos:"n.",         cn:"抹布；破布；破旧衣物",  exEn:"Clean windows with a clean rag.",          exCn:"用干净抹布擦窗户。",        exEn2:"The poor man lives in rags.",               exCn2:"这个穷人衣衫褴褛。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"scouring pad",   phonetic:"/ˈskaʊərɪŋ pæd/",  pos:"n.",         cn:"百洁布；清洁擦",        exEn:"Use scouring pad to wash pots.",           exCn:"用百洁布刷洗锅具。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"sponge",         phonetic:"/spʌndʒ/",           pos:"n./v.",      cn:"海绵；擦洗；揩取",      exEn:"She washes bowls with a sponge.",          exCn:"她用海绵洗碗。",            exEn2:"He likes to sponge off friends.",           exCn2:"他总喜欢揩朋友便宜。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"broom",          phonetic:"/bruːm/",            pos:"n.",         cn:"扫帚；扫除工具",        exEn:"Sweep leaves with a broom.",               exCn:"用扫帚清扫落叶。",          exEn2:"We broom away bad habits.",                 exCn2:"我们扫除坏习惯。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"sweep",          phonetic:"/swiːp/",            pos:"v.",         cn:"清扫；席卷；横扫",      exEn:"Sweep the yard after dinner.",             exCn:"晚饭后清扫院子。",          exEn2:"The storm swept across the city.",          exCn2:"暴风雨席卷整座城市。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"vacuum",         phonetic:"/ˈvækjuəm/",         pos:"n./v.",      cn:"吸尘器；吸尘；清空",    exEn:"I vacuum the carpet every week.",          exCn:"我每周用吸尘器吸地毯。",    exEn2:"The news vacuumed all public attention.",   exCn2:"这条新闻吸走所有关注度。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"care tag",       phonetic:"/keə tæɡ/",          pos:"n.",         cn:"洗护标签",              exEn:"Read care tag before washing clothes.",    exCn:"洗衣前查看洗护标签。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"dryer",          phonetic:"/ˈdraɪər/",          pos:"n.",         cn:"烘干机",                exEn:"Put wet clothes into the dryer.",          exCn:"把湿衣服放进烘干机。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"detergent",      phonetic:"/dɪˈtɜːrdʒənt/",    pos:"n.",         cn:"洗涤剂；清洁剂",        exEn:"Add some laundry detergent.",              exCn:"倒入适量洗衣液。",          exEn2:"Kindness is life's best detergent.",       exCn2:"善意是生活最好的调和剂。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"softener",       phonetic:"/ˈsɒfnər/",          pos:"n.",         cn:"衣物柔顺剂；缓和物",    exEn:"Fabric softener makes clothes smooth.",   exCn:"柔顺剂让衣物更柔滑。",      exEn2:"Smile acts as a mood softener.",           exCn2:"微笑是缓和情绪的良药。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"bleach",         phonetic:"/bliːtʃ/",           pos:"n./v.",      cn:"漂白剂；漂白；淡化",    exEn:"Bleach can remove stubborn stains.",       exCn:"漂白剂可去除顽固污渍。",    exEn2:"Time bleaches all sad memories.",          exCn2:"时光淡化所有悲伤回忆。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"peg",            phonetic:"/peɡ/",              pos:"n./v.",      cn:"衣夹；固定；锁定",      exEn:"Fix clothes with clothes pegs.",           exCn:"用衣夹固定衣物。",          exEn2:"They peg the price steadily.",             exCn2:"他们稳定锁定价格。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"clothesline",    phonetic:"/ˈkloʊðzlaɪn/",     pos:"n.",         cn:"晾衣绳",                exEn:"Hang clothes on the clothesline.",         exCn:"把衣服挂在晾衣绳上。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"hang",           phonetic:"/hæŋ/",              pos:"v.",         cn:"悬挂；晾晒；悬而未决",  exEn:"Hang up your uniform neatly.",             exCn:"把制服整齐挂好。",          exEn2:"The result still hangs in doubt.",         exCn2:"结果依旧悬而未决。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"iron",           phonetic:"/ˈaɪərn/",           pos:"n./v.",      cn:"熨斗；熨烫；摆平",      exEn:"Iron your shirt before going out.",        exCn:"出门前熨平衬衫。",          exEn2:"We iron out all disagreements.",           exCn2:"我们化解所有分歧矛盾。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"fold",           phonetic:"/foʊld/",            pos:"v.",         cn:"折叠；收拢；倒闭",      exEn:"Fold quilts after getting up.",            exCn:"起床后叠好被子。",          exEn2:"Many small shops folded last year.",       exCn2:"去年不少小店倒闭歇业。" },
+  { articleId:"1-3-1", chapter:1, unit:"Unit 3", en:"dry-clean",      phonetic:"/ˌdraɪ ˈkliːn/",    pos:"v.",         cn:"干洗；修饰洗白",        exEn:"This suit must be dry-cleaned.",           exCn:"这套西装必须干洗。",        exEn2:"He tried to dry-clean his public image.",  exCn2:"他试图洗白自身公众形象。" },
+
+  // ── Ch1 Unit3-2 · Gardening · 园艺 ──────────────────────────────
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"flowerpot",        phonetic:"/ˈflaʊərˌpɑːt/",   pos:"n.",         cn:"花盆",                  exEn:"Should we plant it in the flowerpot?",      exCn:"我们要把它种在花盆里吗？" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"watering can",     phonetic:"/ˈwɔːtərɪŋ kæn/", pos:"n.",         cn:"浇花器",                exEn:"I use a watering can to water my plants.",  exCn:"我用浇花器给植物浇水。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"hose",             phonetic:"/hoʊz/",            pos:"n.",         cn:"水管",                  exEn:"The garden hose is used to water the yard.", exCn:"花园水管用来给院子浇水。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"rake",             phonetic:"/reɪk/",            pos:"n.",         cn:"耙子",                  exEn:"Use a rake to clean up fallen leaves.",      exCn:"用耙子清理落叶。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"trowel",           phonetic:"/ˈtraʊəl/",         pos:"n.",         cn:"小铲子",                exEn:"Put some soil over the seed with the trowel.", exCn:"用小铲子把土盖在种子上。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"wheelbarrow",      phonetic:"/ˈwiːlˌbæroʊ/",    pos:"n.",         cn:"独轮手推车",            exEn:"We carry soil in a wheelbarrow.",            exCn:"我们用独轮车运土。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"seed",             phonetic:"/siːd/",            pos:"n.",         cn:"种子",                  exEn:"Put some soil over the seed with the trowel.", exCn:"用小铲子把土盖在种子上。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"thorn",            phonetic:"/θɔːrn/",           pos:"n.",         cn:"刺；荆棘",              exEn:"I cut my finger on a rose thorn.",           exCn:"我被玫瑰刺割破了手指。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"soil",             phonetic:"/sɔɪl/",            pos:"n.",         cn:"泥土",                  exEn:"I add the fertilizer to the soil.",           exCn:"我把肥料加到土里。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"fertilizer",       phonetic:"/ˈfɜːrtəlaɪzər/",  pos:"n.",         cn:"肥料",                  exEn:"Plucked weeds can be used as a fertilizer.", exCn:"拔掉的杂草可以当肥料。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"lawnmower",        phonetic:"/ˈlɔːnmoʊər/",     pos:"n.",         cn:"割草机",                exEn:"The lawnmower cuts the grass neatly.",       exCn:"割草机把草割得很整齐。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"gardening shears", phonetic:"/ˈɡɑːrdnɪŋ ʃɪrz/",pos:"n.",         cn:"园艺剪刀",              exEn:"Be careful with those gardening shears.",    exCn:"小心那些园艺剪刀。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"sprinkler",        phonetic:"/ˈsprɪŋklər/",     pos:"n.",         cn:"洒水器",                exEn:"Should I turn on the sprinkler to water the lawn now?", exCn:"我现在要打开洒水器浇草坪吗？" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"fence",            phonetic:"/fens/",            pos:"n.",         cn:"篱笆；栅栏",            exEn:"The wooden fence surrounds the garden.",     exCn:"木栅栏围着花园。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"hedge",            phonetic:"/hedʒ/",            pos:"n./v.",      cn:"树篱；规避风险",        exEn:"You trim the hedge first.",                  exCn:"你先修剪树篱。",            exEn2:"He hedges risks in the stock market.",     exCn2:"他在股市规避风险。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"sow",              phonetic:"/soʊ/",             pos:"vi. & vt.",  cn:"播种；埋下（隐患、希望）", exEn:"We sow seeds in spring.",             exCn:"我们在春天播种。",          exEn2:"Don't sow doubts in your mind.",           exCn2:"不要在心里埋下疑虑。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"trim",             phonetic:"/trɪm/",            pos:"vt.",        cn:"修剪；削减；精简",      exEn:"The hedge needs to be trimmed.",             exCn:"树篱需要修剪了。",          exEn2:"We need to trim our daily costs.",         exCn2:"我们需要削减日常开支。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"plant",            phonetic:"/plænt/",           pos:"n./vt.",     cn:"植物；种植",            exEn:"Water your plants; they are withering!",     exCn:"给你的植物浇水，它们快枯萎了！" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"mow",              phonetic:"/moʊ/",             pos:"vt.",        cn:"割（草）；横扫",        exEn:"He mows the lawn every weekend.",             exCn:"他每个周末都割草。",        exEn2:"The army mowed down the enemies.",         exCn2:"军队横扫敌军。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"pluck",            phonetic:"/plʌk/",            pos:"vt.",        cn:"拔；摘；鼓起勇气",      exEn:"Plucked weeds can be used as a fertilizer.", exCn:"拔掉的杂草可以当肥料。",    exEn2:"She plucked up her courage to speak.",     exCn2:"她鼓起勇气发言。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"wither",           phonetic:"/ˈwɪðər/",          pos:"vi.",        cn:"枯萎；（情感）衰退",    exEn:"Your plants are withering!",                 exCn:"你的植物正在枯萎！",        exEn2:"His passion slowly withered.",             exCn2:"他的热情慢慢消退。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"weed",             phonetic:"/wiːd/",            pos:"n.",         cn:"杂草",                  exEn:"Plucked weeds can be used as a fertilizer.", exCn:"拔掉的杂草可以当肥料。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"herb",             phonetic:"/ɜːrb/",            pos:"n.",         cn:"香草；草本植物",        exEn:"These are edible herbs.",                    exCn:"这些是可食用的香草。" },
+  { articleId:"1-3-2", chapter:1, unit:"Unit 3", en:"have a green thumb",phonetic:"/hæv ə ɡriːn θʌm/",pos:"idiom",     cn:"擅长园艺",              exEn:"You don't have a green thumb, do you?",      exCn:"你并不擅长园艺，对吧？" },
+
+  // ── Ch1 Unit3-3 · Maintenance · 故障维修与工具 ────────────────────
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"drill",         phonetic:"/drɪl/",              pos:"n./v.",      cn:"钻头；电钻；训练；操练",exEn:"Use a drill to make holes on the wall.",    exCn:"用电钻在墙上打孔。",        exEn2:"Teachers drill students in basic knowledge.", exCn2:"老师反复训练学生掌握基础。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"screwdriver",   phonetic:"/ˈskruːdraɪvər/",    pos:"n.",         cn:"螺丝刀；改锥",          exEn:"Pass me the cross screwdriver.",           exCn:"把十字螺丝刀递给我。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"screw",         phonetic:"/skruː/",             pos:"n./v.",      cn:"螺丝；拧紧；压榨；逼迫",exEn:"Fix it with a metal screw.",              exCn:"用金属螺丝固定。",          exEn2:"Don't screw others for your own benefit.", exCn2:"别为私利压榨他人。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"hammer",        phonetic:"/ˈhæmər/",            pos:"n./v.",      cn:"锤子；锤打；猛烈抨击",  exEn:"Knock the nail in with a hammer.",         exCn:"用锤子把钉子锤进去。",      exEn2:"He hammered at the wrong policy fiercely.", exCn2:"他猛烈抨击这项错误政策。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"nail",          phonetic:"/neɪl/",              pos:"n./v.",      cn:"钉子；钉牢；敲定",      exEn:"Hit the nail straight.",                   exCn:"把钉子打正。",              exEn2:"We finally nailed down the plan.",         exCn2:"我们终于敲定了方案。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"tape measure",  phonetic:"/teɪp ˈmeʒər/",      pos:"n.",         cn:"卷尺；皮尺",            exEn:"I use a tape measure to check the size.",  exCn:"我用卷尺量尺寸。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"wrench",        phonetic:"/rentʃ/",             pos:"n./v.",      cn:"扳手；猛扭；曲解",      exEn:"Adjust the pipe with a wrench.",           exCn:"用扳手调试水管。",          exEn2:"He wrenched the original meaning.",        exCn2:"他刻意曲解原本意思。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"pliers",        phonetic:"/ˈplaɪərz/",          pos:"n.",         cn:"钳子；手钳",            exEn:"Cut thin iron wire with pliers.",           exCn:"用钳子剪断细铁丝。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"glue",          phonetic:"/ɡluː/",              pos:"n./v.",      cn:"胶水；粘贴；紧密依附",  exEn:"Stick the broken cup with glue.",          exCn:"用胶水粘好碎杯子。",        exEn2:"Young people glue to new trends.",         exCn2:"年轻人紧跟依附新潮趋势。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"repair",        phonetic:"/rɪˈper/",            pos:"v./n.",      cn:"修理；修补；弥补",      exEn:"We need to repair the broken door.",       exCn:"我们需要修理破损的门。",    exEn2:"It is hard to repair broken trust.",       exCn2:"破碎的信任难以弥补。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"fix",           phonetic:"/fɪks/",              pos:"v.",         cn:"修理；固定；安排；解决",exEn:"Can you fix my broken fan?",              exCn:"你能修好我的坏风扇吗？",    exEn2:"Let's fix all the troubles right now.",    exCn2:"我们立刻解决所有麻烦。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"break down",    phonetic:"/breɪk daʊn/",        pos:"phrasal v.", cn:"出故障；崩溃；分解",    exEn:"My fridge broke down last night.",          exCn:"我的冰箱昨晚出故障了。",    exEn2:"Her emotion broke down finally.",          exCn2:"她的情绪最终彻底崩溃。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"leak",          phonetic:"/liːk/",              pos:"v./n.",      cn:"漏水；漏气；泄露",      exEn:"The water pipe starts to leak.",           exCn:"水管开始漏水。",            exEn2:"Don't leak any secret information.",       exCn2:"不要泄露任何机密消息。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"block",         phonetic:"/blɑːk/",             pos:"v./n.",      cn:"堵塞；街区；阻碍",      exEn:"The sewer is blocked up.",                 exCn:"下水道被堵住了。",          exEn2:"Laziness blocks your progress.",           exCn2:"懒惰阻碍你的进步。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"replace",       phonetic:"/rɪˈpleɪs/",          pos:"v.",         cn:"更换；替换；取代",      exEn:"Replace the old bulb with a new one.",     exCn:"把旧灯泡换成新的。",        exEn2:"Nothing can replace family warmth.",       exCn2:"没有东西能取代亲情温暖。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"loose",         phonetic:"/luːs/",              pos:"adj.",       cn:"松动的；松散的；散漫的",exEn:"The chair legs are loose.",               exCn:"椅子腿松动了。",            exEn2:"He leads a loose and lazy life.",          exCn2:"他过着散漫懒碌的生活。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"tighten",       phonetic:"/ˈtaɪtn/",            pos:"v.",         cn:"拧紧；拉紧；加紧",      exEn:"Tighten all loose screws.",                exCn:"拧紧所有松动螺丝。",        exEn2:"We must tighten management rules.",        exCn2:"我们必须加紧管理制度。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"maintain",      phonetic:"/meɪnˈteɪn/",         pos:"v.",         cn:"维修；保养；维持；坚持",exEn:"Maintain household appliances regularly.", exCn:"定期保养家电。",            exEn2:"She maintains her own opinion firmly.",    exCn2:"她坚定坚持自己的观点。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"out of order",  phonetic:"/aʊt əv ˈɔːrdər/",   pos:"phrase.",    cn:"发生故障；秩序混乱",    exEn:"The air conditioner is out of order.",     exCn:"空调发生故障了。",          exEn2:"The whole scene got out of order.",        exCn2:"全场陷入混乱。" },
+  { articleId:"1-3-3", chapter:1, unit:"Unit 3", en:"electricity",   phonetic:"/ɪˌlekˈtrɪsəti/",    pos:"n.",         cn:"电；电能；活力",        exEn:"The house suddenly lost electricity.",      exCn:"房子突然停电了。",          exEn2:"She is full of electricity and energy.",   exCn2:"她浑身充满活力朝气。" }
+
+  // ── Ch1 Unit4～Unit5、Ch2～Ch9 待后续逐单元填充 ──────────────────
 ];
 
 /* =============================================
@@ -523,7 +881,6 @@ function renderBookShelf() {
   const wrap = document.getElementById('bookshelf');
   let html = '';
   bookList.forEach((item, idx) => {
-    const total = WORDS.filter(w => true).length; // 当前只有一本书的词
     html += `
       <div class="book-card" onclick="openBookPage(${idx})">
         <img class="book-cover" src="https://cdn.weread.qq.com/outpic/281/3001246281.jpg" alt="封面" onerror="this.style.background='#D4EEEE';this.removeAttribute('src')">
@@ -570,7 +927,7 @@ function buildHome() {
   const container = document.getElementById('chapter-list');
   let html = '';
 
-  bookDirectoryGrid.forEach((chData, chIdx) => {
+  bookDirectoryGrid.forEach((chData) => {
     const theme = chapterThemes[chData.chapter];
     html += `
       <div class="chapter-block" id="ch-block-${chData.chapter}">
@@ -590,6 +947,8 @@ function buildHome() {
       const isOdd = (unitIdx % 2 === 0);
       const rowBg = isOdd ? theme.unitOdd : '#FAFAFA';
       const rowText = theme.text;
+      // 统计该Unit下已有单词数
+      const unitWordCount = WORDS.filter(w => w.chapter === chData.chapter && w.unit === unitData.unit).length;
 
       html += `
           <div class="unit-row" style="background:${rowBg};" onclick="toggleArticles(${chData.chapter}, ${unitIdx})">
@@ -600,7 +959,7 @@ function buildHome() {
                 <div class="unit-cn" style="color:${rowText};">${unitData.cn}</div>
               </div>
             </div>
-            <span class="parts-badge" style="color:${rowText};">3 Parts</span>
+            <span class="parts-badge" style="color:${rowText};">${unitWordCount > 0 ? unitWordCount + ' 词' : '待填充'}</span>
           </div>
           <div id="articles-${chData.chapter}-${unitIdx}" style="display:none; background:${rowBg};">
             <div class="articles-grid">`;
@@ -608,7 +967,7 @@ function buildHome() {
       unitData.articles.forEach(article => {
         const hasWords = WORDS.some(w => w.articleId === article.id);
         html += `
-              <div class="article-block" style="background:${theme.tag};" onclick="clickArticle('${article.id}', '${article.title} ${article.cn}')">
+              <div class="article-block" style="background:${theme.tag}; opacity:${hasWords ? 1 : 0.5};" onclick="clickArticle('${article.id}', '${article.title} ${article.cn}')">
                 <div class="article-block-inner">
                   <span class="article-part" style="color:${theme.text};">${article.title}</span>
                   <span class="article-cn-label" style="color:${theme.text};">${article.cn}</span>
@@ -655,6 +1014,33 @@ function clickArticle(articleId, articleTitle) {
 }
 
 /* =============================================
+   例句高亮：将例句中与单词匹配的部分高亮显示
+   ============================================= */
+function highlightWord(sentence, word) {
+  if (!word || !sentence) return sentence;
+  // 对 phrase 类型，取第一个单词做匹配；idiom 取核心词；否则直接匹配
+  const cleanWord = word.replace(/[!？?。，,]/g, '').toLowerCase();
+  // 构建大小写不敏感的正则，单词边界匹配
+  try {
+    // 对多词短语（含空格）做整体替换，否则按单词边界
+    const escapedWord = cleanWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const pattern = cleanWord.includes(' ')
+      ? new RegExp(`(${escapedWord})`, 'gi')
+      : new RegExp(`\\b(${escapedWord})\\b`, 'gi');
+    return sentence.replace(pattern, '<span class="word-highlight">$1</span>');
+  } catch(e) {
+    return sentence;
+  }
+}
+
+function renderExampleBox(w, containerId) {
+  const highlighted = highlightWord(w.exEn, w.en);
+  document.getElementById(containerId).innerHTML =
+    `<div class="example-en">${highlighted}</div>
+     <div class="example-cn">${w.exCn}</div>`;
+}
+
+/* =============================================
    学习模式
    ============================================= */
 function startMode(mode) {
@@ -685,7 +1071,7 @@ function renderStudy() {
   document.getElementById('study-result').style.display = 'none';
   const zone = document.getElementById('study-image-zone');
   const imgKey = getImgKey(w.en);
-  zone.innerHTML = `<img src="https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg" style="width:100%;height:100%;object-fit:contain;display:block;" onerror="this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#6A8A8A;font-size:13px;\'>暂无对应图片</div>'">`;
+  zone.innerHTML = `<img src="https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg" style="width:100%;height:100%;object-fit:contain;display:block;" onerror="this.parentNode.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;color:#6A8A8A;font-size:13px;\\'>暂无对应图片</div>'">`;
 }
 
 function checkStudy() {
@@ -708,7 +1094,8 @@ function checkStudy() {
   resultEl.style.display = 'flex';
   document.getElementById('answer-en').textContent = w.en;
   document.getElementById('answer-phonetic').textContent = w.phonetic || '（暂无音标）';
-  document.getElementById('example-box').innerHTML = `<div>${w.exEn}</div><div style="margin-top:4px;opacity:0.75;">${w.exCn}</div>`;
+  // 例句高亮渲染
+  renderExampleBox(w, 'example-box');
   document.getElementById('answer-reveal').style.display = 'block';
   document.getElementById('action-row').style.display = 'flex';
 }
@@ -725,12 +1112,13 @@ function renderRead() {
   document.getElementById('read-en').textContent = w.en;
   document.getElementById('read-phonetic').textContent = w.phonetic || '（暂无音标）';
   document.getElementById('read-cn').textContent = w.cn;
-  document.getElementById('read-example').innerHTML = `<div>${w.exEn}</div><div style="margin-top:4px;opacity:0.75;">${w.exCn}</div>`;
+  // 例句高亮渲染
+  renderExampleBox(w, 'read-example');
   document.getElementById('read-progress-label').textContent = (currentIdx + 1) + ' / ' + currentWords.length;
   document.getElementById('read-progress-fill').style.width = (currentIdx / currentWords.length * 100) + '%';
   const zone = document.getElementById('read-image');
   const imgKey = getImgKey(w.en);
-  zone.innerHTML = `<img src="https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;color:#6A8A8A;font-size:13px;\'>暂无对应图片</div>'">`;
+  zone.innerHTML = `<img src="https://res.cloudinary.com/dcuw9ijyx/image/upload/${imgKey}.jpg" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;color:#6A8A8A;font-size:13px;\\'>暂无对应图片</div>'">`;
 }
 function prevRead() { if (currentIdx > 0) { currentIdx--; renderRead(); } }
 function nextRead() { currentIdx++; renderRead(); }
